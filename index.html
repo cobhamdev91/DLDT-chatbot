@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkflowHub Chat Widget Testbed</title>
+  <!-- Load jsrsasign CDN for signing JWT SSO tokens directly in browser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.24/jsrsasign-all-min.js"></script>
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: #161e31;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --input-bg: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    header {
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-cols: 1fr;
+      gap: 30px;
+    }
+
+    @media (min-width: 900px) {
+      .main-grid {
+        grid-template-columns: 380px 1fr;
+      }
+    }
+
+    .panel {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-height: 650px;
+      overflow-y: auto;
+    }
+
+    .panel-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input,
+    select {
+      background-color: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      padding: 12px;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border);
+    }
+
+    .chat-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      height: 650px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .chat-header {
+      background-color: var(--input-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #10b981;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    iframe {
+      flex-grow: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-public {
+      background-color: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    .badge-sso {
+      background-color: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .info-box {
+      font-size: 0.85rem;
+      background-color: rgba(99, 102, 241, 0.05);
+      border: 1px dashed rgba(99, 102, 241, 0.2);
+      padding: 12px;
+      border-radius: 8px;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    .info-box code {
+      color: #818cf8;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>WorkflowHub Embed Client Testbed</h1>
+      <p>Simulating public guest chat access and JWT SSO identified sign-ons in a sandbox client host.</p>
+    </header>
+
+    <div class="main-grid">
+      <!-- Left sidebar controller panel -->
+      <div class="panel">
+        <div class="panel-title">Credentials Configuration</div>
+
+        <div class="form-group">
+          <label for="project-id">Project ID</label>
+          <input type="text" id="project-id" value="01e54cda-a723-491d-8859-518f9f45d570">
+        </div>
+
+        <div class="form-group">
+          <label for="auth-mode">Connection Mode</label>
+          <select id="auth-mode" onchange="toggleAuthFields()">
+            <option value="public">Public Guest Access</option>
+            <option value="sso">Secure JWT SSO Mode</option>
+          </select>
+        </div>
+
+        <!-- 1. Public Mode Fields -->
+        <div id="public-fields" class="form-group">
+          <label for="public-token">Public Chat Token</label>
+          <input type="text" id="public-token" value="21632fe7-5b18-4d58-b81e-07862dbe6045">
+        </div>
+
+        <!-- 2. SSO Mode Fields -->
+        <div id="sso-fields" style="display: none; flex-direction: column; gap: 15px;">
+          <div class="form-group">
+            <label for="sso-secret">SSO Shared Secret Key</label>
+            <input type="text" id="sso-secret" value="331e6b46c92059a7ed0f24cba64a5b0c79eea1972a23609d">
+          </div>
+          <div class="form-group">
+            <label for="sso-email">User Email (SSO)</label>
+            <input type="email" id="sso-email" value="developer@novatech.dev">
+          </div>
+          <div class="form-group">
+            <label for="sso-name">User Full Name (SSO)</label>
+            <input type="text" id="sso-name" value="Minh Quan Dev">
+          </div>
+        </div>
+
+        <div class="info-box">
+          Under <code>Public Guest</code> mode, guest sessions create anonymous accounts. Under <code>SSO</code> mode,
+          the host backend signs identified users with the <code>SSO Secret</code>.
+        </div>
+
+        <button class="btn" onclick="initializeChat()">Initialize & Connect</button>
+      </div>
+
+      <!-- Right chat iframe panel -->
+      <div class="chat-container">
+        <div class="chat-header">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-weight: 700;">Live Preview</span>
+            <span id="mode-badge" class="badge badge-public">Public Mode</span>
+          </div>
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>CONNECTED</span>
+          </div>
+        </div>
+
+        <!-- Target Chat Widget iframe container -->
+        <div id="iframe-wrapper" style="flex-grow: 1; display: flex;">
+          <!-- Will render iframe dynamically here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initial display config
+    function toggleAuthFields() {
+      const mode = document.getElementById("auth-mode").value;
+      const publicFields = document.getElementById("public-fields");
+      const ssoFields = document.getElementById("sso-fields");
+      const modeBadge = document.getElementById("mode-badge");
+
+      if (mode === "public") {
+        publicFields.style.display = "flex";
+        ssoFields.style.display = "none";
+        modeBadge.className = "badge badge-public";
+        modeBadge.innerText = "Public Mode";
+      } else {
+        publicFields.style.display = "none";
+        ssoFields.style.display = "flex";
+        modeBadge.className = "badge badge-sso";
+        modeBadge.innerText = "SSO Mode";
+      }
+    }
+
+    function signSsoJwt(email, name, secret) {
+      // Header for JWT
+      const oHeader = { alg: "HS256", typ: "JWT" };
+      // Payload containing identified user details
+      const oPayload = {
+        email: email,
+        name: name,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + 3600 // Valid for 1 hour
+      };
+
+      const sHeader = JSON.stringify(oHeader);
+      const sPayload = JSON.stringify(oPayload);
+
+      // Sign using jsrsasign library
+      try {
+        return KJUR.jws.JWS.sign("HS256", sHeader, sPayload, secret);
+      } catch (err) {
+        console.error("JWT signing error:", err);
+        alert("Failed to generate JWT. Please verify your SSO Shared Secret is in valid hex/text format.");
+        return "";
+      }
+    }
+
+    function initializeChat() {
+      const projectId = document.getElementById("project-id").value.trim();
+      const mode = document.getElementById("auth-mode").value;
+      const hostOrigin = "https://workflowhub-web-id11.onrender.com"; // WorkflowHub Next.js dev server url
+
+      let iframeUrl = `${hostOrigin}/embed/projects/${projectId}/chat`;
+
+      if (mode === "public") {
+        const publicToken = document.getElementById("public-token").value.trim();
+        iframeUrl += `?publicToken=${publicToken}`;
+      } else {
+        const secret = document.getElementById("sso-secret").value.trim();
+        const email = document.getElementById("sso-email").value.trim();
+        const name = document.getElementById("sso-name").value.trim();
+
+        // Generate SSO Token dynamically on click
+        const token = signSsoJwt(email, name, secret);
+        if (!token) return;
+
+        iframeUrl += `?ssoToken=${token}&name=${encodeURIComponent(name)}`;
+      }
+
+      // Recreate Iframe element cleanly
+      const wrapper = document.getElementById("iframe-wrapper");
+      wrapper.innerHTML = ""; // Clear existing
+
+      const iframe = document.createElement("iframe");
+      iframe.src = iframeUrl;
+      iframe.allow = "clipboard-write";
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.border = "none";
+
+      wrapper.appendChild(iframe);
+      console.log("Mounted Chat Iframe URL:", iframeUrl);
+    }
+
+    // Auto load chat on page load
+    window.onload = function () {
+      initializeChat();
+    };
+  </script>
+</body>
+
+</html>
