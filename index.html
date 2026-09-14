@@ -25,174 +25,41 @@
       padding: 0;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
       background-color: var(--bg-color);
-      color: var(--text);
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      padding: 40px 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     .container {
       width: 100%;
-      max-width: 1100px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
+      height: 100vh;
     }
 
-    header {
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(to right, #818cf8, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-    }
-
-    header p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
+    /* Hide everything except the chat */
+    header,
+    .panel,
+    .chat-header,
+    .main-grid > .panel {
+      display: none !important;
     }
 
     .main-grid {
-      display: grid;
-      grid-template-cols: 1fr;
-      gap: 30px;
-    }
-
-    @media (min-width: 900px) {
-      .main-grid {
-        grid-template-columns: 380px 1fr;
-      }
-    }
-
-    .panel {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-height: 650px;
-      overflow-y: auto;
-    }
-
-    .panel-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    input,
-    select {
-      background-color: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: #fff;
-      padding: 12px;
-      font-size: 0.95rem;
-      transition: all 0.2s;
+      display: block;
       width: 100%;
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-    }
-
-    .btn {
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 14px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
-      width: 100%;
-    }
-
-    .btn:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background-color: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background-color: var(--border);
+      height: 100%;
     }
 
     .chat-container {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      height: 650px;
-      position: relative;
+      width: 100%;
+      height: 100vh;
+      border: none;
+      border-radius: 0;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-    }
-
-    .chat-header {
-      background-color: var(--input-bg);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .status-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #10b981;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #10b981;
-      box-shadow: 0 0 8px #10b981;
     }
 
     iframe {
@@ -201,55 +68,20 @@
       width: 100%;
       height: 100%;
     }
-
-    .badge {
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 9999px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .badge-public {
-      background-color: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-      border: 1px solid rgba(99, 102, 241, 0.3);
-    }
-
-    .badge-sso {
-      background-color: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    .info-box {
-      font-size: 0.85rem;
-      background-color: rgba(99, 102, 241, 0.05);
-      border: 1px dashed rgba(99, 102, 241, 0.2);
-      padding: 12px;
-      border-radius: 8px;
-      line-height: 1.4;
-      color: var(--text-muted);
-    }
-
-    .info-box code {
-      color: #818cf8;
-      font-family: monospace;
-    }
   </style>
 </head>
 
 <body>
 
   <div class="container">
-    <header>
+    <header style="display: none;">
       <h1>WorkflowHub Embed Client Testbed</h1>
       <p>Simulating public guest chat access and JWT SSO identified sign-ons in a sandbox client host.</p>
     </header>
 
     <div class="main-grid">
       <!-- Left sidebar controller panel -->
-      <div class="panel">
+      <div class="panel" style="display: none;">
         <div class="panel-title">Credentials Configuration</div>
 
         <div class="form-group">
@@ -297,7 +129,7 @@
 
       <!-- Right chat iframe panel -->
       <div class="chat-container">
-        <div class="chat-header">
+        <div class="chat-header" style="display: none;">
           <div style="display: flex; align-items: center; gap: 12px;">
             <span style="font-weight: 700;">Live Preview</span>
             <span id="mode-badge" class="badge badge-public">Public Mode</span>
