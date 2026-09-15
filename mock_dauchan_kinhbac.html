@@ -1,0 +1,2348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dấu chân Kinh Bắc – Khám phá – Trải nghiệm – Lưu dấu</title>
+    <meta name="description" content="Khám phá vùng đất Kinh Bắc với những điểm đến văn hóa, lịch sử và ẩm thực đặc sắc. Mỗi chuyến đi là một câu chuyện đẹp.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS RESET & VARIABLES ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #6B3A2A;
+            --color-primary-light: #8B5E3C;
+            --color-primary-dark: #4A2518;
+            --color-accent: #C4873A;
+            --color-accent-light: #E6A84D;
+            --color-gold: #D4A853;
+            --color-cream: #FDF6EC;
+            --color-cream-dark: #F5E6D0;
+            --color-white: #FFFFFF;
+            --color-text: #3A2A1A;
+            --color-text-light: #7A6A5A;
+            --color-text-muted: #9A8A7A;
+            --gradient-warm: linear-gradient(135deg, #6B3A2A 0%, #C4873A 100%);
+            --gradient-gold: linear-gradient(135deg, #D4A853 0%, #E6C87A 50%, #D4A853 100%);
+            --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.6) 100%);
+            --shadow-sm: 0 2px 8px rgba(107, 58, 42, 0.08);
+            --shadow-md: 0 4px 20px rgba(107, 58, 42, 0.12);
+            --shadow-lg: 0 8px 40px rgba(107, 58, 42, 0.16);
+            --shadow-xl: 0 16px 60px rgba(107, 58, 42, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--color-text);
+            background-color: var(--color-cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HEADER / NAVBAR ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 48px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(253, 246, 236, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(107, 58, 42, 0.08);
+            transition: var(--transition-normal);
+        }
+
+        .header.scrolled {
+            background: rgba(253, 246, 236, 0.95);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--color-primary);
+        }
+
+        .header__logo-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header__logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .header__logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .header__logo-text .tagline {
+            font-family: 'Dancing Script', cursive;
+            font-size: 14px;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .header__logo-text .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--color-primary);
+            letter-spacing: 1px;
+        }
+
+        /* Desktop Nav */
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .header__nav-link {
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            padding: 4px 0;
+            transition: var(--transition-fast);
+        }
+
+        .header__nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-warm);
+            border-radius: 1px;
+            transition: var(--transition-normal);
+        }
+
+        .header__nav-link:hover::after,
+        .header__nav-link.active::after {
+            width: 100%;
+        }
+
+        .header__nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .header__nav-link.active {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header__action-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            color: var(--color-text);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .header__action-btn:hover {
+            background: rgba(107, 58, 42, 0.08);
+            color: var(--color-primary);
+        }
+
+        .header__lang {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            transition: var(--transition-fast);
+        }
+
+        .header__lang:hover {
+            background: rgba(107, 58, 42, 0.08);
+        }
+
+        .header__avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .header__avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px rgba(107, 58, 42, 0.2);
+        }
+
+        .header__avatar svg {
+            color: var(--color-white);
+        }
+
+        /* Hamburger (hidden on desktop) */
+        .hamburger-btn {
+            width: 40px;
+            height: 40px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius-full);
+            transition: var(--transition-fast);
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--color-primary);
+            border-radius: 2px;
+            transition: var(--transition-normal);
+            transform-origin: center;
+        }
+
+        .hamburger-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu (hidden on desktop) */
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            display: none;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 82%;
+            max-width: 320px;
+            height: 100%;
+            background: var(--color-cream);
+            z-index: 999;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-direction: column;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .mobile-menu__header {
+            padding: 20px 20px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(107, 58, 42, 0.08);
+        }
+
+        .mobile-menu__close {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: rgba(107, 58, 42, 0.06);
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .mobile-menu__nav {
+            padding: 12px 0;
+            flex: 1;
+        }
+
+        .mobile-menu__link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 24px;
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 15px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-menu__link:active {
+            background: rgba(107, 58, 42, 0.05);
+        }
+
+        .mobile-menu__link.active {
+            color: var(--color-primary);
+            font-weight: 600;
+            background: rgba(107, 58, 42, 0.04);
+            border-right: 3px solid var(--color-accent);
+        }
+
+        .mobile-menu__link svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu__link.active svg {
+            opacity: 1;
+            color: var(--color-accent);
+        }
+
+        .mobile-menu__footer {
+            padding: 16px 24px;
+            border-top: 1px solid rgba(107, 58, 42, 0.08);
+        }
+
+        .mobile-menu__lang {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(107, 58, 42, 0.12);
+            background: transparent;
+            color: var(--color-text);
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero__bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero__bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero__bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(74, 37, 24, 0.75) 0%,
+                rgba(74, 37, 24, 0.5) 35%,
+                rgba(74, 37, 24, 0.15) 60%,
+                transparent 100%
+            );
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            padding: 140px 80px 80px;
+            max-width: 700px;
+        }
+
+        .hero__title-script {
+            font-family: 'Dancing Script', cursive;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--color-white);
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero__title-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 96px;
+            font-weight: 900;
+            color: var(--color-white);
+            line-height: 1;
+            letter-spacing: 3px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            margin-bottom: 12px;
+        }
+
+        .hero__subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 4px;
+            margin-bottom: 36px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero__quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: 26px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero__quote-heart {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .hero__quote-line {
+            width: 60px;
+            height: 1px;
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* Swipe hint - mobile only */
+        .hero__swipe-hint {
+            display: none;
+        }
+
+        /* ===== WAVE DIVIDER ===== */
+        .wave-divider {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            width: 100%;
+            height: 120px;
+        }
+
+        /* ===== SEARCH & AI PLANNER SECTION ===== */
+        .search-section {
+            position: relative;
+            z-index: 5;
+            margin-top: -60px;
+            padding: 0 80px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: 8px 8px 8px 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(107, 58, 42, 0.06);
+            transition: var(--transition-normal);
+        }
+
+        .search-bar:hover,
+        .search-bar:focus-within {
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(196, 135, 58, 0.2);
+        }
+
+        .search-bar__icon {
+            color: var(--color-text-muted);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .search-bar__input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: var(--color-text);
+            background: transparent;
+            min-width: 0;
+        }
+
+        .search-bar__input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .search-bar__submit {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: var(--gradient-warm);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+
+        .search-bar__submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(107, 58, 42, 0.3);
+        }
+
+        .ai-planner-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--gradient-warm);
+            border-radius: var(--radius-xl);
+            padding: 16px 24px;
+            min-width: 340px;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: var(--transition-normal);
+            text-decoration: none;
+        }
+
+        .ai-planner-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .ai-planner-card__icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ai-planner-card__text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ai-planner-card__title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 2px;
+        }
+
+        .ai-planner-card__desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .ai-planner-card__arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+
+        .ai-planner-card:hover .ai-planner-card__arrow {
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ===== CATEGORY ICONS ===== */
+        .categories {
+            padding: 48px 80px 0;
+        }
+
+        .categories__grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: var(--transition-normal);
+        }
+
+        .category-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .category-item__icon {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .category-item:hover .category-item__icon {
+            box-shadow: var(--shadow-md);
+            transform: scale(1.05);
+        }
+
+        .category-item__icon--green { background: #E8F5E9; }
+        .category-item__icon--orange { background: #FFF3E0; }
+        .category-item__icon--pink { background: #FCE4EC; }
+        .category-item__icon--red { background: #FFEBEE; }
+        .category-item__icon--purple { background: #F3E5F5; }
+        .category-item__icon--brown { background: #EFEBE9; }
+        .category-item__icon--beige { background: #FFF8E1; }
+
+        .category-item__label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        /* ===== SCROLL INDICATOR (desktop only) ===== */
+        .scroll-indicator {
+            position: fixed;
+            right: 32px;
+            bottom: 50%;
+            transform: translateY(50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scroll-indicator__text {
+            writing-mode: vertical-rl;
+            font-size: 12px;
+            color: var(--color-text-muted);
+            letter-spacing: 1px;
+        }
+
+        .scroll-indicator__icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            border: 1.5px solid var(--color-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scrollBounce 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        /* ===== DESTINATIONS SECTION ===== */
+        .destinations {
+            padding: 64px 80px 80px;
+        }
+
+        .destinations__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            max-width: 1200px;
+            margin: 0 auto 32px;
+        }
+
+        .destinations__label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .destinations__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .destinations__see-all {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(107, 58, 42, 0.15);
+            transition: var(--transition-fast);
+        }
+
+        .destinations__see-all:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .destinations__carousel {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .destinations__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .destination-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .destination-card__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .destination-card:hover .destination-card__img {
+            transform: scale(1.05);
+        }
+
+        .destination-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-overlay);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+        }
+
+        .destination-card__name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .destination-card__tag {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 6px;
+        }
+
+        .destination-card__location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .destination-card__location svg {
+            flex-shrink: 0;
+        }
+
+        .destination-card__arrow {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: var(--transition-fast);
+        }
+
+        .destination-card:hover .destination-card__arrow {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        /* Carousel Nav Arrows (desktop only) */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            border: 1.5px solid rgba(107, 58, 42, 0.15);
+            background: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-text);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-fast);
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .carousel-nav--prev { left: -56px; }
+        .carousel-nav--next { right: -56px; }
+
+        /* Scroll Dots (mobile only) */
+        .scroll-dots {
+            display: none;
+        }
+
+        /* Quick Explore (mobile only) */
+        .quick-explore {
+            display: none;
+        }
+
+        /* Bottom Nav (mobile only) */
+        .bottom-nav {
+            display: none;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--color-primary-dark);
+            padding: 48px 80px 24px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer__top {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 32px;
+        }
+
+        .footer__brand {
+            max-width: 300px;
+        }
+
+        .footer__brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 12px;
+        }
+
+        .footer__brand-desc {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer__links {
+            display: flex;
+            gap: 64px;
+        }
+
+        .footer__col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer__col-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer__col-list a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            transition: var(--transition-fast);
+        }
+
+        .footer__col-list a:hover {
+            color: var(--color-accent-light);
+        }
+
+        .footer__social {
+            display: none;
+        }
+
+        .footer__bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.2s; }
+        .animate-delay-3 { animation-delay: 0.3s; }
+        .animate-delay-4 { animation-delay: 0.4s; }
+        .animate-delay-5 { animation-delay: 0.5s; }
+
+        /* Body scroll lock when menu is open */
+        body.menu-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
+        /* ============================================================
+           RESPONSIVE — TABLET (≤ 1024px)
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .header { padding: 0 24px; }
+            .header__nav { gap: 20px; }
+            .header__nav-link { font-size: 13px; }
+            .hero__content { padding: 120px 40px 60px; }
+            .hero__title-main { font-size: 64px; }
+            .hero__title-script { font-size: 36px; }
+            .search-section { padding: 0 40px; }
+            .search-row { flex-direction: column; }
+            .ai-planner-card { min-width: unset; }
+            .categories { padding: 40px 40px 0; }
+            .categories__grid { gap: 24px; flex-wrap: wrap; }
+            .destinations { padding: 48px 40px 60px; }
+            .destinations__grid { grid-template-columns: repeat(2, 1fr); }
+            .carousel-nav--prev { left: -24px; }
+            .carousel-nav--next { right: -24px; }
+            .footer { padding: 40px 40px 20px; }
+        }
+
+        /* ============================================================
+           RESPONSIVE — MOBILE (≤ 768px)
+           ============================================================ */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: calc(72px + var(--safe-bottom));
+            }
+
+            /* Header — mobile */
+            .header {
+                padding: 0 16px;
+                height: 60px;
+            }
+
+            .header__logo-icon { width: 36px; height: 36px; }
+            .header__logo-text .tagline { font-size: 12px; }
+            .header__logo-text .brand { font-size: 15px; letter-spacing: 0.5px; }
+
+            .header__nav { display: none; }
+            .header__lang { display: none; }
+            .header__avatar { display: none; }
+            .header__actions { gap: 4px; }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu-overlay {
+                display: block;
+            }
+            .mobile-menu-overlay.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+
+            /* Hero — mobile */
+            .hero {
+                min-height: 100svh;
+                max-height: 800px;
+                align-items: flex-end;
+            }
+
+            .hero__bg::after {
+                background: linear-gradient(
+                    to bottom,
+                    rgba(74, 37, 24, 0.2) 0%,
+                    rgba(74, 37, 24, 0.1) 30%,
+                    rgba(74, 37, 24, 0.35) 55%,
+                    rgba(74, 37, 24, 0.85) 100%
+                );
+            }
+
+            .hero__bg img {
+                object-position: 65% center;
+            }
+
+            .hero__content {
+                padding: 0 24px 32px;
+                max-width: 100%;
+            }
+
+            .hero__title-main {
+                font-size: 52px;
+                letter-spacing: 2px;
+                margin-bottom: 6px;
+            }
+
+            .hero__title-script { font-size: 34px; }
+
+            .hero__subtitle {
+                font-size: 14px;
+                letter-spacing: 3px;
+                margin-bottom: 24px;
+            }
+
+            .hero__quote {
+                font-size: 20px;
+            }
+
+            .hero__quote-line { width: 40px; }
+
+            .hero__swipe-hint {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                margin-top: 20px;
+                color: rgba(255,255,255,0.6);
+                font-size: 12px;
+                letter-spacing: 1px;
+                animation: pulseUp 2.5s infinite;
+            }
+
+            @keyframes pulseUp {
+                0%, 100% { transform: translateY(0); opacity: 0.6; }
+                50% { transform: translateY(-4px); opacity: 1; }
+            }
+
+            .wave-divider svg {
+                height: 50px;
+            }
+
+            /* Search — mobile */
+            .search-section {
+                padding: 0 16px;
+                margin-top: -28px;
+            }
+
+            .search-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .search-bar {
+                border-radius: 16px;
+                padding: 6px 6px 6px 16px;
+            }
+
+            .search-bar__input { font-size: 14px; }
+            .search-bar__input::placeholder { font-size: 13px; }
+            .search-bar__submit { width: 42px; height: 42px; }
+
+            .ai-planner-card {
+                min-width: unset;
+                border-radius: 16px;
+                padding: 14px 18px;
+                gap: 14px;
+            }
+
+            .ai-planner-card__icon { width: 44px; height: 44px; }
+            .ai-planner-card__title { font-size: 16px; }
+            .ai-planner-card__desc {
+                font-size: 12px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .ai-planner-card__arrow { width: 36px; height: 36px; }
+
+            /* Categories — horizontal scroll */
+            .categories {
+                padding: 28px 0 0;
+            }
+
+            .categories__grid {
+                display: flex;
+                gap: 8px;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 0 16px 8px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                scroll-snap-type: x proximity;
+                flex-wrap: nowrap;
+                max-width: 100%;
+            }
+
+            .categories__grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-item {
+                gap: 8px;
+                flex-shrink: 0;
+                min-width: 72px;
+                padding: 8px 4px;
+                scroll-snap-align: start;
+            }
+
+            .category-item__icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 16px;
+            }
+
+            .category-item__label {
+                font-size: 11px;
+                color: var(--color-text-light);
+                white-space: nowrap;
+            }
+
+            /* Destinations — horizontal scroll */
+            .destinations {
+                padding: 32px 0 24px;
+            }
+
+            .destinations__header {
+                padding: 0 20px;
+                margin-bottom: 20px;
+            }
+
+            .destinations__label {
+                font-size: 11px;
+                letter-spacing: 2.5px;
+                margin-bottom: 4px;
+            }
+
+            .destinations__title {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            .destinations__see-all {
+                border: none;
+                padding: 6px 0;
+                color: var(--color-accent);
+                font-size: 13px;
+                font-weight: 600;
+                gap: 4px;
+                flex-shrink: 0;
+            }
+
+            .destinations__carousel {
+                max-width: 100%;
+            }
+
+            .destinations__grid {
+                display: flex;
+                gap: 14px;
+                overflow-x: auto;
+                padding: 0 20px 16px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                scroll-snap-type: x mandatory;
+                grid-template-columns: none;
+            }
+
+            .destinations__grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .destination-card {
+                min-width: 280px;
+                width: 78vw;
+                max-width: 340px;
+                aspect-ratio: 3/4;
+                flex-shrink: 0;
+                scroll-snap-align: center;
+            }
+
+            .destination-card__name { font-size: 22px; }
+            .destination-card__tag { font-size: 12px; }
+            .destination-card__location { font-size: 12px; }
+            .destination-card__overlay { padding: 20px; }
+            .destination-card__arrow {
+                bottom: 20px; right: 20px;
+                width: 36px; height: 36px;
+            }
+
+            .carousel-nav { display: none; }
+
+            .scroll-dots {
+                display: flex;
+                justify-content: center;
+                gap: 6px;
+                padding: 4px 0;
+            }
+
+            .scroll-dots__dot {
+                width: 6px;
+                height: 6px;
+                border-radius: var(--radius-full);
+                background: rgba(107, 58, 42, 0.15);
+                transition: var(--transition-fast);
+            }
+
+            .scroll-dots__dot.active {
+                width: 20px;
+                background: var(--color-accent);
+            }
+
+            /* Quick Explore — show on mobile */
+            .quick-explore {
+                display: block;
+                padding: 8px 20px 24px;
+            }
+
+            .quick-explore__title {
+                font-family: 'Playfair Display', serif;
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--color-text);
+                margin-bottom: 16px;
+            }
+
+            .quick-explore__grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .quick-explore__item {
+                position: relative;
+                border-radius: 14px;
+                overflow: hidden;
+                aspect-ratio: 1;
+                text-decoration: none;
+                transition: var(--transition-fast);
+            }
+
+            .quick-explore__item:active {
+                transform: scale(0.96);
+            }
+
+            .quick-explore__item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .quick-explore__item-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: 14px;
+            }
+
+            .quick-explore__item-name {
+                font-family: 'Playfair Display', serif;
+                font-size: 16px;
+                font-weight: 700;
+                color: white;
+                margin-bottom: 2px;
+            }
+
+            .quick-explore__item-tag {
+                font-size: 11px;
+                color: rgba(255,255,255,0.75);
+            }
+
+            /* Scroll indicator — hide */
+            .scroll-indicator { display: none; }
+
+            /* Footer — mobile */
+            .footer {
+                padding: 32px 20px calc(24px + 72px + var(--safe-bottom));
+            }
+
+            .footer__top {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .footer__brand { max-width: 100%; }
+            .footer__brand-name { font-size: 20px; margin-bottom: 8px; }
+            .footer__brand-desc { font-size: 13px; }
+
+            .footer__links {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 20px;
+            }
+
+            .footer__col-title {
+                font-size: 12px;
+                margin-bottom: 12px;
+                letter-spacing: 0.5px;
+            }
+
+            .footer__col-list { gap: 8px; }
+            .footer__col-list a { font-size: 12px; }
+
+            .footer__social {
+                display: flex;
+                gap: 12px;
+                margin: 20px 0;
+            }
+
+            .footer__social-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--radius-full);
+                border: 1px solid rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.05);
+                color: rgba(255,255,255,0.7);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: var(--transition-fast);
+            }
+
+            .footer__social-btn:active {
+                background: rgba(255,255,255,0.15);
+            }
+
+            .footer__bottom {
+                font-size: 11px;
+                padding-top: 16px;
+            }
+
+            /* Bottom Nav — show */
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 900;
+                background: rgba(253, 246, 236, 0.95);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border-top: 1px solid rgba(107, 58, 42, 0.08);
+                padding: 6px 8px calc(6px + var(--safe-bottom));
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .bottom-nav__item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 3px;
+                text-decoration: none;
+                color: var(--color-text-muted);
+                font-size: 10px;
+                font-weight: 500;
+                padding: 4px 12px;
+                border-radius: var(--radius-md);
+                transition: var(--transition-fast);
+                position: relative;
+            }
+
+            .bottom-nav__item:active {
+                transform: scale(0.9);
+            }
+
+            .bottom-nav__item.active {
+                color: var(--color-primary);
+            }
+
+            .bottom-nav__item.active::before {
+                content: '';
+                position: absolute;
+                top: -6px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 20px;
+                height: 3px;
+                background: var(--gradient-warm);
+                border-radius: 0 0 3px 3px;
+            }
+
+            .bottom-nav__item svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .bottom-nav__ai {
+                width: 52px;
+                height: 52px;
+                border-radius: var(--radius-full);
+                background: var(--gradient-warm);
+                border: 3px solid var(--color-cream);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                margin-top: -22px;
+                box-shadow: 0 4px 16px rgba(107, 58, 42, 0.3);
+                text-decoration: none;
+                transition: var(--transition-fast);
+            }
+
+            .bottom-nav__ai:active {
+                transform: scale(0.9);
+            }
+
+            .bottom-nav__ai svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .bottom-nav__ai-label {
+                font-size: 9px;
+                font-weight: 600;
+                color: var(--color-primary);
+                margin-top: -2px;
+            }
+        }
+
+        /* ============================================================
+           CHATBOT POPUP WIDGET (INLINED)
+           ============================================================ */
+        .chatbot-fab {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 9998;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #6B3A2A 0%, #C4873A 100%);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(107, 58, 42, 0.35), 0 0 0 0 rgba(107, 58, 42, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fabPulse 3s ease-in-out infinite;
+        }
+
+        .chatbot-fab:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 32px rgba(107, 58, 42, 0.45);
+        }
+
+        .chatbot-fab:active {
+            transform: scale(0.95);
+        }
+
+        .chatbot-fab .fab-icon-chat,
+        .chatbot-fab .fab-icon-close {
+            position: absolute;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chatbot-fab .fab-icon-chat { opacity: 1; transform: scale(1) rotate(0deg); }
+        .chatbot-fab .fab-icon-close { opacity: 0; transform: scale(0.5) rotate(-90deg); }
+        .chatbot-fab.is-open .fab-icon-chat { opacity: 0; transform: scale(0.5) rotate(90deg); }
+        .chatbot-fab.is-open .fab-icon-close { opacity: 1; transform: scale(1) rotate(0deg); }
+
+        @keyframes fabPulse {
+            0%, 100% { box-shadow: 0 6px 24px rgba(107, 58, 42, 0.35), 0 0 0 0 rgba(107, 58, 42, 0.3); }
+            50% { box-shadow: 0 6px 24px rgba(107, 58, 42, 0.35), 0 0 0 12px rgba(107, 58, 42, 0); }
+        }
+
+        .chatbot-fab.is-open {
+            animation: none;
+            background: linear-gradient(135deg, #4A2518 0%, #6B3A2A 100%);
+        }
+
+        .chatbot-fab__badge {
+            position: absolute; top: -4px; right: -4px;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #ef4444; color: #fff; font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            border: 2.5px solid #FDF6EC;
+            transition: all 0.3s ease;
+            animation: badgeBounce 0.5s ease;
+        }
+        .chatbot-fab__badge.hidden { display: none; }
+
+        @keyframes badgeBounce {
+            0% { transform: scale(0); } 50% { transform: scale(1.3); } 100% { transform: scale(1); }
+        }
+
+        .chatbot-greeting {
+            position: fixed; bottom: 104px; right: 32px;
+            z-index: 9997; background: #fff;
+            border-radius: 16px 16px 4px 16px;
+            padding: 16px 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+            max-width: 280px; opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chatbot-greeting.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+        .chatbot-greeting__text { font-size: 14px; color: #3A2A1A; line-height: 1.5; font-family: 'Inter', sans-serif; }
+        .chatbot-greeting__text strong { color: #6B3A2A; }
+
+        .chatbot-greeting__close {
+            position: absolute; top: 8px; right: 8px;
+            width: 20px; height: 20px; border: none; background: transparent;
+            color: #9A8A7A; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; border-radius: 50%;
+            font-size: 16px; line-height: 1; transition: all 0.2s ease;
+        }
+        .chatbot-greeting__close:hover { background: rgba(0,0,0,0.05); color: #3A2A1A; }
+
+        .chatbot-popup {
+            position: fixed; bottom: 108px; right: 32px;
+            z-index: 9999; width: 420px; height: 600px;
+            max-height: calc(100vh - 140px);
+            border-radius: 20px; overflow: hidden;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(20px) scale(0.92);
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chatbot-popup.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+        .chatbot-popup__header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #6B3A2A 0%, #8B5E3C 100%);
+            color: #fff; flex-shrink: 0;
+        }
+        .chatbot-popup__header-left { display: flex; align-items: center; gap: 12px; }
+        .chatbot-popup__avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .chatbot-popup__info { display: flex; flex-direction: column; }
+        .chatbot-popup__name { font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; }
+        .chatbot-popup__status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.8); }
+        .chatbot-popup__status-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: dotPulse 2s ease-in-out infinite; }
+        @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .chatbot-popup__header-actions { display: flex; align-items: center; gap: 4px; }
+        .chatbot-popup__header-btn {
+            width: 32px; height: 32px; border: none;
+            background: rgba(255,255,255,0.1); border-radius: 8px;
+            color: #fff; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .chatbot-popup__header-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .chatbot-popup__body { flex: 1; display: flex; background: #f9f7f4; overflow: hidden; }
+        .chatbot-popup__body iframe { width: 100%; height: 100%; border: none; }
+
+        .chatbot-popup__loader {
+            position: absolute; inset: 0; top: 60px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 16px; background: #f9f7f4; z-index: 2; transition: opacity 0.3s ease;
+        }
+        .chatbot-popup__loader.hidden { opacity: 0; pointer-events: none; }
+        .chatbot-popup__spinner {
+            width: 36px; height: 36px;
+            border: 3px solid rgba(107,58,42,0.1); border-top-color: #6B3A2A;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .chatbot-popup__loader-text { font-size: 13px; color: #7A6A5A; font-family: 'Inter', sans-serif; }
+
+        /* Chatbot mobile overrides */
+        @media (max-width: 480px) {
+            .chatbot-popup {
+                bottom: 0; right: 0;
+                width: 100%; height: 100%; max-height: 100vh;
+                border-radius: 0;
+            }
+            .chatbot-fab {
+                bottom: calc(84px + var(--safe-bottom));
+                right: 20px; width: 56px; height: 56px;
+            }
+            .chatbot-greeting {
+                right: 20px;
+                bottom: calc(148px + var(--safe-bottom));
+                max-width: calc(100vw - 90px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <a href="#" class="header__logo" id="logo">
+            <div class="header__logo-icon">
+                <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="22" stroke="#6B3A2A" stroke-width="1.5" fill="none"/>
+                    <path d="M24 8 C24 8, 18 16, 18 22 C18 26, 21 28, 24 28 C27 28, 30 26, 30 22 C30 16, 24 8, 24 8Z" fill="#6B3A2A" opacity="0.2"/>
+                    <path d="M24 12 C24 12, 14 18, 12 24 C11 27, 13 30, 16 30 C19 30, 22 28, 24 24" stroke="#6B3A2A" stroke-width="1.2" fill="none"/>
+                    <path d="M24 12 C24 12, 34 18, 36 24 C37 27, 35 30, 32 30 C29 30, 26 28, 24 24" stroke="#6B3A2A" stroke-width="1.2" fill="none"/>
+                    <path d="M24 14 C24 14, 20 20, 20 24 C20 27, 22 28, 24 28 C26 28, 28 27, 28 24 C28 20, 24 14, 24 14Z" fill="#6B3A2A" opacity="0.3"/>
+                    <circle cx="24" cy="32" r="2" fill="#C4873A"/>
+                    <path d="M18 34 Q24 38 30 34" stroke="#6B3A2A" stroke-width="1" fill="none"/>
+                    <path d="M16 36 Q24 42 32 36" stroke="#6B3A2A" stroke-width="0.8" fill="none"/>
+                </svg>
+            </div>
+            <div class="header__logo-text">
+                <span class="tagline">Dấu chân</span>
+                <span class="brand">KINH BẮC</span>
+            </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="header__nav" id="main-nav">
+            <a href="#" class="header__nav-link active" id="nav-home">Trang chủ</a>
+            <a href="#" class="header__nav-link" id="nav-explore">Khám phá</a>
+            <a href="#" class="header__nav-link" id="nav-food">Ẩm thực</a>
+            <a href="#" class="header__nav-link" id="nav-culture">Văn hóa</a>
+            <a href="#" class="header__nav-link" id="nav-crafts">Làng nghề</a>
+            <a href="#" class="header__nav-link" id="nav-stay">Lưu trú</a>
+            <a href="#" class="header__nav-link" id="nav-transport">Phương tiện</a>
+            <a href="#" class="header__nav-link" id="nav-ai">AI Planner</a>
+        </nav>
+
+        <div class="header__actions">
+            <button class="header__action-btn" id="btn-wishlist" aria-label="Yêu thích">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+            </button>
+            <button class="header__action-btn" id="btn-search" aria-label="Tìm kiếm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+            </button>
+            <button class="header__lang" id="btn-lang">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                VN
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </button>
+            <div class="header__avatar" id="btn-avatar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <!-- Hamburger (mobile only) -->
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== MOBILE MENU ===== -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <nav class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu__header">
+            <div class="header__logo-text"><span class="tagline">Dấu chân</span><span class="brand">KINH BẮC</span></div>
+            <button class="mobile-menu__close" id="menu-close" aria-label="Đóng menu">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu__nav">
+            <a href="#" class="mobile-menu__link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Trang chủ</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Khám phá</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Ẩm thực</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>Văn hóa</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Làng nghề</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Lưu trú</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Phương tiện</a>
+            <a href="#" class="mobile-menu__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>AI Planner</a>
+        </div>
+        <div class="mobile-menu__footer">
+            <button class="mobile-menu__lang">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Tiếng Việt (VN)
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <div class="hero__bg">
+            <img src="images/hero_background.jpg" alt="Kinh Bắc - Cảnh đẹp hoàng hôn truyền thống Việt Nam" loading="eager">
+        </div>
+        <div class="hero__content">
+            <h1>
+                <span class="hero__title-script animate-fade-in-up">Dấu chân</span>
+                <span class="hero__title-main animate-fade-in-up animate-delay-1">KINH BẮC</span>
+            </h1>
+            <p class="hero__subtitle animate-fade-in-up animate-delay-2">Khám phá – Trải nghiệm – Lưu dấu</p>
+            <div class="animate-fade-in-up animate-delay-3">
+                <p class="hero__quote">"Mỗi chuyến đi<br>&nbsp;&nbsp;là một câu chuyện đẹp"</p>
+                <div class="hero__quote-heart">
+                    <span class="hero__quote-line"></span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(255,255,255,0.6)" stroke="none">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="hero__quote-line"></span>
+                </div>
+            </div>
+            <!-- Mobile swipe hint -->
+            <div class="hero__swipe-hint animate-fade-in-up animate-delay-4">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                Vuốt lên để khám phá
+            </div>
+        </div>
+        <div class="wave-divider">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C180,120 360,0 540,60 C720,120 900,20 1080,60 C1260,100 1380,40 1440,60 L1440,120 L0,120 Z" fill="#FDF6EC"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ===== SEARCH & AI PLANNER ===== -->
+    <section class="search-section" id="search-section">
+        <div class="search-row">
+            <div class="search-bar" id="search-bar">
+                <div class="search-bar__icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                </div>
+                <input type="text" class="search-bar__input" id="search-input" placeholder="Bạn muốn khám phá Kinh Bắc theo cách nào?">
+                <button class="search-bar__submit" id="search-submit" aria-label="Tìm kiếm">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+            </div>
+            <a href="#" class="ai-planner-card" id="ai-planner">
+                <div class="ai-planner-card__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8"/><path d="M12 17v4"/><circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <div class="ai-planner-card__text">
+                    <div class="ai-planner-card__title">AI Planner</div>
+                    <div class="ai-planner-card__desc">Lên lịch trình du lịch chỉ trong vài giây!</div>
+                </div>
+                <div class="ai-planner-card__arrow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="categories" id="categories">
+        <div class="categories__grid">
+            <a href="#" class="category-item" id="cat-destination">
+                <div class="category-item__icon category-item__icon--green">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#4CAF50" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <span class="category-item__label">Điểm đến</span>
+            </a>
+            <a href="#" class="category-item" id="cat-food">
+                <div class="category-item__icon category-item__icon--orange">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#FF9800" stroke="none"><path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/></svg>
+                </div>
+                <span class="category-item__label">Ẩm thực</span>
+            </a>
+            <a href="#" class="category-item" id="cat-culture">
+                <div class="category-item__icon category-item__icon--pink">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#E91E63" stroke="none"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                </div>
+                <span class="category-item__label">Văn hóa</span>
+            </a>
+            <a href="#" class="category-item" id="cat-crafts">
+                <div class="category-item__icon category-item__icon--red">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="#D32F2F" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="category-item__label">Làng nghề</span>
+            </a>
+            <a href="#" class="category-item" id="cat-stay">
+                <div class="category-item__icon category-item__icon--purple">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#9C27B0" stroke="none"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+                </div>
+                <span class="category-item__label">Lưu trú</span>
+            </a>
+            <a href="#" class="category-item" id="cat-transport">
+                <div class="category-item__icon category-item__icon--brown">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#795548" stroke="none"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                </div>
+                <span class="category-item__label">Phương tiện</span>
+            </a>
+            <a href="#" class="category-item" id="cat-itinerary">
+                <div class="category-item__icon category-item__icon--beige">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="#C4873A" stroke="none"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                </div>
+                <span class="category-item__label">Lịch trình</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== SCROLL INDICATOR (desktop only) ===== -->
+    <div class="scroll-indicator" id="scroll-indicator">
+        <span class="scroll-indicator__text">Kéo xuống khám phá</span>
+        <div class="scroll-indicator__icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+    </div>
+
+    <!-- ===== DESTINATIONS ===== -->
+    <section class="destinations" id="destinations">
+        <div class="destinations__header">
+            <div>
+                <div class="destinations__label">Gợi ý hôm nay</div>
+                <h2 class="destinations__title">Những điểm đến không thể bỏ lỡ</h2>
+            </div>
+            <a href="#" class="destinations__see-all" id="see-all-destinations">
+                Xem tất cả
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
+        <div class="destinations__carousel">
+            <button class="carousel-nav carousel-nav--prev" id="carousel-prev" aria-label="Trước">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="destinations__grid" id="destinations-grid">
+                <div class="destination-card" id="card-den-do">
+                    <img src="images/den_do.jpg" alt="Đền Đô - Bắc Ninh" class="destination-card__img" loading="lazy">
+                    <div class="destination-card__overlay">
+                        <h3 class="destination-card__name">Đền Đô</h3>
+                        <div class="destination-card__tag">Tâm linh - Lịch sử</div>
+                        <div class="destination-card__location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#E6A84D" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            Bắc Ninh
+                        </div>
+                    </div>
+                    <div class="destination-card__arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                </div>
+                <div class="destination-card" id="card-chua-dau">
+                    <img src="images/chua_dau.jpg" alt="Chùa Dâu - Bắc Ninh" class="destination-card__img" loading="lazy">
+                    <div class="destination-card__overlay">
+                        <h3 class="destination-card__name">Chùa Dâu</h3>
+                        <div class="destination-card__tag">Văn hóa - Tôn giáo</div>
+                        <div class="destination-card__location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#E6A84D" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            Bắc Ninh
+                        </div>
+                    </div>
+                    <div class="destination-card__arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                </div>
+                <div class="destination-card" id="card-banh-phu-the">
+                    <img src="images/banh_phu_the.jpg" alt="Bánh phu thê Đình Bảng" class="destination-card__img" loading="lazy">
+                    <div class="destination-card__overlay">
+                        <h3 class="destination-card__name">Bánh phu thê Đình Bảng</h3>
+                        <div class="destination-card__tag">Đặc sản Kinh Bắc</div>
+                        <div class="destination-card__location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#E6A84D" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            Bắc Ninh
+                        </div>
+                    </div>
+                    <div class="destination-card__arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav carousel-nav--next" id="carousel-next" aria-label="Tiếp theo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+        </div>
+        <!-- Scroll dots (mobile only) -->
+        <div class="scroll-dots" id="scroll-dots">
+            <div class="scroll-dots__dot active"></div>
+            <div class="scroll-dots__dot"></div>
+            <div class="scroll-dots__dot"></div>
+        </div>
+    </section>
+
+    <!-- ===== QUICK EXPLORE (mobile only) ===== -->
+    <section class="quick-explore" id="quick-explore">
+        <h3 class="quick-explore__title">Khám phá thêm</h3>
+        <div class="quick-explore__grid">
+            <a href="#" class="quick-explore__item"><img src="images/chua_dau.jpg" alt="Quan họ Bắc Ninh" loading="lazy"><div class="quick-explore__item-overlay"><div class="quick-explore__item-name">Quan họ</div><div class="quick-explore__item-tag">Di sản văn hóa</div></div></a>
+            <a href="#" class="quick-explore__item"><img src="images/banh_phu_the.jpg" alt="Làng nghề truyền thống" loading="lazy"><div class="quick-explore__item-overlay"><div class="quick-explore__item-name">Làng nghề</div><div class="quick-explore__item-tag">Truyền thống</div></div></a>
+            <a href="#" class="quick-explore__item"><img src="images/den_do.jpg" alt="Ẩm thực Kinh Bắc" loading="lazy"><div class="quick-explore__item-overlay"><div class="quick-explore__item-name">Ẩm thực</div><div class="quick-explore__item-tag">Đặc sản vùng miền</div></div></a>
+            <a href="#" class="quick-explore__item"><img src="images/hero_background.jpg" alt="Lễ hội Kinh Bắc" loading="lazy"><div class="quick-explore__item-overlay"><div class="quick-explore__item-name">Lễ hội</div><div class="quick-explore__item-tag">Sự kiện văn hóa</div></div></a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+        <div class="footer__top">
+            <div class="footer__brand">
+                <div class="footer__brand-name">Dấu chân Kinh Bắc</div>
+                <p class="footer__brand-desc">Khám phá vẻ đẹp văn hóa, lịch sử và ẩm thực vùng đất Kinh Bắc. Mỗi chuyến đi là một câu chuyện đẹp.</p>
+            </div>
+            <div class="footer__links">
+                <div>
+                    <h4 class="footer__col-title">Khám phá</h4>
+                    <ul class="footer__col-list">
+                        <li><a href="#">Điểm đến</a></li>
+                        <li><a href="#">Ẩm thực</a></li>
+                        <li><a href="#">Văn hóa</a></li>
+                        <li><a href="#">Làng nghề</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Dịch vụ</h4>
+                    <ul class="footer__col-list">
+                        <li><a href="#">Lưu trú</a></li>
+                        <li><a href="#">Phương tiện</a></li>
+                        <li><a href="#">AI Planner</a></li>
+                        <li><a href="#">Lịch trình</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Liên hệ</h4>
+                    <ul class="footer__col-list">
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Hợp tác</a></li>
+                        <li><a href="#">Hỗ trợ</a></li>
+                        <li><a href="#">Chính sách</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Social (mobile only) -->
+        <div class="footer__social">
+            <button class="footer__social-btn" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+            <button class="footer__social-btn" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
+            <button class="footer__social-btn" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></button>
+            <button class="footer__social-btn" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></button>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2026 Dấu chân Kinh Bắc. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- ===== BOTTOM NAVIGATION (mobile only) ===== -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <a href="#" class="bottom-nav__item active" id="bnav-home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Trang chủ</span>
+        </a>
+        <a href="#" class="bottom-nav__item" id="bnav-explore">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <span>Khám phá</span>
+        </a>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+            <a href="#" class="bottom-nav__ai" id="bnav-ai" aria-label="AI Planner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </a>
+            <span class="bottom-nav__ai-label">AI</span>
+        </div>
+        <a href="#" class="bottom-nav__item" id="bnav-favorites">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span>Yêu thích</span>
+        </a>
+        <a href="#" class="bottom-nav__item" id="bnav-profile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Cá nhân</span>
+        </a>
+    </nav>
+
+    <!-- ===== ALL SCRIPTS ===== -->
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.category-item').forEach((item, i) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `all 0.5s ease ${i * 0.08}s`;
+            observer.observe(item);
+        });
+
+        document.querySelectorAll('.destination-card').forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${i * 0.15}s`;
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('.quick-explore__item').forEach((item, i) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(16px)';
+            item.style.transition = `all 0.4s ease ${i * 0.08}s`;
+            observer.observe(item);
+        });
+
+        const searchSection = document.getElementById('search-section');
+        searchSection.style.opacity = '0';
+        searchSection.style.transform = 'translateY(20px)';
+        searchSection.style.transition = 'all 0.6s ease';
+        observer.observe(searchSection);
+
+        // Desktop nav link active state
+        document.querySelectorAll('.header__nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelectorAll('.header__nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Search input focus effect
+        const searchBar = document.getElementById('search-bar');
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('focus', () => {
+            searchBar.style.borderColor = 'rgba(196, 135, 58, 0.4)';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchBar.style.borderColor = 'rgba(107, 58, 42, 0.06)';
+        });
+
+        // Desktop scroll indicator
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.pointerEvents = 'auto';
+            }
+        });
+
+        // Search header button → scroll to search
+        document.getElementById('btn-search').addEventListener('click', () => {
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => searchInput.focus(), 400);
+        });
+
+        // ===== MOBILE MENU =====
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuClose = document.getElementById('menu-close');
+        let scrollPos = 0;
+
+        function openMenu() {
+            scrollPos = window.pageYOffset;
+            hamburgerBtn.classList.add('active');
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.classList.add('menu-open');
+            document.body.style.top = `-${scrollPos}px`;
+        }
+
+        function closeMenu() {
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            document.body.style.top = '';
+            window.scrollTo(0, scrollPos);
+        }
+
+        hamburgerBtn.addEventListener('click', () => mobileMenu.classList.contains('active') ? closeMenu() : openMenu());
+        mobileMenuOverlay.addEventListener('click', closeMenu);
+        menuClose.addEventListener('click', closeMenu);
+
+        document.querySelectorAll('.mobile-menu__link').forEach(link => {
+            link.addEventListener('click', () => {
+                closeMenu();
+                document.querySelectorAll('.mobile-menu__link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // ===== Mobile Scroll Dots =====
+        const destGrid = document.getElementById('destinations-grid');
+        const dots = document.querySelectorAll('.scroll-dots__dot');
+
+        destGrid.addEventListener('scroll', () => {
+            const card = destGrid.querySelector('.destination-card');
+            if (!card) return;
+            const cardWidth = card.offsetWidth + 14;
+            const activeIndex = Math.round(destGrid.scrollLeft / cardWidth);
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+        });
+
+        // ===== Bottom Nav Active State =====
+        document.querySelectorAll('.bottom-nav__item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.bottom-nav__item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+
+    <!-- ===== CHATBOT POPUP WIDGET (INLINED) ===== -->
+    <script>
+    (function () {
+        'use strict';
+        const CONFIG = {
+            projectId: '01e54cda-a723-491d-8859-518f9f45d570',
+            publicToken: '21632fe7-5b18-4d58-b81e-07862dbe6045',
+            hostOrigin: 'https://workflowhub-web-id11.onrender.com',
+            botName: 'Kinh Bắc Assistant',
+            greetingText: 'Xin chào! 👋 Tôi là <strong>trợ lý AI Kinh Bắc</strong>. Hãy hỏi tôi về điểm đến, ẩm thực hay lịch trình du lịch nhé!',
+            greetingDelay: 3000,
+            greetingAutoHide: 10000,
+        };
+
+        let isOpen = false, isChatLoaded = false, greetingDismissed = false;
+
+        function createWidget() {
+            const greeting = document.createElement('div');
+            greeting.className = 'chatbot-greeting';
+            greeting.id = 'chatbot-greeting';
+            greeting.innerHTML = `<button class="chatbot-greeting__close" id="chatbot-greeting-close" aria-label="Đóng">&times;</button><p class="chatbot-greeting__text">${CONFIG.greetingText}</p>`;
+
+            const fab = document.createElement('button');
+            fab.className = 'chatbot-fab';
+            fab.id = 'chatbot-fab';
+            fab.setAttribute('aria-label', 'Mở chatbot');
+            fab.innerHTML = `<span class="fab-icon-chat"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span class="fab-icon-close"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span class="chatbot-fab__badge hidden" id="chatbot-badge">1</span>`;
+
+            const popup = document.createElement('div');
+            popup.className = 'chatbot-popup';
+            popup.id = 'chatbot-popup';
+            popup.innerHTML = `<div class="chatbot-popup__header"><div class="chatbot-popup__header-left"><div class="chatbot-popup__avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="12" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="8" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg></div><div class="chatbot-popup__info"><span class="chatbot-popup__name">${CONFIG.botName}</span><span class="chatbot-popup__status"><span class="chatbot-popup__status-dot"></span>Đang hoạt động</span></div></div><div class="chatbot-popup__header-actions"><button class="chatbot-popup__header-btn" id="chatbot-refresh" aria-label="Làm mới"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></button><button class="chatbot-popup__header-btn" id="chatbot-close" aria-label="Đóng"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div></div><div class="chatbot-popup__body" id="chatbot-body"><div class="chatbot-popup__loader" id="chatbot-loader"><div class="chatbot-popup__spinner"></div><span class="chatbot-popup__loader-text">Đang kết nối...</span></div></div>`;
+
+            document.body.appendChild(greeting);
+            document.body.appendChild(popup);
+            document.body.appendChild(fab);
+        }
+
+        function loadChatIframe() {
+            if (isChatLoaded) return;
+            const body = document.getElementById('chatbot-body');
+            const iframe = document.createElement('iframe');
+            iframe.src = `${CONFIG.hostOrigin}/embed/projects/${CONFIG.projectId}/chat?publicToken=${CONFIG.publicToken}`;
+            iframe.allow = 'clipboard-write';
+            iframe.title = 'Chatbot Kinh Bắc';
+            iframe.style.cssText = 'width:100%;height:100%;border:none;';
+            iframe.addEventListener('load', () => {
+                const loader = document.getElementById('chatbot-loader');
+                if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 300); }
+            });
+            body.appendChild(iframe);
+            isChatLoaded = true;
+        }
+
+        function refreshChat() {
+            const body = document.getElementById('chatbot-body');
+            const existing = body.querySelector('iframe');
+            if (existing) existing.remove();
+            const loader = document.createElement('div');
+            loader.className = 'chatbot-popup__loader'; loader.id = 'chatbot-loader';
+            loader.innerHTML = '<div class="chatbot-popup__spinner"></div><span class="chatbot-popup__loader-text">Đang kết nối lại...</span>';
+            body.prepend(loader);
+            isChatLoaded = false;
+            loadChatIframe();
+        }
+
+        function openPopup() {
+            isOpen = true;
+            document.getElementById('chatbot-popup').classList.add('is-open');
+            document.getElementById('chatbot-fab').classList.add('is-open');
+            document.getElementById('chatbot-greeting').classList.remove('is-visible');
+            document.getElementById('chatbot-badge').classList.add('hidden');
+            greetingDismissed = true;
+            if (!isChatLoaded) loadChatIframe();
+        }
+
+        function closePopup() {
+            isOpen = false;
+            document.getElementById('chatbot-popup').classList.remove('is-open');
+            document.getElementById('chatbot-fab').classList.remove('is-open');
+        }
+
+        function showGreeting() {
+            if (greetingDismissed || isOpen) return;
+            document.getElementById('chatbot-greeting').classList.add('is-visible');
+            document.getElementById('chatbot-badge').classList.remove('hidden');
+            setTimeout(() => { if (!greetingDismissed && !isOpen) document.getElementById('chatbot-greeting').classList.remove('is-visible'); }, CONFIG.greetingAutoHide);
+        }
+
+        function init() {
+            createWidget();
+            document.getElementById('chatbot-fab').addEventListener('click', () => isOpen ? closePopup() : openPopup());
+            document.getElementById('chatbot-close').addEventListener('click', closePopup);
+            document.getElementById('chatbot-refresh').addEventListener('click', refreshChat);
+            document.getElementById('chatbot-greeting-close').addEventListener('click', (e) => { e.stopPropagation(); document.getElementById('chatbot-greeting').classList.remove('is-visible'); greetingDismissed = true; });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen) closePopup(); });
+            setTimeout(showGreeting, CONFIG.greetingDelay);
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+    })();
+    </script>
+</body>
+</html>
