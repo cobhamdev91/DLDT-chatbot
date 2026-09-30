@@ -1,0 +1,292 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scrolled {
+  background: rgba(253, 248, 242, 0.97);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 25px rgba(74, 37, 24, 0.08);
+  border-bottom-color: rgba(107, 58, 42, 0.1);
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+}
+
+.scrolled .container {
+  height: 56px;
+  padding: 0 40px;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(232, 218, 198, 0.3);
+  border: 1.5px solid rgba(200, 50, 40, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.scrolled .logoBadge {
+  width: 36px;
+  height: 36px;
+  background: #E8DAC6;
+  border-color: #C83228;
+}
+
+.quanHoIcon {
+  font-size: 20px;
+}
+
+.logoTextWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logoTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.logoCalligraphy {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.875rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  transition: all 0.35s ease;
+}
+
+.scrolled .logoCalligraphy {
+  color: var(--color-primary-dark);
+  font-size: 0.8125rem;
+}
+
+.logoMain {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+  transition: all 0.35s ease;
+}
+
+.scrolled .logoMain {
+  color: #1E120D;
+  font-size: 1rem;
+}
+
+.logoTagline {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.3px;
+  margin-top: 1px;
+  white-space: nowrap;
+  transition: all 0.35s ease;
+}
+
+.scrolled .logoTagline {
+  color: #7A695E;
+}
+
+/* SHRINK: hide tagline when scrolled */
+.scrolled .logoTagline {
+  display: none !important;
+}
+
+/* NAVIGATION */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+.navLink {
+  position: relative;
+  padding: 6px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
+.scrolled .navLink {
+  color: #38251B;
+  padding: 5px 12px;
+  font-size: 0.8125rem;
+}
+
+.navLink:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.scrolled .navLink:hover {
+  color: #C83228;
+  background: rgba(200, 50, 40, 0.05);
+}
+
+.navLinkActive {
+  color: #FFFFFF !important;
+  font-weight: 700;
+}
+
+.scrolled .navLinkActive {
+  color: #C83228 !important;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -2px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #FFFFFF;
+  border-radius: 2px;
+}
+
+.scrolled .activeIndicator {
+  background: #C83228;
+}
+
+/* UTILITY ICONS */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.scrolled .iconBtn {
+  color: #2C221E;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.scrolled .iconBtn:hover {
+  background: rgba(107, 58, 42, 0.08);
+}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.scrolled .hamburger span {
+  background: #2C221E;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+
+  .navOpen {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: #FAF7F2;
+    padding: 20px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(107, 58, 42, 0.1);
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .navOpen .navLink {
+    color: #38251B;
+    font-size: 0.9375rem;
+  }
+
+  .navOpen .navLinkActive {
+    color: #C83228 !important;
+  }
+
+  .activeIndicator {
+    bottom: 4px;
+    left: 14px;
+    width: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  .scrolled .container {
+    padding: 0 16px;
+  }
+}
