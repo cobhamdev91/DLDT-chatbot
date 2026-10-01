@@ -296,7 +296,7 @@
 .chatbot-popup__body {
   flex: 1;
   display: flex;
-  background: #FAF7F2;
+  background: #FAFAFA;
   overflow: hidden;
   position: relative;
 }
@@ -317,7 +317,7 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  background: #FAF7F2;
+  background: #FAFAFA;
   z-index: 10;
   transition: opacity 0.3s ease;
 }
