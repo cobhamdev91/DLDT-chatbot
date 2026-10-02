@@ -84,6 +84,16 @@ export default function Header() {
       {isMobileOpen && (
         <div className={styles.overlay} onClick={() => setIsMobileOpen(false)} />
       )}
+
+      {/* CURVED BOTTOM SVG - merges header into content */}
+      <div className={styles.headerCurve} aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path
+            d="M0,0 H1440 V60 C1380,40 1260,100 1080,60 C900,20 720,120 540,60 C360,0 180,120 0,60 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
     </header>
   );
 }

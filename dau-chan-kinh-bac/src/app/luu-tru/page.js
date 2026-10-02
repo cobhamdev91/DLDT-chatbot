@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Search, MapPin, Star, Tag, PhoneCall } from 'lucide-react';
 import { LotusIcon } from '@/components/Icons';
 import ParallaxHero from '@/components/ParallaxHero';
+import FlipCard from '@/components/FlipCard';
 import { accommodations } from '@/data/accommodations';
 import { siteContent } from '@/data/content';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -169,7 +170,7 @@ export default function LuuTruPage() {
         </div>
       </div>
 
-      {/* 4. STAYS GRID WITH CLEAN CARDS & FORMATTED FOOTER */}
+      {/* 4. STAYS GRID WITH FLIP CARDS & PROGRESS BAR AUTO-DIRECT */}
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
           <div style={{ marginBottom: '16px', fontSize: '0.8125rem', color: '#7A6A5A' }}>
@@ -177,74 +178,38 @@ export default function LuuTruPage() {
           </div>
           <div className="card-grid">
             {filteredStays.map((stay) => (
-              <div key={stay.id} className="card">
-                <div className="card-image-wrap">
-                  <Image
-                    src={stay.image || '/images/hero_kinh_bac.jpg'}
-                    alt={stay.name}
-                    width={400}
-                    height={260}
-                    className="card-image"
-                  />
-                  {/* PRICE BADGE */}
-                  <span style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '12px',
-                    background: '#C83228',
-                    color: '#fff',
-                    fontSize: '0.8125rem',
-                    fontWeight: 700,
-                    padding: '4px 12px',
-                    borderRadius: '50px',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
-                  }}>
-                    {stay.priceRange.split('–')[0].replace('VNĐ', '').trim()} / đêm
-                  </span>
-                </div>
-
-                <div className="card-content">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginBottom: '6px' }}>
-                    {Array.from({ length: stay.stars > 0 ? stay.stars : 3 }).map((_, i) => (
-                      <Star key={i} size={14} fill="#D4A853" color="#D4A853" />
-                    ))}
-                    <span style={{ color: 'var(--color-text-light)', fontSize: '0.8125rem', marginLeft: '6px' }}>
-                      {stay.type}
-                    </span>
-                  </div>
-
-                  <span className="card-tagline" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.8125rem' }}>
-                    <MapPin size={13} color="#C83228" /> {stay.location.split(',')[1] || stay.location}
-                  </span>
-                  <h3 className="card-title" style={{ fontSize: '1.05rem', marginBottom: '6px' }}>{stay.name}</h3>
-                  
-                  <p className="card-lead" style={{ fontSize: '0.8125rem', color: '#7A6A5A', lineHeight: 1.5, marginBottom: '12px' }}>
-                    {stay.story?.substring(0, 75)}...
-                  </p>
-
-                  <div className="card-footer" style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingTop: '12px',
-                    marginTop: 'auto',
-                    borderTop: '1px solid rgba(107, 58, 42, 0.08)',
-                    gap: '10px'
-                  }}>
+              <FlipCard
+                key={stay.id}
+                image={stay.image || '/images/hero_kinh_bac.jpg'}
+                imageAlt={stay.name}
+                frontTitle={stay.name}
+                frontBadge={stay.stars > 0 ? `${stay.stars} ⭐ ${stay.type}` : stay.type}
+                backTitle={stay.name}
+                backContent={stay.story?.substring(0, 100) + '...'}
+                href={`/luu-tru/${stay.slug}`}
+                backFooter={
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '0.6875rem', color: '#9A8A7A', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         Giá từ
                       </span>
-                      <span style={{ color: '#B8781B', fontWeight: 700, fontSize: '0.875rem' }}>
+                      <span style={{ color: '#B8781B', fontWeight: 700 }}>
                         {stay.priceRange.split('–')[0].replace('VNĐ', '').trim()}đ
                       </span>
                     </div>
-                    <Link href={`/luu-tru/${stay.slug}`} className="btn-sm btn-primary" style={{ padding: '7px 14px', borderRadius: '6px', fontSize: '0.8125rem', whiteSpace: 'nowrap' }}>
-                      Xem phòng →
-                    </Link>
+                    <span style={{ color: '#55443B', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <MapPin size={13} color="#C83228" /> {stay.location.split(',')[1] || stay.location}
+                    </span>
                   </div>
-                </div>
-              </div>
+                }
+              >
+                {stay.amenities?.[0] && (
+                  <div className="flip-card-highlight-badge">
+                    <span className="flip-card-highlight-icon"><Star size={12} color="#D4A853" /></span>
+                    <span className="flip-card-highlight-text">{stay.amenities[0]}</span>
+                  </div>
+                )}
+              </FlipCard>
             ))}
           </div>
         </div>

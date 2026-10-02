@@ -3733,6 +3733,7 @@ img {
   height: 100%;
   transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 /* Hover to flip — no click needed */
@@ -3755,6 +3756,8 @@ img {
 /* FRONT: Full image with title overlaid at bottom */
 .flip-card-front {
   background: #1F0D06;
+  transform: rotateY(0deg);
+  z-index: 2;
 }
 
 .flip-card-image-wrap {
@@ -3832,6 +3835,7 @@ img {
   flex-direction: column;
   border: 1px solid rgba(107, 58, 42, 0.1);
   box-shadow: 0 8px 24px rgba(74, 37, 24, 0.08);
+  z-index: 1;
 }
 
 .flip-card-back-title {

@@ -20,28 +20,32 @@ const culturalPillars = [
     subtitle: 'Nghệ thuật ứng tác đỉnh cao',
     desc: 'Những câu hát mộc không cần nhạc đệm, thể hiện sự am hiểu điển tích, tình tứ và kính trọng lẫn nhau giữa liền anh liền chị.',
     image: '/images/quan_ho_culture.jpg',
-    tag: 'Âm Nhạc'
+    tag: 'Âm Nhạc',
+    slug: 'quan-ho'
   },
   {
     title: 'Trang Phục Áo Tứ Thân & Nón Quai Thao',
     subtitle: 'Nét duyên Kinh Bắc xưa',
     desc: 'Áo năm thân the thâm, dải yếm đào hoa sen, nón quai thao che nghiêng duyên dáng tạo nên biểu tượng thanh tao của người quan họ.',
     image: '/images/hero_kinh_bac.jpg',
-    tag: 'Trang Phục'
+    tag: 'Trang Phục',
+    slug: 'trang-phuc'
   },
   {
     title: 'Tục Kết Chạ Nghĩa Tình',
     subtitle: 'Chuẩn mực ứng xử hiếu nghĩa',
     desc: 'Mối tình kết chạ bền chặt qua nhiều thế hệ giữa các làng quan họ: trọng nghĩa khinh tài, xem nhau như ruột thịt.',
     image: '/images/craft_village_pottery.jpg',
-    tag: 'Phong Tục'
+    tag: 'Phong Tục',
+    slug: 'khong-gian'
   },
   {
     title: 'Làng Diềm Thủy Tổ Quan Họ',
     subtitle: 'Cội nguồn câu hát ngàn năm',
     desc: 'Ngôi làng cổ thờ Đức Vua Bà – Thủy tổ sáng lập làn điệu Quan họ, nơi giếng ngọc nghìn năm nước ngọt lành linh thiêng.',
     image: '/images/den_do.jpg',
-    tag: 'Cội Nguồn'
+    tag: 'Cội Nguồn',
+    slug: 'con-nguoi'
   }
 ];
 
@@ -171,6 +175,7 @@ export default function VanHoaPage() {
               frontBadge={p.tag}
               backTitle={p.title}
               backContent={p.desc}
+              href={`/van-hoa/${p.slug}`}
               backFooter={
                 <span style={{ color: '#D4A853', fontWeight: 600, fontSize: '0.8125rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
                   <Landmark size={14} /> Di sản văn hóa Kinh Bắc
