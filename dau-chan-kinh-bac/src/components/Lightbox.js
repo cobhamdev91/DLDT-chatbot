@@ -6,10 +6,22 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Lightbox({ images, isOpen, onClose, startIndex = 0 }) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
+  const [prevStart, setPrevStart] = useState({ startIndex, isOpen });
 
-  useEffect(() => {
+  if (prevStart.startIndex !== startIndex || prevStart.isOpen !== isOpen) {
+    setPrevStart({ startIndex, isOpen });
     setCurrentIndex(startIndex);
-  }, [startIndex, isOpen]);
+  }
+
+  const goTo = useCallback((dir) => {
+    if (!images || images.length === 0) return;
+    setCurrentIndex((prev) => {
+      const next = prev + dir;
+      if (next < 0) return images.length - 1;
+      if (next >= images.length) return 0;
+      return next;
+    });
+  }, [images]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -24,16 +36,8 @@ export default function Lightbox({ images, isOpen, onClose, startIndex = 0 }) {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKey);
     };
-  }, [isOpen, currentIndex]);
+  }, [isOpen, goTo, onClose]);
 
-  const goTo = useCallback((dir) => {
-    setCurrentIndex((prev) => {
-      const next = prev + dir;
-      if (next < 0) return images.length - 1;
-      if (next >= images.length) return 0;
-      return next;
-    });
-  }, [images.length]);
 
   if (!isOpen || !images || images.length === 0) return null;
 

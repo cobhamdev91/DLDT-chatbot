@@ -45,27 +45,33 @@
 }
 
 .logoBadge {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(232, 218, 198, 0.3);
-  border: 1.5px solid rgba(200, 50, 40, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logo:hover .logoBadge {
+  transform: scale(1.08) rotate(2deg);
 }
 
 .scrolled .logoBadge {
-  width: 36px;
-  height: 36px;
-  background: #E8DAC6;
-  border-color: #C83228;
+  /* Dynamic size handled via props, keep smooth transition */
 }
 
-.quanHoIcon {
-  font-size: 20px;
+.logoStamp {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #C83228;
+  color: #FFFFFF;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-left: 2px;
+  line-height: 1.3;
+  box-shadow: 0 1px 3px rgba(200, 50, 40, 0.4);
 }
 
 .logoTextWrap {

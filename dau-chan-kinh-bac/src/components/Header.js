@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, Sparkles } from 'lucide-react';
+import { Users } from 'lucide-react';
+import { KinhBacEmblem } from '@/components/KinhBacLogo';
 import { siteContent } from '@/data/content';
 import styles from './Header.module.css';
 
@@ -24,14 +25,15 @@ export default function Header() {
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         {/* LOGO */}
-        <Link href="/" className={styles.logo}>
+        <Link href="/" className={styles.logo} aria-label="Trang chủ Dấu Chân Kinh Bắc">
           <div className={styles.logoBadge}>
-            <Sparkles size={18} color="#C83228" />
+            <KinhBacEmblem size={isScrolled ? 36 : 42} />
           </div>
           <div className={styles.logoTextWrap}>
             <div className={styles.logoTitleRow}>
               <span className={styles.logoCalligraphy}>{content.logoCalligraphy}</span>
               <span className={styles.logoMain}>{content.logoMain}</span>
+              <span className={styles.logoStamp}>Di Sản</span>
             </div>
             <span className={styles.logoTagline}>{content.tagline}</span>
           </div>

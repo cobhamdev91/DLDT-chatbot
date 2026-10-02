@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Sparkles } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import { FacebookIcon, InstagramIcon, YoutubeIcon, TiktokIcon } from './Icons';
+import { KinhBacEmblem } from '@/components/KinhBacLogo';
 import { siteContent } from '@/data/content';
 import styles from './Footer.module.css';
 
@@ -14,7 +15,7 @@ export default function Footer() {
         <div className={styles.brandCol}>
           <div className={styles.logoRow}>
             <div className={styles.logoCircle}>
-              <Sparkles size={20} color="#FAF7F2" />
+              <KinhBacEmblem size={48} />
             </div>
             <div>
               <div className={styles.logoTitleRow}>

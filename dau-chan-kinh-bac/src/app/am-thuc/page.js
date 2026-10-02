@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Tag, Sparkles, Clock, PhoneCall } from 'lucide-react';
+import { MapPin, Tag, Sparkles, Clock, PhoneCall, Coins } from 'lucide-react';
 import { LotusIcon } from '@/components/Icons';
 import ParallaxHero from '@/components/ParallaxHero';
 import FlipCard from '@/components/FlipCard';
@@ -155,23 +155,19 @@ export default function AmThucPage() {
                 backContent={food.taste || food.description}
                 href={`/am-thuc/${food.slug}`}
                 backFooter={
-                  <span style={{ color: '#B8781B', fontWeight: 700, fontSize: '0.875rem' }}>
-                    💰 {food.priceRange}
+                  <span style={{ color: '#B8781B', fontWeight: 700, fontSize: '0.875rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                    <Coins size={14} /> {food.priceRange}
                   </span>
                 }
               >
                 {food.locations && food.locations.length > 0 && (
-                  <div style={{ marginTop: '8px' }}>
-                    <p style={{ fontSize: '0.8125rem', color: '#C83228', fontWeight: 700, marginBottom: '4px' }}>
-                      📍 Nơi thưởng thức:
-                    </p>
-                    {food.locations.slice(0, 2).map((loc, idx) => (
-                      <p key={idx} style={{ fontSize: '0.8125rem', color: '#55443B', marginBottom: '2px' }}>
-                        • {loc.name}
-                      </p>
-                    ))}
+                  <div style={{ marginTop: '4px', fontSize: '0.78rem', color: '#55443B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span style={{ color: '#C83228', fontWeight: 600, display: 'inline-flex', alignItems: 'center', marginRight: '3px' }}><MapPin size={12} /></span>
+                    <span>{food.locations[0].name}</span>
+                    {food.locations.length > 1 && <span style={{ color: '#9A8A7A', fontSize: '0.72rem' }}> (+{food.locations.length - 1} nơi)</span>}
                   </div>
                 )}
+
               </FlipCard>
             ))}
           </div>

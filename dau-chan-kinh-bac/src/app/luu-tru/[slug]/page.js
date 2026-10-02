@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Check, Coffee, User, Compass, Sparkles, MapPin, Coins, Phone, Building, Navigation } from 'lucide-react';
 import { accommodations } from '@/data/accommodations';
 import Breadcrumb from '@/components/Breadcrumb';
 
@@ -81,7 +82,7 @@ export default async function AccommodationDetailPage({ params }) {
                 <div className="highlights-grid">
                   {stay.amenities.map((item, idx) => (
                     <div key={idx} className="highlight-pill">
-                      <span className="highlight-dot">✓</span>
+                      <span className="highlight-dot"><Check size={14} strokeWidth={2.5} color="#2E7D32" /></span>
                       <span>{item}</span>
                     </div>
                   ))}
@@ -94,7 +95,7 @@ export default async function AccommodationDetailPage({ params }) {
               <section className="content-block">
                 <h2>3. Trải nghiệm gợi ý cho kỳ nghỉ</h2>
                 <div className="experience-box">
-                  <span className="exp-icon">☕</span>
+                  <span className="exp-icon"><Coffee size={24} color="var(--color-primary)" /></span>
                   <p>{stay.experience}</p>
                 </div>
               </section>
@@ -107,7 +108,9 @@ export default async function AccommodationDetailPage({ params }) {
                 <div className="highlights-grid">
                   {stay.suitableFor.map((target, idx) => (
                     <div key={idx} className="highlight-pill" style={{ borderColor: 'var(--color-gold)' }}>
-                      <span>👤 {target}</span>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <User size={14} color="var(--color-gold-dark)" /> {target}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -118,7 +121,9 @@ export default async function AccommodationDetailPage({ params }) {
             {stay.itinerary && (
               <section className="content-block">
                 <div className="safer-box">
-                  <h3>🗺️ Lộ trình khám phá kết nối thuận tiện</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Compass size={20} color="var(--color-primary-dark)" /> Lộ trình khám phá kết nối thuận tiện
+                  </h3>
                   <p style={{ marginTop: '8px', fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-primary-dark)' }}>
                     {stay.itinerary}
                   </p>
@@ -130,7 +135,9 @@ export default async function AccommodationDetailPage({ params }) {
             {stay.funFact && (
               <section className="content-block">
                 <div className="funfact-box">
-                  <h3>🌟 Bạn có biết?</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Sparkles size={20} color="var(--color-gold-dark)" /> Bạn có biết?
+                  </h3>
                   <p>{stay.funFact}</p>
                 </div>
               </section>
@@ -143,18 +150,24 @@ export default async function AccommodationDetailPage({ params }) {
               <h3>Thông Tin Đặt Phòng</h3>
               <ul className="info-list">
                 <li>
-                  <strong>📍 Địa chỉ:</strong>
+                  <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <MapPin size={15} /> Địa chỉ:
+                  </strong>
                   <span>{stay.location}</span>
                 </li>
                 <li>
-                  <strong>💰 Giá tham khảo:</strong>
+                  <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <Coins size={15} /> Giá tham khảo:
+                  </strong>
                   <span style={{ color: 'var(--color-gold-dark)', fontWeight: 700 }}>
                     {stay.priceRange}
                   </span>
                 </li>
                 {stay.phone && (
                   <li>
-                    <strong>📞 Hotline:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <Phone size={15} /> Hotline:
+                    </strong>
                     <a href={`tel:${stay.phone}`} style={{ color: 'var(--color-primary)', fontWeight: 700 }}>
                       {stay.phone}
                     </a>
@@ -162,7 +175,9 @@ export default async function AccommodationDetailPage({ params }) {
                 )}
                 {stay.scale && (
                   <li>
-                    <strong>🏢 Quy mô:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <Building size={15} /> Quy mô:
+                    </strong>
                     <span>{stay.scale}</span>
                   </li>
                 )}
@@ -170,12 +185,12 @@ export default async function AccommodationDetailPage({ params }) {
 
               <div className="sidebar-cta">
                 {stay.phone && (
-                  <a href={`tel:${stay.phone}`} className="btn btn-primary full-width">
-                    📞 Gọi điện đặt phòng ngay
+                  <a href={`tel:${stay.phone}`} className="btn btn-primary full-width" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    <Phone size={16} /> Gọi điện đặt phòng ngay
                   </a>
                 )}
-                <Link href="/phuong-tien" className="btn btn-outline full-width" style={{ marginTop: '10px' }}>
-                  🚗 Xem chỉ đường di chuyển
+                <Link href="/phuong-tien" className="btn btn-outline full-width" style={{ marginTop: '10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <Navigation size={16} /> Xem chỉ đường di chuyển
                 </Link>
               </div>
 
@@ -204,7 +219,9 @@ export default async function AccommodationDetailPage({ params }) {
                 </div>
                 <div className="card-content">
                   <h3 className="card-title">{rel.name}</h3>
-                  <p className="card-subtitle">📍 {rel.location.split(',')[1] || rel.location}</p>
+                  <p className="card-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    <MapPin size={14} color="#C83228" /> {rel.location.split(',')[1] || rel.location}
+                  </p>
                   <div className="card-footer">
                     <span className="card-price">{rel.priceRange}</span>
                     <Link href={`/luu-tru/${rel.slug}`} className="btn-sm btn-outline">

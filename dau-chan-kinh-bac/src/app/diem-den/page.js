@@ -138,23 +138,25 @@ export default function DiemDenPage() {
                 }
               >
                 {dest.highlights && (
-                  <div style={{ marginTop: '6px' }}>
-                    {dest.highlights.slice(0, 3).map((h, idx) => (
+                  <div style={{ marginTop: '4px', marginBottom: '4px' }}>
+                    {dest.highlights.slice(0, 2).map((h, idx) => (
                       <span key={idx} style={{
                         display: 'inline-block',
                         background: 'rgba(212, 168, 83, 0.15)',
-                        color: '#D4A853',
-                        fontSize: '0.75rem',
+                        color: '#B8781B',
+                        fontSize: '0.74rem',
+                        fontWeight: 600,
                         padding: '2px 8px',
                         borderRadius: '4px',
-                        marginRight: '4px',
-                        marginBottom: '4px',
+                        marginRight: '6px',
+                        marginBottom: '2px',
                       }}>
                         {h}
                       </span>
                     ))}
                   </div>
                 )}
+
               </FlipCard>
             ))}
           </div>

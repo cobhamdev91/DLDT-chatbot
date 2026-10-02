@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { MapPin, Sparkles, Hammer, Gift, Lightbulb, Tag, Flame, Clock, Navigation, Utensils } from 'lucide-react';
 import { craftVillages } from '@/data/craftVillages';
 import Breadcrumb from '@/components/Breadcrumb';
 
@@ -48,7 +49,9 @@ export default async function CraftVillageDetailPage({ params }) {
         <div className="container detail-hero-content">
           <span className="badge badge-gold">{village.category}</span>
           <h1 className="detail-title">{village.name}</h1>
-          <p className="detail-lead">📍 {village.location}</p>
+          <p className="detail-lead" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <MapPin size={16} color="var(--color-gold)" /> {village.location}
+          </p>
         </div>
       </section>
 
@@ -79,7 +82,7 @@ export default async function CraftVillageDetailPage({ params }) {
                 <div className="highlights-grid">
                   {village.highlights.map((item, idx) => (
                     <div key={idx} className="highlight-pill">
-                      <span className="highlight-dot">✦</span>
+                      <span className="highlight-dot"><Sparkles size={14} color="#D4A853" /></span>
                       <span>{item}</span>
                     </div>
                   ))}
@@ -95,7 +98,7 @@ export default async function CraftVillageDetailPage({ params }) {
                   <ul className="safer-list">
                     {village.experiences.map((exp, idx) => (
                       <li key={idx}>
-                        <span className="check-icon">🔨</span>
+                        <span className="check-icon"><Hammer size={16} color="var(--color-primary)" /></span>
                         <span>{exp}</span>
                       </li>
                     ))}
@@ -109,7 +112,7 @@ export default async function CraftVillageDetailPage({ params }) {
               <section className="content-block">
                 <h2>4. Gợi ý quà lưu niệm mang về</h2>
                 <div className="experience-box">
-                  <span className="exp-icon">🎁</span>
+                  <span className="exp-icon"><Gift size={24} color="var(--color-primary)" /></span>
                   <div>
                     <ul style={{ paddingLeft: '18px', lineHeight: 1.8 }}>
                       {village.gifts.map((g, idx) => (
@@ -125,7 +128,9 @@ export default async function CraftVillageDetailPage({ params }) {
             {village.tips && (
               <section className="content-block">
                 <div className="funfact-box">
-                  <h3>💡 Lưu ý khi ghé thăm</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Lightbulb size={20} color="var(--color-gold-dark)" /> Lưu ý khi ghé thăm
+                  </h3>
                   <p>{village.tips}</p>
                 </div>
               </section>
@@ -138,29 +143,37 @@ export default async function CraftVillageDetailPage({ params }) {
               <h3>Thông Tin Làng Nghề</h3>
               <ul className="info-list">
                 <li>
-                  <strong>🏷️ Tên làng:</strong>
+                  <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <Tag size={15} /> Tên làng:
+                  </strong>
                   <span>{village.name}</span>
                 </li>
                 <li>
-                  <strong>🏺 Ngành nghề:</strong>
+                  <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <Flame size={15} /> Ngành nghề:
+                  </strong>
                   <span>{village.category}</span>
                 </li>
                 <li>
-                  <strong>📍 Vị trí:</strong>
+                  <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <MapPin size={15} /> Vị trí:
+                  </strong>
                   <span>{village.location}</span>
                 </li>
                 <li>
-                  <strong>⏱️ Thời gian tham quan:</strong>
+                  <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <Clock size={15} /> Thời gian tham quan:
+                  </strong>
                   <span>{village.duration}</span>
                 </li>
               </ul>
 
               <div className="sidebar-cta">
-                <Link href="/phuong-tien" className="btn btn-outline full-width">
-                  🚗 Xem chỉ đường & phương tiện
+                <Link href="/phuong-tien" className="btn btn-outline full-width" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <Navigation size={16} /> Xem chỉ đường & phương tiện
                 </Link>
-                <Link href="/am-thuc" className="btn btn-primary full-width" style={{ marginTop: '10px' }}>
-                  🥢 Đặc sản Bắc Ninh nên thử
+                <Link href="/am-thuc" className="btn btn-primary full-width" style={{ marginTop: '10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <Utensils size={16} /> Đặc sản Bắc Ninh nên thử
                 </Link>
               </div>
             </div>
@@ -185,7 +198,9 @@ export default async function CraftVillageDetailPage({ params }) {
                 </div>
                 <div className="card-content">
                   <h3 className="card-title">{rel.name}</h3>
-                  <p className="card-subtitle">📍 {rel.location.split(',')[1] || rel.location}</p>
+                  <p className="card-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    <MapPin size={14} color="#C83228" /> {rel.location.split(',')[1] || rel.location}
+                  </p>
                   <Link href={`/lang-nghe/${rel.slug}`} className="btn-sm btn-outline">
                     Tìm hiểu →
                   </Link>

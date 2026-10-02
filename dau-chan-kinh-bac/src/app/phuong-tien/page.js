@@ -26,7 +26,12 @@ import {
   CreditCard, 
   HardHat,
   MapPin,
-  CalendarCheck
+  CalendarCheck,
+  ChevronDown,
+  Backpack,
+  Users,
+  TreePine,
+  Camera
 } from 'lucide-react';
 import { transportTypes, itineraries, safetyRules } from '@/data/transport';
 import ParallaxHero from '@/components/ParallaxHero';
@@ -34,6 +39,27 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { siteContent } from '@/data/content';
 
 const { pageHeroes } = siteContent;
+
+// Icon mappings for Lucide SVG icons (replaces character/emoji icons)
+const itineraryIcons = {
+  1: Backpack,
+  2: Users,
+  3: Bike,
+  4: TreePine,
+  5: Camera,
+};
+
+const transportIconMap = {
+  'xe-khach-xe-buyt': Bus,
+  'o-to-ca-nhan': Car,
+  'xe-may': Bike,
+  'taxi-cong-nghe': Smartphone,
+  'thue-xe-co-lai': Users,
+  'xe-dien-noi-khu': Zap,
+  'tau-hoa': Train,
+  'thue-xe-may-dia-phuong': Bike,
+  'xe-dap-trai-nghiem': Compass,
+};
 
 // Comprehensive routing calculation matrix
 function calculateRoute(origin, destination) {
@@ -136,23 +162,55 @@ export default function PhuongTienPage() {
   const [destination, setDestination] = useState('bac_ninh_city');
   const [filterMode, setFilterMode] = useState('all');
   const [selectedTransport, setSelectedTransport] = useState(null);
-  const [completedStops, setCompletedStops] = useState({ 1: true });
+  const [completedStops, setCompletedStops] = useState({});
   const [isUpdating, setIsUpdating] = useState(false);
   const timelineRef = useRef(null);
 
-  // Scroll effect for Todo List Timeline
+  // Scroll effect for Todo List Timeline (Auto-Check when scrolling down, Undo when scrolling back up)
   useEffect(() => {
+    let ticking = false;
+
     const handleScrollTimeline = () => {
       if (!timelineRef.current) return;
-      const items = timelineRef.current.querySelectorAll('.timeline-step-item');
-      items.forEach((item) => {
-        const rect = item.getBoundingClientRect();
-        const id = item.dataset.id;
-        // As item scrolls into the viewport middle, mark as visited
-        if (rect.top <= window.innerHeight * 0.7) {
-          setCompletedStops((prev) => ({ ...prev, [id]: true }));
-        }
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!timelineRef.current) {
+            ticking = false;
+            return;
+          }
+          const items = timelineRef.current.querySelectorAll('.timeline-step-item');
+          const windowHeight = window.innerHeight;
+          // Check threshold: when item enters above 70% of viewport
+          const checkThreshold = windowHeight * 0.70;
+          // Undo threshold: when item scrolls back down past 76% of viewport (hysteresis prevents flicker)
+          const undoThreshold = windowHeight * 0.76;
+
+          setCompletedStops((prev) => {
+            let changed = false;
+            const next = { ...prev };
+            items.forEach((item) => {
+              const rect = item.getBoundingClientRect();
+              const id = item.dataset.id;
+              if (rect.top <= checkThreshold) {
+                // Scrolled past or into active view -> Check
+                if (!next[id]) {
+                  next[id] = true;
+                  changed = true;
+                }
+              } else if (rect.top > undoThreshold) {
+                // Scrolled back up so item moves down past undo threshold -> Undo
+                if (next[id]) {
+                  delete next[id];
+                  changed = true;
+                }
+              }
+            });
+            return changed ? next : prev;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScrollTimeline, { passive: true });
@@ -179,7 +237,15 @@ export default function PhuongTienPage() {
   };
 
   const toggleStop = (id) => {
-    setCompletedStops(prev => ({ ...prev, [id]: !prev[id] }));
+    setCompletedStops(prev => {
+      const next = { ...prev };
+      if (next[id]) {
+        delete next[id];
+      } else {
+        next[id] = true;
+      }
+      return next;
+    });
   };
 
   // Filter transports based on modes
@@ -198,6 +264,80 @@ export default function PhuongTienPage() {
     return () => window.removeEventListener('keydown', handleKey);
   }, []);
 
+  const [expandedRow, setExpandedRow] = useState(null);
+
+  const toggleExpandRow = (key) => {
+    setExpandedRow(prev => prev === key ? null : key);
+  };
+
+  const handleOpenTransportModal = (slug) => {
+    const item = transportTypes.find(t => t.slug === slug);
+    if (item) setSelectedTransport(item);
+  };
+
+  const transportRows = [
+    {
+      key: 'car',
+      name: 'Ô Tô / Taxi Cao Tốc',
+      slug: 'o-to-ca-nhan',
+      icon: Car,
+      iconColor: '#C83228',
+      iconBg: 'rgba(200, 50, 40, 0.08)',
+      badge: 'Nhanh nhất',
+      badgeClass: 'badge-fastest',
+      time: route.car.time,
+      cost: route.car.cost,
+      desc: route.car.desc,
+      route: route.car.route,
+      tag: 'Phù hợp gia đình & đoàn bạn'
+    },
+    {
+      key: 'bus',
+      name: 'Xe Buýt Công Cộng',
+      slug: 'xe-khach-xe-buyt',
+      icon: Bus,
+      iconColor: '#2E7D32',
+      iconBg: 'rgba(46, 125, 50, 0.08)',
+      badge: 'Tiết kiệm nhất',
+      badgeClass: 'badge-cheapest',
+      time: route.bus.time,
+      cost: route.bus.cost,
+      desc: route.bus.desc,
+      route: route.bus.route,
+      tag: 'Tần suất 15–20 phút/chuyến'
+    },
+    {
+      key: 'moto',
+      name: 'Xe Máy Sông Đuống',
+      slug: 'xe-may',
+      icon: Bike,
+      iconColor: '#C4873A',
+      iconBg: 'rgba(196, 135, 58, 0.08)',
+      badge: 'Phượt tự do',
+      badgeClass: 'badge-scenic',
+      time: route.moto.time,
+      cost: route.moto.cost,
+      desc: route.moto.desc,
+      route: route.moto.route,
+      tag: 'Đường đê xanh mát check-in'
+    },
+    {
+      key: 'train',
+      name: 'Tàu Hỏa Hoài Niệm',
+      slug: 'tau-hoa',
+      icon: Train,
+      iconColor: '#1B3322',
+      iconBg: 'rgba(27, 51, 34, 0.08)',
+      badge: 'Trải nghiệm xưa',
+      badgeClass: 'badge-vintage',
+      time: route.train.time,
+      cost: route.train.cost,
+      desc: route.train.desc,
+      route: route.train.route,
+      tag: 'Vintage ngắm cảnh không tắc đường'
+    }
+  ];
+
   return (
     <div className="transport-page">
       {/* PARALLAX HERO */}
@@ -213,7 +353,7 @@ export default function PhuongTienPage() {
       {/* BREADCRUMB */}
       <Breadcrumb items={[{ label: 'Phương tiện di chuyển' }]} />
 
-      {/* 1. ROUTE ESTIMATOR */}
+      {/* 1. ROUTE ESTIMATOR — ROME2RIO / GOOGLE MAPS LIST ROW STYLE */}
       <section className="estimator-section">
         <div className="container">
           <div className="estimator-box">
@@ -227,10 +367,14 @@ export default function PhuongTienPage() {
               </span>
             </div>
 
-            <div className="estimator-inputs">
-              <div className="input-group">
-                <label className="input-label">ĐIỂM XUẤT PHÁT (HÀ NỘI)</label>
-                <select className="select-styled" value={origin} onChange={handleOriginChange}>
+            {/* MODERN DUAL-INPUT ROUTE CAPSULE (REMOVED REDUNDANT BUTTON) */}
+            <div className="estimator-inputs-modern">
+              <div className="input-group-modern">
+                <label className="input-label-modern">
+                  <MapPin size={15} color="#C83228" />
+                  <span>ĐIỂM XUẤT PHÁT (HÀ NỘI)</span>
+                </label>
+                <select className="select-modern" value={origin} onChange={handleOriginChange}>
                   <option value="hanoi_center">Hà Nội (Hồ Gươm / Phố Cổ)</option>
                   <option value="my_dinh">Bến xe Mỹ Đình (Cầu Giấy)</option>
                   <option value="long_bien">Bến xe Long Biên (Ba Đình)</option>
@@ -239,11 +383,16 @@ export default function PhuongTienPage() {
                 </select>
               </div>
               
-              <div className="swap-arrow"><ArrowRight size={20} /></div>
+              <div className="swap-arrow-modern">
+                <ArrowRight size={20} />
+              </div>
 
-              <div className="input-group">
-                <label className="input-label">ĐIỂM ĐẾN TẠI BẮC NINH</label>
-                <select className="select-styled" value={destination} onChange={handleDestinationChange}>
+              <div className="input-group-modern">
+                <label className="input-label-modern">
+                  <Compass size={15} color="#D4A853" />
+                  <span>ĐIỂM ĐẾN TẠI BẮC NINH</span>
+                </label>
+                <select className="select-modern" value={destination} onChange={handleDestinationChange}>
                   <option value="bac_ninh_city">TP. Bắc Ninh (Trung tâm ẩm thực & văn hóa)</option>
                   <option value="den_do">Đền Đô (TP. Từ Sơn)</option>
                   <option value="chua_phat_tich">Chùa Phật Tích (Tiên Du)</option>
@@ -252,145 +401,222 @@ export default function PhuongTienPage() {
                   <option value="gom_phu_lang">Làng Gốm Phù Lãng (Quế Võ)</option>
                 </select>
               </div>
-
-              <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                <div style={{
-                  padding: '12px 18px',
-                  borderRadius: '10px',
-                  background: '#6B3A2A',
-                  color: '#FFFFFF',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  whiteSpace: 'nowrap',
-                  boxShadow: '0 2px 8px rgba(107, 58, 42, 0.2)'
-                }}>
-                  <Check size={16} /> Đã đồng bộ kết quả
-                </div>
-              </div>
             </div>
 
-            {/* 4 COMPARE CARDS — Dynamically updating */}
-            <div className={`compare-grid ${isUpdating ? 'pulse-update' : ''}`}>
-              {/* CARD 1: CAR / TAXI */}
-              <div className="compare-card recommended">
-                <span className="badge-recommend" style={{ display: 'inline-flex', alignItems: 'center' }}>
-                  <Zap size={12} style={{ marginRight: '4px' }} /> Nhanh nhất
-                </span>
-                <div className="comp-top">
-                  <span className="comp-icon"><Car size={24} color="#C83228" /></span>
-                  <span className="comp-time"><Clock size={13} /> {route.car.time}</span>
-                </div>
-                <h4 className="comp-name">Ô Tô / Taxi Cao Tốc</h4>
-                <div className="comp-cost">{route.car.cost}</div>
-                <p style={{ fontSize: '0.8125rem', color: '#7A6A5A', lineHeight: 1.5, margin: '8px 0', flexGrow: 1 }}>
-                  {route.car.desc}
-                </p>
-                <div style={{ fontSize: '0.75rem', color: '#9A8A7A', borderTop: '1px dashed rgba(107,58,42,0.15)', paddingTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <MapPin size={12} color="#C83228" /> {route.car.route}
-                </div>
-              </div>
+            {/* ROME2RIO / GOOGLE MAPS HORIZONTAL LIST ROWS */}
+            <div className={`route-list-container ${isUpdating ? 'pulse-update' : ''}`}>
+              {transportRows.map((item) => {
+                const isExpanded = expandedRow === item.key;
+                return (
+                  <div 
+                    key={item.key} 
+                    className={`route-row-card ${isExpanded ? 'is-expanded' : ''} ${item.key === 'car' ? 'is-recommended' : ''}`}
+                  >
+                    <div className="route-row-main" onClick={() => toggleExpandRow(item.key)}>
+                      {/* Column 1: Mode & Badges */}
+                      <div className="route-col-mode">
+                        <div className="route-mode-icon-box" style={{ background: item.iconBg, color: item.iconColor }}>
+                          <item.icon size={26} />
+                        </div>
+                        <div className="route-mode-meta">
+                          <div className="route-mode-title">{item.name}</div>
+                          <div className="route-mode-tags">
+                            <span className={`route-badge ${item.badgeClass}`}>
+                              {item.badge}
+                            </span>
+                            <span className="route-sub-tag">{item.tag}</span>
+                          </div>
+                        </div>
+                      </div>
 
-              {/* CARD 2: BUS */}
-              <div className="compare-card">
-                <span className="badge-recommend" style={{ background: '#2E7D32', display: 'inline-flex', alignItems: 'center' }}>
-                  <Coins size={12} style={{ marginRight: '4px' }} /> Tiết kiệm nhất
-                </span>
-                <div className="comp-top">
-                  <span className="comp-icon"><Bus size={24} color="#2E7D32" /></span>
-                  <span className="comp-time"><Clock size={13} /> {route.bus.time}</span>
-                </div>
-                <h4 className="comp-name">Xe Buýt Công Cộng</h4>
-                <div className="comp-cost">{route.bus.cost}</div>
-                <p style={{ fontSize: '0.8125rem', color: '#7A6A5A', lineHeight: 1.5, margin: '8px 0', flexGrow: 1 }}>
-                  {route.bus.desc}
-                </p>
-                <div style={{ fontSize: '0.75rem', color: '#9A8A7A', borderTop: '1px dashed rgba(107,58,42,0.15)', paddingTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <MapPin size={12} color="#2E7D32" /> {route.bus.route}
-                </div>
-              </div>
+                      {/* Column 2: Journey & Path */}
+                      <div className="route-col-journey">
+                        <div className="route-time-highlight">
+                          <Clock size={16} />
+                          <span>{item.time}</span>
+                        </div>
+                        <div className="route-path-summary" title={item.route}>
+                          <MapPin size={13} color="#C83228" />
+                          <span>{item.route}</span>
+                        </div>
+                      </div>
 
-              {/* CARD 3: MOTORBIKE */}
-              <div className="compare-card">
-                <div className="comp-top">
-                  <span className="comp-icon"><Bike size={24} color="#B8781B" /></span>
-                  <span className="comp-time"><Clock size={13} /> {route.moto.time}</span>
-                </div>
-                <h4 className="comp-name">Xe Máy Sông Đuống</h4>
-                <div className="comp-cost">{route.moto.cost}</div>
-                <p style={{ fontSize: '0.8125rem', color: '#7A6A5A', lineHeight: 1.5, margin: '8px 0', flexGrow: 1 }}>
-                  {route.moto.desc}
-                </p>
-                <div style={{ fontSize: '0.75rem', color: '#9A8A7A', borderTop: '1px dashed rgba(107,58,42,0.15)', paddingTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <MapPin size={12} color="#B8781B" /> {route.moto.route}
-                </div>
-              </div>
+                      {/* Column 3: Fare */}
+                      <div className="route-col-fare">
+                        <div className="route-fare-amount">{item.cost}</div>
+                        <div className="route-fare-note">Ước tính trọn chuyến</div>
+                      </div>
 
-              {/* CARD 4: TRAIN */}
-              <div className="compare-card">
-                <div className="comp-top">
-                  <span className="comp-icon"><Train size={24} color="#1B3322" /></span>
-                  <span className="comp-time"><Clock size={13} /> {route.train.time}</span>
-                </div>
-                <h4 className="comp-name">Tàu Hỏa Hoài Niệm</h4>
-                <div className="comp-cost">{route.train.cost}</div>
-                <p style={{ fontSize: '0.8125rem', color: '#7A6A5A', lineHeight: 1.5, margin: '8px 0', flexGrow: 1 }}>
-                  {route.train.desc}
-                </p>
-                <div style={{ fontSize: '0.75rem', color: '#9A8A7A', borderTop: '1px dashed rgba(107,58,42,0.15)', paddingTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <MapPin size={12} color="#1B3322" /> {route.train.route}
-                </div>
-              </div>
+                      {/* Column 4: Actions */}
+                      <div className="route-col-cta" onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          className="btn-route-action"
+                          onClick={() => handleOpenTransportModal(item.slug)}
+                        >
+                          <span>Chi tiết</span>
+                          <ArrowRight size={14} />
+                        </button>
+                        <button 
+                          className={`btn-route-toggle ${isExpanded ? 'open' : ''}`}
+                          onClick={() => toggleExpandRow(item.key)}
+                          aria-label="Xem thêm thông tin lộ trình"
+                        >
+                          <ChevronDown size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Accordion Drawer */}
+                    {isExpanded && (
+                      <div className="route-accordion-drawer">
+                        <div className="route-drawer-content">
+                          <div className="drawer-item">
+                            <strong>Trải nghiệm thực tế:</strong>
+                            <p>{item.desc}</p>
+                          </div>
+                          <div className="drawer-item">
+                            <strong>Lời khuyên di chuyển:</strong>
+                            <p>
+                              {item.key === 'car' && 'Nên đi theo hướng Cầu Thanh Trì hoặc Cầu Chương Dương để nhập làn cao tốc QL1A Mới. Chuẩn bị sẵn tài khoản ETC không dừng.'}
+                              {item.key === 'bus' && 'Bến xe Long Biên là điểm đầu tuyến buýt 54. Bạn có thể thanh toán vé lượt trực tiếp hoặc quẹt thẻ buýt VinBus nếu đi các tuyến trung chuyển.'}
+                              {item.key === 'moto' && 'Đoạn đường đê sông Đuống thoáng mát, ít xe tải lớn, phong cảnh hữu tình phù hợp dừng chân chụp ảnh đồng quê Kinh Bắc.'}
+                              {item.key === 'train' && 'Tàu khởi hành từ Ga Long Biên (Hà Nội) dừng tại Ga Từ Sơn và Ga Bắc Ninh. Chuyến đi êm ái, phù hợp trải nghiệm văn hóa hoài niệm.'}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. QUICK-DIAL HOTLINE */}
-      <section className="quickdial-section">
+      {/* 2. QUICK-DIAL HOTLINE - VIP CONCIERGE 2-COLUMN GRID */}
+      <section className="concierge-section" id="hotline-concierge">
         <div className="container">
-          <div className="quickdial-wrapper">
-            <div className="quickdial-bar">
-              <div className="quickdial-title">
-                <PhoneCall size={18} color="#C83228" />
-                <span>Gọi nhanh Taxi & Xe máy địa phương</span>
+          <div className="concierge-wrapper">
+            <div className="concierge-header">
+              <div className="concierge-header-left">
+                <div className="concierge-header-icon">
+                  <PhoneCall size={22} color="#C83228" />
+                </div>
+                <div>
+                  <h3 className="concierge-header-title">Gọi Nhanh Taxi & Dịch Vụ Đưa Đón Địa Phương (24/7)</h3>
+                  <p className="concierge-header-sub">Danh bạ uy tín, phục vụ 24/7, giá niêm yết rõ ràng và tài xế bản địa thông thạo đường</p>
+                </div>
               </div>
+              <span className="concierge-verified-badge">
+                <Shield size={14} color="#2E7D32" /> Hotline Đã Xác Thực
+              </span>
             </div>
-            <div className="quickdial-grid">
-              <div className="dial-card">
-                <div className="dial-info">
-                  <strong><Car size={14} color="#C83228" /> Taxi Mai Linh</strong>
-                  <span>4–7 chỗ toàn tỉnh</span>
+
+            <div className="concierge-grid-2col">
+              {/* Card 1: Taxi Mai Linh */}
+              <div className="concierge-card-vip">
+                <div className="concierge-icon-squircle" style={{ background: 'rgba(200, 50, 40, 0.08)', color: '#C83228' }}>
+                  <Car size={24} />
                 </div>
-                <a href="tel:02223895895" className="btn-dial"><Phone size={14} /> 0222.389.5895</a>
+                <div className="concierge-details">
+                  <div className="concierge-title-line">
+                    <h4 className="concierge-brand-name">Taxi Mai Linh Bắc Ninh</h4>
+                    <span className="concierge-status-pill online">24/7 Có Xe</span>
+                  </div>
+                  <p className="concierge-service-desc">Đội xe 4–7 chỗ đời mới • Đón nhanh toàn tỉnh & sân bay</p>
+                  <div className="concierge-feature-pills">
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Đồng hồ chuẩn</span>
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Hóa đơn VAT</span>
+                  </div>
+                </div>
+                <div className="concierge-call-box">
+                  <a href="tel:02223895895" className="btn-concierge-hotline">
+                    <Phone size={14} />
+                    <span>0222.389.5895</span>
+                  </a>
+                </div>
               </div>
-              <div className="dial-card">
-                <div className="dial-info">
-                  <strong><Car size={14} color="#C83228" /> Taxi Sao Mai</strong>
-                  <span>Giá niêm yết rõ ràng</span>
+
+              {/* Card 2: Taxi Sao Mai */}
+              <div className="concierge-card-vip">
+                <div className="concierge-icon-squircle" style={{ background: 'rgba(184, 120, 27, 0.08)', color: '#B8781B' }}>
+                  <Car size={24} />
                 </div>
-                <a href="tel:02223875875" className="btn-dial"><Phone size={14} /> 0222.387.5875</a>
+                <div className="concierge-details">
+                  <div className="concierge-title-line">
+                    <h4 className="concierge-brand-name">Taxi Sao Mai Bắc Ninh</h4>
+                    <span className="concierge-status-pill gold">Tiết Kiệm</span>
+                  </div>
+                  <p className="concierge-service-desc">Hãng taxi uy tín lâu năm • Phủ sóng TP. Bắc Ninh & Từ Sơn</p>
+                  <div className="concierge-feature-pills">
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Giá niêm yết</span>
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Tài xế bản địa</span>
+                  </div>
+                </div>
+                <div className="concierge-call-box">
+                  <a href="tel:02223875875" className="btn-concierge-hotline">
+                    <Phone size={14} />
+                    <span>0222.387.5875</span>
+                  </a>
+                </div>
               </div>
-              <div className="dial-card">
-                <div className="dial-info">
-                  <strong><Bike size={14} color="#B8781B" /> Thuê xe máy</strong>
-                  <span>Giao tận Ga & Bến</span>
+
+              {/* Card 3: Thuê xe máy */}
+              <div className="concierge-card-vip">
+                <div className="concierge-icon-squircle" style={{ background: 'rgba(196, 135, 58, 0.08)', color: '#C4873A' }}>
+                  <Bike size={24} />
                 </div>
-                <a href="tel:0986543210" className="btn-dial"><Phone size={14} /> 0986.543.210</a>
+                <div className="concierge-details">
+                  <div className="concierge-title-line">
+                    <h4 className="concierge-brand-name">Thuê Xe Máy Du Lịch</h4>
+                    <span className="concierge-status-pill green">Giao Tận Nơi</span>
+                  </div>
+                  <p className="concierge-service-desc">Xe số & xe ga mới bảo dưỡng • Giao tại Ga Bắc Ninh & Khách sạn</p>
+                  <div className="concierge-feature-pills">
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Kèm 2 mũ bảo hiểm</span>
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Hỗ trợ 24/7</span>
+                  </div>
+                </div>
+                <div className="concierge-call-box">
+                  <a href="tel:0986543210" className="btn-concierge-hotline">
+                    <Phone size={14} />
+                    <span>0986.543.210</span>
+                  </a>
+                </div>
               </div>
-              <div className="dial-card">
-                <div className="dial-info">
-                  <strong><Smartphone size={14} color="#2E7D32" /> App gọi xe</strong>
-                  <span>Grab, Xanh SM, Be</span>
+
+              {/* Card 4: App gọi xe */}
+              <div className="concierge-card-vip">
+                <div className="concierge-icon-squircle" style={{ background: 'rgba(21, 101, 192, 0.08)', color: '#1565C0' }}>
+                  <Smartphone size={24} />
                 </div>
-                <span className="btn-dial" style={{ cursor: 'default' }}><Zap size={14} /> Mở App</span>
+                <div className="concierge-details">
+                  <div className="concierge-title-line">
+                    <h4 className="concierge-brand-name">App Gọi Xe Công Nghệ</h4>
+                    <span className="concierge-status-pill blue">Grab • Xanh SM • Be</span>
+                  </div>
+                  <p className="concierge-service-desc">Đặt xe nhanh qua ứng dụng • Biết trước cước phí & lộ trình</p>
+                  <div className="concierge-feature-pills">
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Xe máy & Ô tô</span>
+                    <span className="concierge-pill"><Check size={11} strokeWidth={2.5} /> Không lo tiền lẻ</span>
+                  </div>
+                </div>
+                <div className="concierge-call-box">
+                  <button 
+                    className="btn-concierge-app"
+                    onClick={() => handleOpenTransportModal('taxi-cong-nghe')}
+                  >
+                    <Zap size={14} />
+                    <span>Xem Hướng Dẫn</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* 3. FILTER BAR — Auto-apply, clean moderate radius, breathable gap */}
       <section style={{ padding: '24px 0 12px' }}>
@@ -461,19 +687,24 @@ export default function PhuongTienPage() {
                 <div key={item.id} className="trans-card">
                   {/* 1. Header Card: Icon (left) + Badge (right) */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                    <div style={{
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '10px',
-                      background: '#FAF7F2',
-                      border: '1px solid rgba(107, 58, 42, 0.08)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.5rem'
-                    }}>
-                      {item.icon}
-                    </div>
+                    {(() => {
+                      const TransportCardIcon = transportIconMap[item.slug] || Car;
+                      return (
+                        <div style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '10px',
+                          background: '#FAF7F2',
+                          border: '1px solid rgba(107, 58, 42, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#6B3A2A'
+                        }}>
+                          <TransportCardIcon size={22} strokeWidth={2.2} />
+                        </div>
+                      );
+                    })()}
                     {badge && (
                       <span style={{
                         background: badge.bg,
@@ -532,7 +763,7 @@ export default function PhuongTienPage() {
                     {item.summary}
                   </p>
 
-                  {/* 5. Highlights: Dạng Bullet list với icon checkmark ✓ xanh lục bảo */}
+                  {/* 5. Highlights: Dạng Bullet list với icon Check SVG xanh lục bảo */}
                   {item.pros && (
                     <div style={{ marginBottom: '14px', flexGrow: 1 }}>
                       {item.pros.slice(0, 2).map((p, idx) => (
@@ -573,103 +804,92 @@ export default function PhuongTienPage() {
         </div>
       </section>
 
-      {/* 5. ITINERARY TIMELINE — TODO LIST SCROLL EFFECT */}
+      {/* 5. ITINERARY TIMELINE — TODO LIST SCROLL EFFECT WITH AUTO-CHECK & UNDO */}
       <section className="section" style={{ background: 'var(--surface)' }}>
         <div className="container">
-          <div className="section-header">
+          <div className="section-header" style={{ marginBottom: '32px' }}>
             <span className="tag-badge">Lịch Trình Tối Ưu</span>
             <h2 className="section-title">Lộ Trình Du Lịch Mẫu (Checklist Trải Nghiệm)</h2>
-            <p className="section-desc">Bấm vào từng chặng để đánh dấu hoàn thành như danh sách Todo List hành trình</p>
+            <p className="section-desc">Cuộn xuống để tự động đánh dấu hoàn thành, cuộn ngược lại để hoàn tác (undo)</p>
+            
+            {/* Live Progress Pill */}
+            {(() => {
+              const doneCount = itineraries.filter(i => !!completedStops[i.id]).length;
+              return (
+                <div style={{ marginTop: '4px' }}>
+                  <div className="timeline-progress-pill">
+                    <span className="progress-dot-indicator" />
+                    <span>Tiến độ hành trình: {doneCount}/{itineraries.length} chặng hoàn thành</span>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
-          <div ref={timelineRef} style={{ position: 'relative', maxWidth: '720px', margin: '0 auto' }}>
-            {/* Timeline vertical bar */}
-            <div style={{
-              position: 'absolute',
-              left: '23px',
-              top: '10px',
-              bottom: '20px',
-              width: '2px',
-              background: 'linear-gradient(180deg, #059669 0%, #C83228 50%, rgba(200,50,40,0.1) 100%)',
-            }} />
+          <div ref={timelineRef} className="timeline-checklist-wrapper">
+            {/* Base grey track */}
+            <div className="timeline-track-base" />
 
-            {itineraries.map((itin, idx) => {
+            {/* Dynamic green progress line that fills on scroll down and retracts on scroll up */}
+            {(() => {
+              const doneCount = itineraries.filter(i => !!completedStops[i.id]).length;
+              const pct = doneCount === 0 
+                ? 0 
+                : Math.min(100, Math.round(((doneCount - 1) / (itineraries.length - 1)) * 100));
+              return (
+                <div 
+                  className="timeline-track-active" 
+                  style={{ height: `${pct}%` }} 
+                />
+              );
+            })()}
+
+            {itineraries.map((itin) => {
               const isDone = !!completedStops[itin.id];
               return (
                 <div 
                   key={itin.id} 
                   data-id={itin.id}
-                  className="timeline-step-item"
+                  className={`timeline-step-item ${isDone ? 'is-done' : ''}`}
                   onClick={() => toggleStop(itin.id)}
-                  style={{
-                    display: 'flex',
-                    gap: '20px',
-                    marginBottom: '24px',
-                    position: 'relative',
-                    cursor: 'pointer'
-                  }}
+                  title={isDone ? 'Bấm để hoàn tác (undo)' : 'Bấm để đánh dấu hoàn thành'}
                 >
-                  {/* Timeline interactive checkbox dot */}
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    background: isDone ? '#059669' : '#FFFFFF',
-                    border: isDone ? '2px solid #059669' : '2px solid #C83228',
-                    color: isDone ? '#FFFFFF' : '#C83228',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    fontSize: '1.15rem',
-                    zIndex: 2,
-                    boxShadow: isDone ? '0 4px 12px rgba(5,150,105,0.3)' : '0 2px 8px rgba(200,50,40,0.15)',
-                    transition: 'all 0.25s ease'
-                  }}>
-                    {isDone ? <Check size={20} strokeWidth={3} /> : itin.icon}
-                  </div>
+                  {/* Timeline interactive checkbox dot with icon morphing */}
+                  {(() => {
+                    const ItinIcon = itineraryIcons[itin.id] || Compass;
+                    return (
+                      <div className="timeline-dot">
+                        <div className="timeline-icon-box">
+                          <span className="timeline-icon-check">
+                            <Check size={20} strokeWidth={3} />
+                          </span>
+                          <span className="timeline-icon-emoji">
+                            <ItinIcon size={18} strokeWidth={2.2} />
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                   {/* Content card */}
-                  <div style={{
-                    flex: 1,
-                    background: isDone ? '#F4FBF7' : '#FFFFFF',
-                    borderRadius: '12px',
-                    padding: '16px 20px',
-                    border: isDone ? '1px solid rgba(5,150,105,0.25)' : '1px solid rgba(107,58,42,0.08)',
-                    boxShadow: '0 2px 8px rgba(74,37,24,0.04)',
-                    transition: 'all 0.25s ease'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <h4 style={{
-                          fontSize: '0.96rem',
-                          fontWeight: 700,
-                          color: isDone ? '#059669' : 'var(--color-primary-dark)',
-                          textDecoration: isDone ? 'none' : 'none'
-                        }}>
+                  <div className="timeline-card">
+                    <div className="timeline-card-header">
+                      <div className="timeline-card-title-line">
+                        <h4 className="timeline-card-title">
                           {itin.title}
                         </h4>
-                        {isDone && (
-                          <span style={{ fontSize: '0.7rem', color: '#059669', background: 'rgba(5,150,105,0.1)', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
-                            ✓ Đã hoàn thành
-                          </span>
-                        )}
+                        <span className="timeline-badge-completed">
+                          <Check size={12} strokeWidth={2.5} style={{ marginRight: '4px' }} /> Đã hoàn thành
+                        </span>
                       </div>
-                      <span style={{
-                        fontSize: '0.6875rem',
-                        fontWeight: 600,
-                        color: '#C83228',
-                        background: 'rgba(200,50,40,0.08)',
-                        padding: '2px 8px',
-                        borderRadius: '4px',
-                      }}>
+                      <span className="timeline-badge-target">
                         {itin.target}
                       </span>
                     </div>
-                    <p style={{ fontSize: '0.8125rem', color: '#7A6A5A', lineHeight: 1.5, marginBottom: '6px' }}>
+                    <p className="timeline-card-route">
                       {itin.route}
                     </p>
-                    <div style={{ fontSize: '0.75rem', color: '#B8781B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div className="timeline-card-highlight">
                       <Sparkles size={13} /> {itin.highlight}
                     </div>
                   </div>
@@ -789,17 +1009,35 @@ export default function PhuongTienPage() {
 
             {/* Panel header */}
             <div className="popover-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ fontSize: '1.75rem' }}>{selectedTransport.icon}</span>
-                <div>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-primary-dark)', margin: 0 }}>
-                    {selectedTransport.name}
-                  </h3>
-                  <span style={{ fontSize: '0.75rem', color: '#9A8A7A', fontWeight: 500 }}>
-                    {selectedTransport.category}
-                  </span>
-                </div>
-              </div>
+              {(() => {
+                const DrawerIcon = transportIconMap[selectedTransport.slug] || Car;
+                return (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '10px',
+                      background: '#FAF7F2',
+                      border: '1px solid rgba(107, 58, 42, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#6B3A2A',
+                      flexShrink: 0
+                    }}>
+                      <DrawerIcon size={22} strokeWidth={2.2} />
+                    </div>
+                    <div>
+                      <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-primary-dark)', margin: 0 }}>
+                        {selectedTransport.name}
+                      </h3>
+                      <span style={{ fontSize: '0.75rem', color: '#9A8A7A', fontWeight: 500 }}>
+                        {selectedTransport.category}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })()}
               <button
                 onClick={() => setSelectedTransport(null)}
                 style={{

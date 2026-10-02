@@ -89,32 +89,32 @@ export const cultureData = {
   ],
   experiences: [
     {
-      icon: "🎶",
+      iconName: "Music",
       title: "Nghe canh hát Quan họ cổ",
       desc: "Lắng nghe nghệ nhân cất giọng mộc không micro trong không gian nhà chứa Quan họ hoặc sân đình ấm cúng."
     },
     {
-      icon: "👘",
+      iconName: "Sparkles",
       title: "Mặc thử áo tứ thân & nón quai thao",
       desc: "Trải nghiệm hóa thân thành liền anh, liền chị duyên dáng và lưu lại những khung hình kỷ niệm tuyệt đẹp."
     },
     {
-      icon: "🗣️",
+      iconName: "Mic",
       title: "Tập hát đối một câu Quan họ",
       desc: "Học cách lấy hơi, luyến láy và thử hát câu đáp 'Người ở đừng về' cùng các nghệ nhân bản địa."
     },
     {
-      icon: "🍃",
+      iconName: "Leaf",
       title: "Tự tay têm trầu cánh phượng",
       desc: "Học nghệ thuật têm trầu cánh phượng tỉ mỉ và tìm hiểu triết lý giao tiếp thanh lịch của người xưa."
     },
     {
-      icon: "🛶",
+      iconName: "Compass",
       title: "Đi thuyền rồng nghe Quan họ",
       desc: "Ngồi trên thuyền rồng bồng bềnh giữa hồ nước biếc trong các dịp lễ hội rằm tháng Giêng (Hội Lim)."
     },
     {
-      icon: "🏘️",
+      iconName: "Home",
       title: "Tản bộ qua những con ngõ cổ",
       desc: "Dạo bước trên đường làng lát gạch nghiêng, ngắm nhìn giếng ngọc, cây đa trăm tuổi và nhà cổ Bắc Bộ."
     }

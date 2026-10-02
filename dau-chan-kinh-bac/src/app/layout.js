@@ -10,6 +10,11 @@ export const metadata = {
   title: 'Dấu chân Kinh Bắc – Khám phá Du lịch Bắc Ninh',
   description: 'Cẩm nang du lịch Kinh Bắc toàn diện – Điểm đến, Ẩm thực, Văn hóa Quan họ, Làng nghề truyền thống, Lưu trú và Phương tiện. Khám phá – Trải nghiệm – Lưu dấu.',
   keywords: 'du lịch Bắc Ninh, Kinh Bắc, Quan họ, Đền Đô, Chùa Dâu, ẩm thực Bắc Ninh, làng nghề Bắc Ninh',
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
 };
 
 export default function RootLayout({ children }) {

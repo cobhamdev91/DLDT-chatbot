@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, X, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { Search, X, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react';
 import { craftVillages } from '@/data/craftVillages';
 import ParallaxHero from '@/components/ParallaxHero';
 import { siteContent } from '@/data/content';
@@ -83,7 +83,7 @@ export default function LangNghePage() {
                 frontTitle={v.name}
                 frontBadge={v.category}
                 backTitle={v.name}
-                backContent={v.history?.substring(0, 100) + '...'}
+                backContent={v.history ? (v.history.split('.')[0] + '.') : ''}
                 href={`/lang-nghe/${v.slug}`}
                 backFooter={
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
@@ -96,22 +96,10 @@ export default function LangNghePage() {
                   </div>
                 }
               >
-                {v.highlights && (
-                  <div style={{ marginTop: '8px' }}>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                      {v.highlights.slice(0, 2).map((h, idx) => (
-                        <span key={idx} style={{
-                          fontSize: '0.72rem',
-                          background: 'rgba(200,50,40,0.06)',
-                          color: '#C83228',
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          fontWeight: 600
-                        }}>
-                          {h}
-                        </span>
-                      ))}
-                    </div>
+                {v.highlights?.[0] && (
+                  <div className="flip-card-highlight-badge">
+                    <span className="flip-card-highlight-icon"><Sparkles size={12} color="#D4A853" /></span>
+                    <span className="flip-card-highlight-text">{v.highlights[0]}</span>
                   </div>
                 )}
               </FlipCard>

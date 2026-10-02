@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Sparkles, Lightbulb, ShieldCheck, Check, MapPin, Landmark, Clock, Users, Navigation, Utensils } from 'lucide-react';
 import { destinations } from '@/data/destinations';
 import Breadcrumb from '@/components/Breadcrumb';
 
@@ -91,7 +92,7 @@ export default async function DestinationDetailPage({ params }) {
                 <div className="highlights-grid">
                   {dest.highlights.map((item, idx) => (
                     <div key={idx} className="highlight-pill">
-                      <span className="highlight-dot">✦</span>
+                      <span className="highlight-dot"><Sparkles size={14} color="#D4A853" /></span>
                       <span>{item}</span>
                     </div>
                   ))}
@@ -104,7 +105,7 @@ export default async function DestinationDetailPage({ params }) {
               <section className="content-block">
                 <h2>4. Trải nghiệm nên thử</h2>
                 <div className="experience-box">
-                  <span className="exp-icon">💡</span>
+                  <span className="exp-icon"><Lightbulb size={24} color="var(--color-primary)" /></span>
                   <p>{dest.experiences}</p>
                 </div>
               </section>
@@ -114,7 +115,9 @@ export default async function DestinationDetailPage({ params }) {
             {dest.didYouKnow && (
               <section className="content-block">
                 <div className="funfact-box">
-                  <h3>🌟 Bạn có biết?</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Sparkles size={20} color="var(--color-gold-dark)" /> Bạn có biết?
+                  </h3>
                   <p>{dest.didYouKnow}</p>
                 </div>
               </section>
@@ -124,11 +127,13 @@ export default async function DestinationDetailPage({ params }) {
             {dest.saferCheck && dest.saferCheck.length > 0 && (
               <section className="content-block">
                 <div className="safer-box">
-                  <h3>🛡️ Cẩm nang SAFER CHECK – Du lịch Văn minh & An toàn</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <ShieldCheck size={22} color="var(--color-primary)" /> Cẩm nang SAFER CHECK – Du lịch Văn minh & An toàn
+                  </h3>
                   <ul className="safer-list">
                     {dest.saferCheck.map((rule, idx) => (
                       <li key={idx}>
-                        <span className="check-icon">✓</span>
+                        <span className="check-icon"><Check size={16} strokeWidth={2.5} /></span>
                         <span>{rule}</span>
                       </li>
                     ))}
@@ -145,42 +150,52 @@ export default async function DestinationDetailPage({ params }) {
               <ul className="info-list">
                 {dest.quickInfo?.location && (
                   <li>
-                    <strong>📍 Địa điểm:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <MapPin size={15} /> Địa điểm:
+                    </strong>
                     <span>{dest.quickInfo.location}</span>
                   </li>
                 )}
                 {dest.quickInfo?.type && (
                   <li>
-                    <strong>🏛️ Loại hình:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <Landmark size={15} /> Loại hình:
+                    </strong>
                     <span>{dest.quickInfo.type}</span>
                   </li>
                 )}
                 {dest.quickInfo?.duration && (
                   <li>
-                    <strong>⏱️ Thời gian tham quan:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <Clock size={15} /> Thời gian tham quan:
+                    </strong>
                     <span>{dest.quickInfo.duration}</span>
                   </li>
                 )}
                 {dest.quickInfo?.suitableFor && (
                   <li>
-                    <strong>👥 Phù hợp với:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <Users size={15} /> Phù hợp với:
+                    </strong>
                     <span>{dest.quickInfo.suitableFor}</span>
                   </li>
                 )}
                 {dest.quickInfo?.specialty && (
                   <li>
-                    <strong>✨ Giá trị nổi bật:</strong>
+                    <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <Sparkles size={15} /> Giá trị nổi bật:
+                    </strong>
                     <span>{dest.quickInfo.specialty}</span>
                   </li>
                 )}
               </ul>
 
               <div className="sidebar-cta">
-                <Link href="/phuong-tien" className="btn btn-outline full-width">
-                  🚗 Xem hướng dẫn di chuyển
+                <Link href="/phuong-tien" className="btn btn-outline full-width" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <Navigation size={16} /> Xem hướng dẫn di chuyển
                 </Link>
-                <Link href="/am-thuc" className="btn btn-primary full-width" style={{ marginTop: '10px' }}>
-                  🥢 Món ngon gần điểm này
+                <Link href="/am-thuc" className="btn btn-primary full-width" style={{ marginTop: '10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <Utensils size={16} /> Món ngon gần điểm này
                 </Link>
               </div>
             </div>

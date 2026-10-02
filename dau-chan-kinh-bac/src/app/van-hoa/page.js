@@ -172,8 +172,8 @@ export default function VanHoaPage() {
               backTitle={p.title}
               backContent={p.desc}
               backFooter={
-                <span style={{ color: '#D4A853', fontWeight: 600, fontSize: '0.8125rem' }}>
-                  🏛️ Di sản văn hóa Kinh Bắc
+                <span style={{ color: '#D4A853', fontWeight: 600, fontSize: '0.8125rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                  <Landmark size={14} /> Di sản văn hóa Kinh Bắc
                 </span>
               }
             />

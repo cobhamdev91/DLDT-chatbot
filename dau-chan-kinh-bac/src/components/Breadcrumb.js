@@ -1,34 +1,22 @@
-
-
 import Link from 'next/link';
 import { ChevronRight, Home } from 'lucide-react';
 
 export default function Breadcrumb({ items = [] }) {
   return (
-    <nav style={{
-      padding: '12px 0',
-      borderBottom: '1px solid rgba(107, 58, 42, 0.04)',
-    }}>
-      <div className="container" style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '6px',
-        fontSize: '0.8125rem',
-        color: '#9A8A7A',
-        flexWrap: 'wrap',
-      }}>
-        <Link href="/" style={{ color: '#9A8A7A', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-          <Home size={13} /> Trang chủ
+    <nav aria-label="Breadcrumb" className="breadcrumb-nav">
+      <div className="container breadcrumb-container">
+        <Link href="/" className="breadcrumb-link">
+          <Home size={14} /> <span>Trang chủ</span>
         </Link>
         {items.map((item, idx) => (
-          <span key={idx} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <ChevronRight size={12} />
+          <span key={idx} className="breadcrumb-item">
+            <ChevronRight size={13} className="breadcrumb-sep" />
             {item.href ? (
-              <Link href={item.href} style={{ color: '#9A8A7A', textDecoration: 'none' }}>
+              <Link href={item.href} className="breadcrumb-link">
                 {item.label}
               </Link>
             ) : (
-              <span style={{ color: '#3A2A1A', fontWeight: 600 }}>{item.label}</span>
+              <span className="breadcrumb-current">{item.label}</span>
             )}
           </span>
         ))}

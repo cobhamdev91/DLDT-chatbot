@@ -1,0 +1,74 @@
+<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Royal Lacquer Crimson Gradient -->
+    <linearGradient id="kbSealBg" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#9E1E16"/>
+      <stop offset="45%" stop-color="#7A130C"/>
+      <stop offset="100%" stop-color="#460805"/>
+    </linearGradient>
+
+    <!-- Imperial Burnished Gold Gradient -->
+    <linearGradient id="kbGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3CD"/>
+      <stop offset="25%" stop-color="#E8BE65"/>
+      <stop offset="55%" stop-color="#C29031"/>
+      <stop offset="85%" stop-color="#DCAB47"/>
+      <stop offset="100%" stop-color="#FFEAA8"/>
+    </linearGradient>
+
+    <!-- Glowing Ivory-Gold for Center Lotus -->
+    <linearGradient id="kbLotusCenter" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF7"/>
+      <stop offset="45%" stop-color="#F7DE9E"/>
+      <stop offset="100%" stop-color="#C7922D"/>
+    </linearGradient>
+
+    <!-- Drop Shadow Filter for Royal Seal -->
+    <filter id="kbGlow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- 1. Outer Imperial Lacquer Circle with Golden Rim -->
+  <circle cx="50" cy="50" r="47.5" fill="url(#kbSealBg)" filter="url(#kbGlow)"/>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="url(#kbGoldGrad)" stroke-width="2.2"/>
+  
+  <!-- 2. Traditional Bronze Drum Beaded Ring -->
+  <circle cx="50" cy="50" r="43.5" fill="none" stroke="url(#kbGoldGrad)" stroke-width="0.8" stroke-dasharray="1.2 2.2"/>
+  <circle cx="50" cy="50" r="40.5" fill="none" stroke="url(#kbGoldGrad)" stroke-width="0.5" opacity="0.65"/>
+
+  <!-- 3. Ly Dynasty Pagoda Finial (Đỉnh tháp & Châu ngọc) -->
+  <circle cx="50" cy="16.5" r="1.8" fill="#FFF9E6"/>
+  <path d="M 50 18 L 52.2 24 L 50 29 L 47.8 24 Z" fill="url(#kbLotusCenter)"/>
+
+  <!-- 4. Ly Dynasty Curved Pagoda Roof (Mái chùa cong di sản) -->
+  <path d="M 28 34.5 C 36 38.5 64 38.5 72 34.5 C 69 31 63 32 50 32.8 C 37 32 31 31 28 34.5 Z" fill="url(#kbGoldGrad)"/>
+  <!-- Left eave curve upwards -->
+  <path d="M 28 34.5 C 24 33.5 21.5 27.5 25.5 24.5 C 26.5 28.5 28.5 31.5 31.5 33.5 Z" fill="url(#kbGoldGrad)"/>
+  <!-- Right eave curve upwards -->
+  <path d="M 72 34.5 C 76 33.5 78.5 27.5 74.5 24.5 C 73.5 28.5 71.5 31.5 68.5 33.5 Z" fill="url(#kbGoldGrad)"/>
+
+  <!-- 5. Blooming Sacred Lotus (Hoa sen nở rực rỡ) -->
+  <!-- Outer Petals -->
+  <path d="M 42 47.5 C 30.5 52.5 29.5 63 41 68 C 38 62 40 54 42 47.5 Z" fill="url(#kbGoldGrad)" opacity="0.88"/>
+  <path d="M 58 47.5 C 69.5 52.5 70.5 63 59 68 C 62 62 60 54 58 47.5 Z" fill="url(#kbGoldGrad)" opacity="0.88"/>
+
+  <!-- Inner Petals -->
+  <path d="M 47.5 40.5 C 38.5 46.5 37.5 57.5 46.5 65.5 C 44.5 58.5 46.5 48.5 47.5 40.5 Z" fill="url(#kbGoldGrad)" opacity="0.95"/>
+  <path d="M 52.5 40.5 C 61.5 46.5 62.5 57.5 53.5 65.5 C 55.5 58.5 53.5 48.5 52.5 40.5 Z" fill="url(#kbGoldGrad)" opacity="0.95"/>
+
+  <!-- Center Petal -->
+  <path d="M 50 34.5 C 44 43.5 44 57.5 50 67.5 C 56 57.5 56 43.5 50 34.5 Z" fill="url(#kbLotusCenter)"/>
+
+  <!-- 6. Pedestal & Flowing Silk Waves of Song Duong (Dòng sông Đuống & Dải lụa Quan họ) -->
+  <!-- Lotus Pedestal -->
+  <path d="M 28 69.5 C 38 74.5 62 74.5 72 69.5 C 64 73.5 36 73.5 28 69.5 Z" fill="url(#kbLotusCenter)"/>
+  <!-- Primary Wave Ribbon -->
+  <path d="M 22 75.5 C 34 81.5 66 81.5 78 75.5 C 67 79.5 33 79.5 22 75.5 Z" fill="url(#kbGoldGrad)"/>
+  <!-- Secondary Wave Ripple -->
+  <path d="M 32 82.5 C 41 85.5 59 85.5 68 82.5 C 60 85 40 85 32 82.5 Z" fill="url(#kbGoldGrad)" opacity="0.75"/>
+
+  <!-- 7. Celestial Sparkles -->
+  <path d="M 24 20 Q 24 22 26 22 Q 24 22 24 24 Q 24 22 22 22 Q 24 22 24 20 Z" fill="#FFEAA8" opacity="0.85"/>
+  <path d="M 76 20 Q 76 22 78 22 Q 76 22 76 24 Q 76 22 74 22 Q 76 22 76 20 Z" fill="#FFEAA8" opacity="0.85"/>
+</svg>

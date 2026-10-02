@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
+import { useState, useRef, useEffect, useId } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { ArrowRight } from 'lucide-react';
 
 export default function FlipCard({ 
   image, 
@@ -19,8 +20,38 @@ export default function FlipCard({
 }) {
   const router = useRouter();
   const timerRef = useRef(null);
+  const cardRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hoverKey, setHoverKey] = useState(0);
+  const [dims, setDims] = useState({ w: 0, h: 0 });
+  const rawId = useId();
+  const gradientId = 'cardBorder-' + rawId.replace(/[^a-zA-Z0-9_-]/g, '');
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const el = cardRef.current;
+    const updateDims = () => {
+      if (el) {
+        setDims({ w: el.offsetWidth, h: el.offsetHeight });
+      }
+    };
+    updateDims();
+    const ro = new ResizeObserver(updateDims);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const handleMouseEnter = () => {
+    setIsHovered(true);
+    setHoverKey(prev => prev + 1);
     if (href) {
       timerRef.current = setTimeout(() => {
         router.push(href);
@@ -29,6 +60,7 @@ export default function FlipCard({
   };
 
   const handleMouseLeave = () => {
+    setIsHovered(false);
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
@@ -36,14 +68,69 @@ export default function FlipCard({
   };
 
   const handleBackClick = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
     if (href) {
       router.push(href);
     }
   };
 
+  const renderBorderSvg = () => {
+    if (!href) return null;
+    const strokeWidth = 3.5;
+    const offset = strokeWidth / 2;
+    const width = dims.w > strokeWidth ? dims.w - strokeWidth : 'calc(100% - 3.5px)';
+    const height = dims.h > strokeWidth ? dims.h - strokeWidth : 'calc(100% - 3.5px)';
+
+    return (
+      <svg 
+        className="flip-card-border-svg" 
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#D4A853" />
+            <stop offset="45%" stopColor="#E67E22" />
+            <stop offset="100%" stopColor="#C83228" />
+          </linearGradient>
+        </defs>
+        {/* Subtle guide track */}
+        <rect
+          className="flip-card-border-track"
+          x={offset}
+          y={offset}
+          width={width}
+          height={height}
+          rx="16"
+          ry="16"
+        />
+        {/* Animated running border progress */}
+        <rect
+          key={hoverKey}
+          className={`flip-card-border-stroke ${isHovered ? 'animating' : ''}`}
+          x={offset}
+          y={offset}
+          width={width}
+          height={height}
+          rx="16"
+          ry="16"
+          stroke={`url(#${gradientId})`}
+          pathLength="100"
+          strokeDasharray="100"
+          strokeDashoffset="100"
+          style={{
+            animationDuration: isHovered ? `${autoRedirectDelay}ms` : '0ms'
+          }}
+        />
+      </svg>
+    );
+  };
+
   return (
     <div 
-      className="flip-card"
+      ref={cardRef}
+      className={`flip-card ${isHovered ? 'flipped-hover' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -65,6 +152,7 @@ export default function FlipCard({
             <h3 className="flip-card-title">{frontTitle}</h3>
             {frontSubtitle && <p className="flip-card-subtitle">{frontSubtitle}</p>}
           </div>
+          {renderBorderSvg()}
         </div>
 
         {/* BACK — clickable for navigation */}
@@ -82,10 +170,15 @@ export default function FlipCard({
             <div className="flip-card-back-footer">{backFooter}</div>
           )}
           {href && (
-            <span className="flip-card-hint-back">Nhấn để xem chi tiết →</span>
+            <div className="flip-card-hint-back">
+              <span>Nhấn để xem chi tiết</span>
+              <ArrowRight size={13} />
+            </div>
           )}
+          {renderBorderSvg()}
         </div>
       </div>
     </div>
   );
 }
+
