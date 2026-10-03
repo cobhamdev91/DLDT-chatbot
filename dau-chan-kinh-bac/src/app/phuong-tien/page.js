@@ -1,29 +1,30 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Compass, 
-  ArrowRight, 
-  Car, 
-  Bus, 
-  Bike, 
-  Train, 
-  Clock, 
-  Zap, 
-  Coins, 
-  PhoneCall, 
-  Phone, 
-  Smartphone, 
-  Check, 
+import {
+  Compass,
+  ArrowRight,
+  Car,
+  Bus,
+  Bike,
+  Train,
+  Clock,
+  Zap,
+  Coins,
+  PhoneCall,
+  Phone,
+  Smartphone,
+  Check,
   CheckCircle,
   Sparkles,
   X,
-  Shield, 
-  AlertTriangle, 
-  Wifi, 
-  CreditCard, 
+  Shield,
+  AlertTriangle,
+  Wifi,
+  CreditCard,
   HardHat,
   MapPin,
   CalendarCheck,
@@ -164,7 +165,26 @@ export default function PhuongTienPage() {
   const [selectedTransport, setSelectedTransport] = useState(null);
   const [completedStops, setCompletedStops] = useState({});
   const [isUpdating, setIsUpdating] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const timelineRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll and listen for Escape key when popover is open
+  useEffect(() => {
+    if (!selectedTransport) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedTransport(null);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedTransport]);
 
   // Scroll effect for Todo List Timeline (Auto-Check when scrolling down, Undo when scrolling back up)
   useEffect(() => {
@@ -382,7 +402,7 @@ export default function PhuongTienPage() {
                   <option value="giap_bat">Bến xe Giáp Bát (Hoàng Mai)</option>
                 </select>
               </div>
-              
+
               <div className="swap-arrow-modern">
                 <ArrowRight size={20} />
               </div>
@@ -408,8 +428,8 @@ export default function PhuongTienPage() {
               {transportRows.map((item) => {
                 const isExpanded = expandedRow === item.key;
                 return (
-                  <div 
-                    key={item.key} 
+                  <div
+                    key={item.key}
                     className={`route-row-card ${isExpanded ? 'is-expanded' : ''} ${item.key === 'car' ? 'is-recommended' : ''}`}
                   >
                     <div className="route-row-main" onClick={() => toggleExpandRow(item.key)}>
@@ -449,14 +469,14 @@ export default function PhuongTienPage() {
 
                       {/* Column 4: Actions */}
                       <div className="route-col-cta" onClick={(e) => e.stopPropagation()}>
-                        <button 
+                        <button
                           className="btn-route-action"
                           onClick={() => handleOpenTransportModal(item.slug)}
                         >
                           <span>Chi tiết</span>
                           <ArrowRight size={14} />
                         </button>
-                        <button 
+                        <button
                           className={`btn-route-toggle ${isExpanded ? 'open' : ''}`}
                           onClick={() => toggleExpandRow(item.key)}
                           aria-label="Xem thêm thông tin lộ trình"
@@ -603,7 +623,7 @@ export default function PhuongTienPage() {
                   </div>
                 </div>
                 <div className="concierge-call-box">
-                  <button 
+                  <button
                     className="btn-concierge-app"
                     onClick={() => handleOpenTransportModal('taxi-cong-nghe')}
                   >
@@ -807,16 +827,16 @@ export default function PhuongTienPage() {
       {/* 5. ITINERARY TIMELINE — TODO LIST SCROLL EFFECT WITH AUTO-CHECK & UNDO */}
       <section className="section" style={{ background: 'var(--surface)' }}>
         <div className="container">
-          <div className="section-header" style={{ marginBottom: '32px' }}>
+          <div className="section-header" style={{ marginBottom: '36px' }}>
             <span className="tag-badge">Lịch Trình Tối Ưu</span>
-            <h2 className="section-title">Lộ Trình Du Lịch Mẫu (Checklist Trải Nghiệm)</h2>
-            <p className="section-desc">Cuộn xuống để tự động đánh dấu hoàn thành, cuộn ngược lại để hoàn tác (undo)</p>
-            
+            <h2 className="section-title">Lộ Trình Du Lịch Mẫu</h2>
+            <p className="section-desc">Cuộn hoặc nhấp để đánh dấu từng chặng hành trình</p>
+
             {/* Live Progress Pill */}
             {(() => {
               const doneCount = itineraries.filter(i => !!completedStops[i.id]).length;
               return (
-                <div style={{ marginTop: '4px' }}>
+                <div style={{ marginTop: '12px' }}>
                   <div className="timeline-progress-pill">
                     <span className="progress-dot-indicator" />
                     <span>Tiến độ hành trình: {doneCount}/{itineraries.length} chặng hoàn thành</span>
@@ -833,13 +853,13 @@ export default function PhuongTienPage() {
             {/* Dynamic green progress line that fills on scroll down and retracts on scroll up */}
             {(() => {
               const doneCount = itineraries.filter(i => !!completedStops[i.id]).length;
-              const pct = doneCount === 0 
-                ? 0 
+              const pct = doneCount === 0
+                ? 0
                 : Math.min(100, Math.round(((doneCount - 1) / (itineraries.length - 1)) * 100));
               return (
-                <div 
-                  className="timeline-track-active" 
-                  style={{ height: `${pct}%` }} 
+                <div
+                  className="timeline-track-active"
+                  style={{ height: `${pct}%` }}
                 />
               );
             })()}
@@ -847,8 +867,8 @@ export default function PhuongTienPage() {
             {itineraries.map((itin) => {
               const isDone = !!completedStops[itin.id];
               return (
-                <div 
-                  key={itin.id} 
+                <div
+                  key={itin.id}
                   data-id={itin.id}
                   className={`timeline-step-item ${isDone ? 'is-done' : ''}`}
                   onClick={() => toggleStop(itin.id)}
@@ -995,7 +1015,7 @@ export default function PhuongTienPage() {
       </section>
 
       {/* 7. SIDE PANEL POPOVER (Drawer on desktop, Bottom-sheet popup menu on mobile) */}
-      {selectedTransport && (
+      {mounted && selectedTransport && createPortal(
         <>
           {/* Overlay backdrop */}
           <div
@@ -1149,7 +1169,8 @@ export default function PhuongTienPage() {
               )}
             </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
 
       <style jsx>{`
@@ -1181,7 +1202,7 @@ export default function PhuongTienPage() {
           position: fixed;
           inset: 0;
           background: rgba(0, 0, 0, 0.45);
-          z-index: 9998;
+          z-index: 99998;
           animation: fadeIn 0.2s ease;
           backdrop-filter: blur(2px);
         }
@@ -1193,15 +1214,15 @@ export default function PhuongTienPage() {
           width: 440px;
           max-width: 90vw;
           background: #FFFBF5;
-          z-index: 9999;
+          z-index: 99999;
           overflow-y: auto;
-          box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+          box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
           animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           display: flex;
           flex-direction: column;
         }
         .popover-header {
-          padding: 84px 24px 18px 24px;
+          padding: 24px 24px 18px 24px;
           border-bottom: 1px solid rgba(107, 58, 42, 0.08);
           display: flex;
           align-items: center;

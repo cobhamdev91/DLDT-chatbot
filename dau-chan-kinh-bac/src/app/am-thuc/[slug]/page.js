@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { MapPin, Utensils, Sparkles, Tag, Coins, Landmark } from 'lucide-react';
 import { foods } from '@/data/foods';
 import Breadcrumb from '@/components/Breadcrumb';
+import ScrollBackground from '@/components/ScrollBackground';
 
 export async function generateStaticParams() {
   return foods.map((f) => ({
@@ -32,6 +33,16 @@ export default async function FoodDetailPage({ params }) {
 
   const related = foods.filter((f) => f.slug !== food.slug).slice(0, 3);
 
+  // Background images for the scroll-driven section (order = data-bg-index)
+  const mainImage = food.image || '/images/bac_ninh_cuisine.jpg';
+  const scenes = food.scenes || {};
+  const bgImages = [
+    { src: scenes.origin || mainImage, alt: `Nguồn gốc ${food.name}` },
+    { src: scenes.features || mainImage, alt: `Chế biến ${food.name}` },
+    { src: scenes.taste || mainImage, alt: `Hương vị ${food.name}` },
+    { src: mainImage, alt: food.name },
+  ];
+
   return (
     <article className="detail-page">
       {/* HERO BANNER */}
@@ -55,10 +66,12 @@ export default async function FoodDetailPage({ params }) {
         </div>
       </section>
 
-      <Breadcrumb items={[
-        { label: 'Ẩm thực', href: '/am-thuc' },
-        { label: food.name },
-      ]} />
+      {/* SCROLL-DRIVEN BACKGROUND SECTION – sits directly below the hero */}
+      <ScrollBackground images={bgImages} className="food-scroll-bg">
+        <Breadcrumb items={[
+          { label: 'Ẩm thực', href: '/am-thuc' },
+          { label: food.name },
+        ]} />
 
       {/* MAIN CONTENT WRAPPER */}
       <div className="container detail-body">
@@ -67,7 +80,7 @@ export default async function FoodDetailPage({ params }) {
           <div className="detail-main">
             {/* LỊCH SỬ & CÂU CHUYỆN */}
             {food.description && (
-              <section className="content-block">
+              <section className="content-block" data-bg-index="0">
                 <h2>1. Nguồn gốc & Câu chuyện</h2>
                 <div className="prose">
                   <p>{food.description}</p>
@@ -77,7 +90,7 @@ export default async function FoodDetailPage({ params }) {
 
             {/* ĐẶC ĐIỂM CHẾ BIẾN */}
             {food.features && (
-              <section className="content-block">
+              <section className="content-block" data-bg-index="1">
                 <h2>2. Nguyên liệu & Bí quyết chế biến</h2>
                 <div className="experience-box">
                   <span className="exp-icon"><Utensils size={24} color="var(--color-primary)" /></span>
@@ -88,7 +101,7 @@ export default async function FoodDetailPage({ params }) {
 
             {/* HƯƠNG VỊ ĐẶC TRƯNG */}
             {food.taste && (
-              <section className="content-block">
+              <section className="content-block" data-bg-index="2">
                 <h2>3. Hương vị khi thưởng thức</h2>
                 <div className="funfact-box">
                   <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -101,7 +114,7 @@ export default async function FoodDetailPage({ params }) {
 
             {/* ĐỊA ĐIỂM THƯỞNG THỨC & MUA VỀ LÀM QUÀ */}
             {food.locations && food.locations.length > 0 && (
-              <section className="content-block">
+              <section className="content-block" data-bg-index="3">
                 <h2>4. Địa chỉ quán ngon & Nơi mua uy tín</h2>
                 <div className="locations-list">
                   {food.locations.map((loc, idx) => (
@@ -190,6 +203,7 @@ export default async function FoodDetailPage({ params }) {
           </div>
         </section>
       </div>
+      </ScrollBackground>
     </article>
   );
 }

@@ -1,26 +1,30 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Search, X, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { craftVillages } from '@/data/craftVillages';
 import ParallaxHero from '@/components/ParallaxHero';
 import { siteContent } from '@/data/content';
 import Breadcrumb from '@/components/Breadcrumb';
-
-import FlipCard from '@/components/FlipCard';
+import OverlayCard from '@/components/OverlayCard';
 
 const { pageHeroes } = siteContent;
+const COLUMN_COUNT = 2;
 
 export default function LangNghePage() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredVillages = craftVillages.filter(v => {
-    const matchesSearch = v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          v.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          v.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          v.highlights.some(h => h.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesSearch;
+  const query = searchQuery.toLowerCase();
+  const filteredVillages = craftVillages.filter(v =>
+    v.name.toLowerCase().includes(query) ||
+    v.category.toLowerCase().includes(query) ||
+    v.location.toLowerCase().includes(query) ||
+    v.highlights.some(h => h.toLowerCase().includes(query))
+  );
+
+  // Distribute items into 2 columns (W3Schools Responsive Image Grid)
+  const columns = Array.from({ length: COLUMN_COUNT }, () => []);
+  filteredVillages.forEach((village, idx) => {
+    columns[idx % COLUMN_COUNT].push(village);
   });
 
   return (
@@ -53,8 +57,8 @@ export default function LangNghePage() {
                 style={{ paddingLeft: '44px' }}
               />
               {searchQuery && (
-                <button 
-                  className="clear-search-btn" 
+                <button
+                  className="clear-search-btn"
                   onClick={() => setSearchQuery('')}
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   aria-label="Xóa tìm kiếm"
@@ -67,42 +71,22 @@ export default function LangNghePage() {
         </div>
       </section>
 
-      {/* VILLAGE GRID — FLIP CARDS */}
+      {/* VILLAGES — 2-COLUMN RESPONSIVE IMAGE GRID, IMAGE OVERLAY FADE + BORDER PROGRESS */}
       <section className="section" style={{ paddingTop: '0' }}>
         <div className="container">
-          <div className="results-count" style={{ marginBottom: '20px' }}>
-            Tổng cộng <strong>{filteredVillages.length}</strong> làng nghề truyền thống tiêu biểu
-          </div>
-
-          <div className="card-grid">
-            {filteredVillages.map((v) => (
-              <FlipCard
-                key={v.id}
-                image={v.image || '/images/craft_village_pottery.jpg'}
-                imageAlt={v.name}
-                frontTitle={v.name}
-                frontBadge={v.category}
-                backTitle={v.name}
-                backContent={v.history ? (v.history.split('.')[0] + '.') : ''}
-                href={`/lang-nghe/${v.slug}`}
-                backFooter={
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
-                    <span style={{ color: '#B8781B', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <Clock size={13} /> {v.duration || '2–3 giờ'}
-                    </span>
-                    <span style={{ color: '#55443B', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <MapPin size={13} color="#C83228" /> {v.location.split(',')[1] || v.location}
-                    </span>
-                  </div>
-                }
-              >
-                {v.highlights?.[0] && (
-                  <div className="flip-card-highlight-badge">
-                    <span className="flip-card-highlight-icon"><Sparkles size={12} color="#D4A853" /></span>
-                    <span className="flip-card-highlight-text">{v.highlights[0]}</span>
-                  </div>
-                )}
-              </FlipCard>
+          <div className="image-grid-row">
+            {columns.map((colVillages, colIndex) => (
+              <div key={colIndex} className="image-grid-column">
+                {colVillages.map((v) => (
+                  <OverlayCard
+                    key={v.id}
+                    image={v.image || '/images/craft_village_pottery.jpg'}
+                    imageAlt={v.name}
+                    title={v.name}
+                    href={`/lang-nghe/${v.slug}`}
+                  />
+                ))}
+              </div>
             ))}
           </div>
 
@@ -110,7 +94,7 @@ export default function LangNghePage() {
             <div className="no-results">
               <p>Không tìm thấy làng nghề nào phù hợp với &quot;{searchQuery}&quot;.</p>
               <button className="btn btn-outline" onClick={() => setSearchQuery('')}>
-                Xem tất cả 8 làng nghề
+                Xem tất cả làng nghề
               </button>
             </div>
           )}

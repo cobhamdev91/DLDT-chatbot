@@ -113,7 +113,7 @@ export default function Home() {
       </div>
 
       {/* 4. CATEGORY NAVIGATION STRIP (7 SQUIRCLE ICONS) */}
-      <section className="container">
+      <section className="container" style={{ width: '100%', maxWidth: '100%', overflowX: 'clip' }}>
         <div className="category-icon-strip">
           {content.categories.map((cat, idx) => {
             const IconComp = categoryIcons[idx];
@@ -133,11 +133,11 @@ export default function Home() {
 
       {/* 5. SUGGESTED ITINERARIES WITH SLIDESHOW */}
       <section className="container" style={{ marginBottom: '80px' }} id="lich-trinh">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.65rem', color: 'var(--color-primary-dark)', fontWeight: 700 }}>
+        <div className={styles.itineraryHeaderRow}>
+          <h3 className={styles.itineraryHeading}>
             {content.itineraryTitle}
           </h3>
-          <Link href="/phuong-tien" style={{ color: '#C83228', fontWeight: 600, fontSize: '0.92rem', textDecoration: 'none' }}>
+          <Link href="/phuong-tien" className={styles.itineraryViewAll}>
             {content.itineraryViewAll}
           </Link>
         </div>

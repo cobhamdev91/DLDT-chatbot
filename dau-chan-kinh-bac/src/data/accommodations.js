@@ -116,7 +116,8 @@ export const accommodations = [
     location: "Đồi Pháo Thủ, Khu 6, phường Vũ Ninh, TP. Bắc Ninh",
     priceRange: "Từ 1.500.000 VNĐ/đêm",
     phone: "0222 3871 868",
-    image: "/images/hero_kinh_bac.jpg",
+    image: "/images/phoenix_resort_bac_ninh.jpg",
+    heroImage: "/images/phoenix_resort_bac_ninh.jpg",
     scale: "Khuôn viên rộng lớn trên đỉnh đồi với khoảng 200 phòng",
     story: "Thành lập từ năm 2007, Phoenix Resort tọa lạc uy nghi trên đỉnh đồi Pháo Thủ lộng gió, sở hữu tầm nhìn panorama ngoạn mục ôm trọn thành phố Bắc Ninh. Khu nghỉ dưỡng tích hợp trọn vẹn mọi tiện nghi giải trí cao cấp từ sân tennis, sân tập golf đến bể bơi ngoài trời rợp bóng cây xanh.",
     amenities: [
@@ -141,7 +142,8 @@ export const accommodations = [
     location: "Tòa nhà thương mại Thống Nhất, đường Lê Thái Tổ, P. Võ Cường, TP. Bắc Ninh",
     priceRange: "700.000 – 1.000.000 VNĐ/đêm",
     phone: "0978 630 977",
-    image: "/images/chua_dau.jpg",
+    image: "/images/hello_hotel_bac_ninh.jpg",
+    heroImage: "/images/hello_hotel_bac_ninh.jpg",
     scale: "Tòa nhà thương mại hiện đại với đầy đủ dịch vụ phòng",
     story: "Hello Hotel là lựa chọn tối ưu cho những du khách mong muốn một chốn dừng chân sạch sẽ, trẻ trung, tiện nghi ngay trung tâm sầm uất với mức giá vô cùng hợp lý. Nằm trên đường lớn Lê Thái Tổ, việc di chuyển ăn uống và tham quan cực kỳ thuận tiện.",
     amenities: [
@@ -165,7 +167,8 @@ export const accommodations = [
     location: "36 Nguyễn Quyền, phường Võ Cường, TP. Bắc Ninh",
     priceRange: "300.000 – 600.000 VNĐ/đêm",
     phone: "0896 899 336",
-    image: "/images/den_do.jpg",
+    image: "/images/sky_hotel_bac_ninh.jpg",
+    heroImage: "/images/sky_hotel_bac_ninh.jpg",
     scale: "Khách sạn mini gia đình ấm cúng",
     story: "Sky Hotel phù hợp với nhu cầu lưu trú cơ bản, kinh tế dành cho khách phượt tự túc, sinh viên hoặc khách đi công việc ngắn ngày. Khách sạn luôn giữ được sự sạch sẽ, chu đáo và thân thiện của người Kinh Bắc mến khách.",
     amenities: [
@@ -189,7 +192,8 @@ export const accommodations = [
     location: "460 Nguyễn Văn Cừ, phường Võ Cường, TP. Bắc Ninh",
     priceRange: "850.000 – 1.100.000 VNĐ/đêm",
     phone: "0222 369 2888",
-    image: "/images/hero_kinh_bac.jpg",
+    image: "/images/bac_ninh_royal_hotel.jpg",
+    heroImage: "/images/bac_ninh_royal_hotel.jpg",
     scale: "100 phòng nghỉ tiêu chuẩn, diện tích 32–75 m²",
     story: "Bắc Ninh Royal Hotel hướng đến nhóm khách cần một không gian lưu trú tiện nghi tại khu vực cửa ngõ trung tâm. Các phòng nghỉ sở hữu diện tích rộng rãi từ 32 đến 75 m² với cửa sổ kính lớn hướng tầm nhìn thoáng đãng ngắm toàn cảnh nhịp sống phố phường.",
     amenities: [
@@ -214,7 +218,8 @@ export const accommodations = [
     location: "Số 6–7–8 đường Võ Cường 4, phường Võ Cường, TP. Bắc Ninh",
     priceRange: "Từ 500.000 VNĐ/đêm",
     phone: "096 915 0946 / 096 484 5538",
-    image: "/images/craft_village_pottery.jpg",
+    image: "/images/hana_apartment_hotel.jpg",
+    heroImage: "/images/hana_apartment_hotel.jpg",
     scale: "Căn hộ studio & 1-2 phòng ngủ khép kín",
     story: "Hana 1 Apartment & Hotel khác với mô hình khách sạn truyền thống khi tập trung vào trải nghiệm lưu trú dài ngày và sự tự do như ở nhà. Mỗi căn hộ đều trang bị khu bếp nhỏ tiện dụng, máy giặt riêng, đặc biệt được các chuyên gia Hàn Quốc, Nhật Bản và gia đình nhỏ đánh giá rất cao.",
     amenities: [
@@ -265,7 +270,8 @@ export const accommodations = [
     location: "Đường Trương Định, phường Phương Liễu, TP. Bắc Ninh",
     priceRange: "700.000 – 1.200.000 VNĐ/đêm",
     phone: "0865 070 729",
-    image: "/images/den_do_temple.jpg",
+    image: "/images/hotel_89_luxury.jpg",
+    heroImage: "/images/hotel_89_luxury.jpg",
     scale: "Tòa nhà khách sạn hiện đại mới xây",
     story: "Hotel 89 Luxury tọa lạc tại khu đô thị Phương Liễu mới mẻ, mang phong cách hiện đại với đầy đủ tiện nghi, giường nệm êm ái và không gian nghỉ ngơi yên tĩnh sau những chuyến đi dài ngày khắp các huyện thành Kinh Bắc.",
     amenities: [
@@ -289,7 +295,8 @@ export const accommodations = [
     location: "10 Võ Cường – 11, phường Võ Cường, TP. Bắc Ninh",
     priceRange: "700.000 – 900.000 VNĐ/đêm",
     phone: "0394 086 689",
-    image: "/images/chua_dau.jpg",
+    image: "/images/kezan_hotel_1.jpg",
+    heroImage: "/images/kezan_hotel_1.jpg",
     scale: "Khách sạn boutique ấm cúng",
     story: "Kezan Hotel 1 nằm gọn gàng trong khu phố yên tĩnh của phường Võ Cường, sở hữu phong cách boutique trang nhã, giá thành hợp lý và đội ngũ nhân viên nhiệt tình, chu đáo như người nhà.",
     amenities: [
@@ -313,7 +320,8 @@ export const accommodations = [
     location: "Khu đô thị trung tâm TP. Bắc Ninh",
     priceRange: "500.000 – 1.000.000 VNĐ/đêm",
     phone: "Liên hệ trực tiếp chủ cơ sở",
-    image: "/images/hero_kinh_bac.jpg",
+    image: "/images/homestay_21_cinema.jpg",
+    heroImage: "/images/homestay_21_cinema.jpg",
     scale: "Các phòng thiết kế theo chủ đề điện ảnh cá tính",
     story: "Homestay 21 Cinema BN là mô hình lưu trú sáng tạo hướng tới giới trẻ và các cặp đôi: mỗi phòng đều được trang bị máy chiếu màn hình lớn độ phân giải cao kết nối Netflix cùng hệ thống âm thanh vòm sống động, biến căn phòng thành một rạp chiếu phim mini riêng tư và lãng mạn.",
     amenities: [
@@ -337,7 +345,8 @@ export const accommodations = [
     location: "Khu vực ngoại ô thanh bình TP. Bắc Ninh",
     priceRange: "800.000 – 1.000.000 VNĐ/đêm",
     phone: "Liên hệ trực tiếp cơ sở",
-    image: "/images/hero_background.jpg",
+    image: "/images/phong_thai_homestay.jpg",
+    heroImage: "/images/phong_thai_homestay.jpg",
     scale: "Khu nhà vườn biệt thự sân cỏ rộng",
     story: "Phong Thái Homestay hướng đến trải nghiệm nghỉ ngơi thư giãn gia đình và họp mặt nhóm bạn. Với khuôn viên sân cỏ thoáng mát, bể bơi mini xanh ngắt và khu vực nướng BBQ ngoài trời, đây là điểm 'đổi gió' lý tưởng dịp cuối tuần.",
     amenities: [
@@ -410,7 +419,8 @@ export const accommodations = [
     location: "Khu đô thị Yên Phong, thị trấn Chờ, huyện Yên Phong, Bắc Ninh",
     priceRange: "550.000 – 950.000 VNĐ/đêm",
     phone: "0222 3866 555",
-    image: "/images/den_do_temple.jpg",
+    image: "/images/grand_yen_phong_hotel.jpg",
+    heroImage: "/images/grand_yen_phong_hotel.jpg",
     scale: "6 tầng, 55 phòng nghỉ tiện nghi",
     story: "Khách sạn hiện đại đáp ứng nhu cầu lưu trú tiện lợi cho cả khách du lịch sinh thái sông Cầu, thăm các di tích văn hóa huyện Yên Phong và các chuyên gia công tác tại khu vực.",
     amenities: [

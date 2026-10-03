@@ -55,6 +55,15 @@ export default function Header() {
               </Link>
             );
           })}
+          {/* Mobile/Tablet list menu item for About Us */}
+          <Link
+            href="/ve-chung-toi"
+            className={`${styles.navLink} ${styles.aboutUsNavLink} ${pathname === '/ve-chung-toi' ? styles.navLinkActive : ''}`}
+            onClick={() => setIsMobileOpen(false)}
+          >
+            Về chúng tôi
+            {pathname === '/ve-chung-toi' && <span className={styles.activeIndicator}></span>}
+          </Link>
         </nav>
 
         {/* UTILITY ACTIONS */}

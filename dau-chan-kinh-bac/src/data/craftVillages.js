@@ -5,7 +5,7 @@ export const craftVillages = [
     name: "Làng Tranh Dân Gian Đông Hồ",
     category: "Làng tranh dân gian",
     location: "Làng Đông Hồ, xã Song Hồ, thị xã Thuận Thành, tỉnh Bắc Ninh",
-    image: "/images/hero_kinh_bac.jpg",
+    image: "/images/craft_dong_ho.jpg",
     history: "Làng tranh Đông Hồ là làng nghề truyền thống nổi tiếng của vùng Kinh Bắc, gắn với nghề làm tranh dân gian được lưu truyền qua nhiều thế hệ. Tranh được tạo nên từ những vật liệu gần gũi như giấy dó, màu tự nhiên và ván khắc gỗ. Tranh không chỉ phục vụ nhu cầu trang trí mà còn phản ánh đời sống, phong tục, quan niệm và ước vọng của người dân. Những hình ảnh sinh hoạt, chúc tụng và châm biếm xã hội tạo nên nét riêng của dòng tranh, góp phần làm nên giá trị văn hóa đặc sắc của Đông Hồ.",
     highlights: [
       "Tranh dân gian với hình ảnh và màu sắc đặc trưng thuần Việt",
@@ -65,7 +65,7 @@ export const craftVillages = [
     name: "Làng Đúc Đồng Đại Bái",
     category: "Làng nghề đúc & chế tác đồng",
     location: "Xã Đại Bái, huyện Gia Bình, tỉnh Bắc Ninh",
-    image: "/images/hero_kinh_bac.jpg",
+    image: "/images/craft_dai_bai.jpg",
     history: "Đại Bái (tên Nôm là làng Bưởi) là làng nghề thủ công nổi tiếng với truyền thống gò, đúc đồng hơn 1.000 năm lịch sử, khởi nguồn từ thời Tiền Lê và gắn với tổ nghề Nguyễn Công Truyền. Từ nguyên liệu đồng thau và đồng đỏ, người thợ kết hợp kỹ thuật chạm khảm tam khí, ngũ khí tinh vi để tạo nên những đồ thờ cúng, lư hương, tượng đồng uy nghiêm và đồ gia dụng bền đẹp.",
     highlights: [
       "Nghề gò, dát và đúc đồng truyền thống nghìn năm tuổi",
@@ -94,7 +94,7 @@ export const craftVillages = [
     name: "Làng Gỗ Mỹ Nghệ Đồng Kỵ",
     category: "Làng nghề gỗ mỹ nghệ",
     location: "Phường Đồng Kỵ, TP. Từ Sơn, tỉnh Bắc Ninh",
-    image: "/images/den_do.jpg",
+    image: "/images/craft_dong_ky.jpg",
     history: "Đồng Kỵ từ lâu đã vang danh cả nước và quốc tế là thủ phủ đồ gỗ mỹ nghệ cao cấp. Người thợ Đồng Kỵ sở hữu đôi bàn tay vàng trong việc đục chạm long, ly, quy, phượng và khảm trai ốc xà cừ tinh xảo trên các loại gỗ quý như trắc, gụ, mun, hương. Làng nghề vừa giữ gìn tinh hoa truyền thống vừa vươn mình ra các thị trường xuất khẩu lớn.",
     highlights: [
       "Thủ phủ đồ gỗ mỹ nghệ quy mô bậc nhất miền Bắc",
@@ -123,7 +123,7 @@ export const craftVillages = [
     name: "Làng Chạm Khắc Gỗ Phù Khê",
     category: "Làng nghề chạm khắc gỗ",
     location: "Phường Phù Khê, TP. Từ Sơn, tỉnh Bắc Ninh",
-    image: "/images/den_do_temple.jpg",
+    image: "/images/craft_phu_khe.jpg",
     history: "Làng Phù Khê nổi tiếng là cái nôi của những người thợ mộc tài hoa bậc nhất Đại Việt, từng được các triều đình phong kiến triệu tập về kinh đô Thăng Long và Huế để xây dựng hoàng thành, đền đài, lăng tẩm. Thợ Phù Khê đặc biệt xuất chúng ở nghệ thuật chạm lộng, chạm thủng các đường nét kênh bong sống động trên rường cột đình chùa.",
     highlights: [
       "Nghệ thuật chạm lộng, đục thủng gỗ kinh điển",
@@ -152,7 +152,7 @@ export const craftVillages = [
     name: "Làng Nghề Mây Tre Đan Xuân Lai",
     category: "Làng nghề thủ công từ vật liệu tự nhiên",
     location: "Xã Xuân Lai, huyện Gia Bình, tỉnh Bắc Ninh",
-    image: "/images/craft_village_pottery.jpg",
+    image: "/images/craft_xuan_lai.jpg",
     history: "Xuân Lai nổi tiếng khắp cả nước với kỹ thuật hun khói tre trúc độc nhất vô nhị. Tre trúc sau khi ngâm bùn chống mối mọt sẽ được đưa vào lò hun khói bằng rơm rạ liên tục nhiều ngày đêm cho đến khi lên màu nâu đen cánh gián bóng loáng tự nhiên. Từ chất liệu độc đáo này, người thợ Xuân Lai uốn, đan, lắp ghép thành những bộ bàn ghế, tranh tre nghệ thuật có độ bền hàng chục năm.",
     highlights: [
       "Kỹ thuật hun khói rơm tạo màu nâu cánh gián đen bóng tự nhiên",
@@ -181,7 +181,7 @@ export const craftVillages = [
     name: "Làng Mộc Hương Mạc",
     category: "Làng nghề mộc",
     location: "Phường Hương Mạc, TP. Từ Sơn, tỉnh Bắc Ninh",
-    image: "/images/den_do.jpg",
+    image: "/images/craft_huong_mac.jpg",
     history: "Cùng nằm trong vùng văn hóa mộc Từ Sơn trứ danh, làng Hương Mạc có bề dày lịch sử phát triển nghề làm đồ gỗ phục vụ dân sinh và nội thất hiện đại. Nghề mộc tại đây kế thừa những đường nét thanh thoát của mộc Kinh Bắc, đồng thời nhạy bén áp dụng công nghệ máy móc tiên tiến để sản xuất các mặt hàng nội thất cao cấp với năng suất vượt trội.",
     highlights: [
       "Sự dung hòa giữa kỹ thuật mộc thủ công và công nghệ tiện, cắt CNC hiện đại",
@@ -210,7 +210,7 @@ export const craftVillages = [
     name: "Làng Nghề Sắt Đa Hội",
     category: "Làng nghề sản xuất & cơ khí sắt thép",
     location: "Khu vực Đa Hội, phường Châu Khê, TP. Từ Sơn, tỉnh Bắc Ninh",
-    image: "/images/hero_kinh_bac.jpg",
+    image: "/images/craft_da_hoi.jpg",
     history: "Đa Hội có bề dày lịch sử rèn sắt từ thời nhà Lý, ban đầu rèn nông cụ, gươm giáo bảo vệ bờ cõi. Trải qua thăng trầm, làng nghề đã vươn mình thành trung tâm cơ khí, cán kéo thép và gia công sắt công nghiệp lớn nhất miền Bắc. Không gian Đa Hội rực lửa lò than, máy cắt thép và tinh thần lao động bền bỉ của người dân công nghiệp hóa làng nghề.",
     highlights: [
       "Làng nghề rèn sắt cổ xưa chuyển mình thành trung tâm công nghiệp cơ khí quy mô lớn",

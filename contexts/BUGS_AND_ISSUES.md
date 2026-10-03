@@ -88,3 +88,35 @@
   - Thay thế 3 icon trên header bằng icon nhóm `Users` từ `lucide-react`, gắn liên kết `/ve-chung-toi`.
   - Khởi tạo trang Về Chúng Tôi (`/ve-chung-toi`) trang nhã, đúng phong cách Kinh Bắc.
   - Loại bỏ hoàn toàn khối `quick-widgets-wrapper` khỏi trang chủ `src/app/page.js`.
+
+### Issue 9 (Hiệu Ứng Hover Pill Cho Mobile/Tablet NavLink)
+- **Mô tả người dùng**: "navOpen của dạng mobile/tablet, pad chưa có hiệu ứng hover cho pill (navlink)."
+- **Nguyên nhân gốc rễ**: Các thẻ `navLink` trong menu drawer `.navOpen` thiếu phong cách pill và hiệu ứng hover/active; màu chữ hover ban đầu bị lẫn với màu nền kem.
+- **Giải pháp xử lý**:
+  - Tạo kiểu dáng pill hiện đại (`border-radius: 999px; padding: 11px 18px`).
+  - Thêm hiệu ứng hover chuyển màu gạch đỏ (`color: #C83228`), nền mờ (`rgba(200, 50, 40, 0.08)`), viền mỏng và trượt nhẹ (`transform: translateX(5px)`).
+  - Trạng thái Active có nền nổi bật và chữ đậm.
+
+### Issue 10 (Hamburger Bị Biến Mất Ở Trang Chủ Mobile)
+- **Mô tả người dùng**: "khi thu nhỏ xuống dạng mobile thì k hiển thị hamburger (chỉ bị ở trang chủ), có thể do phần icon + title chiếm diện tích. đề xuất ẩn tagline, logoStamp. đưa about us (về chúng tôi) vào trong list menu."
+- **Nguyên nhân gốc rễ**: Tiêu đề và tagline logo chiếm quá nhiều chiều ngang khiến `headerActions` bị đẩy ra ngoài mép màn hình.
+- **Giải pháp xử lý**:
+  - Ẩn `logoTagline` và `logoStamp` trên mobile (`max-width: 768px`).
+  - Đưa liên kết "Về chúng tôi" vào trong menu danh sách của `navOpen`, ẩn icon nút `Users` trên mobile/tablet để tiết kiệm không gian.
+  - Thiết lập `flex-shrink: 0` cho `headerActions` và `hamburger`, đảm bảo nút menu luôn hiển thị ổn định 100%.
+
+### Issue 11 (Category Icon Strip Bị Khuất Trên Mobile)
+- **Mô tả người dùng**: "phần category-icon-strip ở dạng mobile đang bị khuất (ảnh 1). Đề xuất làm dạng slide trượt, k dùng nút bấm arrow."
+- **Nguyên nhân gốc rễ**: Dải icon bị giới hạn trong khung padding của container và các nhãn chữ lớn làm vỡ kích thước, các icon cuối bị cụt mép.
+- **Giải pháp xử lý**:
+  - Thiết kế dạng slide trượt vuốt chạm full-bleed (`margin: 0 -24px; padding: 10px 24px 30px`).
+  - Hỗ trợ cuộn ngang mượt mà với `scroll-snap-type: x mandatory`, ẩn hoàn toàn scrollbar xấu.
+  - Điều chỉnh font nhãn icon vừa vặn trên điện thoại (`0.875rem` / `0.8125rem`).
+
+### Issue 12 (Tiêu Đề Lịch Trình Gợi Ý & Xem Tất Cả Bị Xuống Dòng)
+- **Mô tả người dùng**: "ở ảnh 2 cần fix size cho cùng 1 dòng."
+- **Nguyên nhân gốc rễ**: Kích thước chữ cố định `1.65rem` và liên kết "Xem tất cả →" không có `white-space: nowrap` khiến cả hai bị bẻ dòng trên màn hình điện thoại hẹp.
+- **Giải pháp xử lý**:
+  - Dùng responsive fluid size `clamp(1rem, 4.4vw, 1.35rem)` cho tiêu đề trên mobile.
+  - Đặt `white-space: nowrap` cho cả tiêu đề và liên kết "Xem tất cả →", căn `align-items: baseline` và gap vừa vặn để luôn cùng nằm gọn trên 1 dòng.
+
