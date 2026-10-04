@@ -26,14 +26,22 @@ export const cuisine = {
 
   /** Danh sách món */
   list: {
+    searchPlaceholder: 'Tìm món ngon, đặc sản Bắc Ninh...',
+    categoryLabel: 'Loại đặc sản',
+    regionLabel: 'Khu vực xuất xứ',
+    allRegions: 'Tất cả khu vực',
     /** Nhãn các nút lọc – khoá khớp với CUISINE_FILTERS trong logic */
     filters: {
-      all: 'Tất cả (12)',
+      all: 'Tất cả danh mục',
       dishes: 'Món ăn đặc sản',
       cakes: 'Bánh truyền thống',
       gifts: 'Đặc sản làm quà',
     },
     filterGroupLabel: 'Lọc món ăn',
+    /** @param {number} count @returns {string} */
+    count: (count) => `${count} món ngon`,
+    noResults: 'Không tìm thấy món ăn phù hợp với bộ lọc',
+    clearFilters: 'Xóa bộ lọc',
     menuDivider: { lead: 'Thực Đơn', highlight: 'Đặc Sắc' },
     restaurantDivider: { lead: 'Quán Ăn Gia Truyền', highlight: 'Chuẩn Vị' },
     /** @param {number} count @returns {string} */

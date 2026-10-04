@@ -216,14 +216,78 @@
   transition: all 0.2s;
 }
 
-.song-card__play--active {
-  background: var(--color-brand-red);
-  color: var(--color-white);
+/* ---------------------------------------------------------------------------
+ * THANH LỌC LÀN ĐIỆU CỔ (SongFilterBar)
+ * ------------------------------------------------------------------------- */
+
+.song-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-white);
+  border-radius: 18px;
+  padding: 14px 20px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 4px 20px rgba(74, 37, 24, 0.04);
+  flex-wrap: wrap;
+}
+
+.song-filter-bar__lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-accent);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.song-filter-bar__icon {
+  color: var(--color-brand-red);
+}
+
+.song-filter-bar__dropdown {
+  flex: 1 1 240px;
+  max-width: 320px;
+  min-width: 180px;
+}
+
+.song-filter-bar__count {
+  margin-left: auto;
+}
+
+.song-filter-bar__count > span {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  background: #F9F2E3;
+  padding: 6px 14px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .song-filter-bar {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .song-filter-bar__dropdown {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .song-filter-bar__count {
+    width: 100%;
+    text-align: right;
+  }
 }
 
 /* ---------------------------------------------------------------------------
  * 3. RESPONSIVE
  * ------------------------------------------------------------------------- */
+
 
 /* ≤ 1100px: hộp số liệu 2 cột, bỏ vạch ngăn ở ô cuối hàng 1 */
 @media (max-width: 1100px) {

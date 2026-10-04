@@ -1,16 +1,22 @@
 /**
  * @file modules/cuisine/components/FoodExplorer.js
- * @description Phần tương tác trang Ẩm thực: thanh lọc pill + vạch ngăn +
- * lưới thẻ món ăn. Client Component (giữ nhóm lọc đang chọn).
+ * @description Phần tương tác trang Ẩm thực: thanh lọc đa năng (SearchField + 2 Dropdown)
+ * + vạch ngăn hoa sen + lưới thẻ món ăn (FlipCard). Client Component.
  */
 
 'use client';
 
 import { useMemo, useState } from 'react';
 import LotusDivider from '@/components/shared/LotusDivider/LotusDivider';
+import NoResults from '@/components/shared/NoResults/NoResults';
 import { cuisine as t } from '@/locales/vi/cuisine';
-import { cx } from '@/logic/classNames';
-import { CUISINE_FILTERS, filterFoods } from '../logic/filterFoods';
+import {
+  ALL_CUISINE_CATEGORY,
+  ALL_CUISINE_REGION,
+  extractCuisineRegions,
+  filterFoods,
+} from '../logic/filterFoods';
+import CuisineFilterBar from './CuisineFilterBar';
 import FoodCard from './FoodCard';
 
 /**
@@ -18,41 +24,58 @@ import FoodCard from './FoodCard';
  * @returns {JSX.Element}
  */
 export default function FoodExplorer({ foods }) {
-  const [filterKey, setFilterKey] = useState(CUISINE_FILTERS[0]);
-  const results = useMemo(() => filterFoods(foods, filterKey), [foods, filterKey]);
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState(ALL_CUISINE_CATEGORY);
+  const [region, setRegion] = useState(ALL_CUISINE_REGION);
+
+  // Trích xuất danh sách khu vực xuất xứ từ dữ liệu
+  const regions = useMemo(() => extractCuisineRegions(foods), [foods]);
+
+  // Lọc kết quả theo 3 tiêu chí
+  const results = useMemo(
+    () => filterFoods(foods, { query, category, region }),
+    [foods, query, category, region]
+  );
+
+  // Hàm đặt lại toàn bộ bộ lọc
+  const handleResetFilters = () => {
+    setQuery('');
+    setCategory(ALL_CUISINE_CATEGORY);
+    setRegion(ALL_CUISINE_REGION);
+  };
 
   return (
     <>
-      {/* Thanh lọc dạng viên thuốc */}
-      <section className="pill-filter">
-        <div className="container">
-          <div className="pill-filter__row" role="group" aria-label={t.list.filterGroupLabel}>
-            {CUISINE_FILTERS.map((key) => (
-              <button
-                key={key}
-                id={`cuisine-filter-${key}`}
-                type="button"
-                aria-pressed={filterKey === key}
-                className={cx('pill-filter__btn', filterKey === key && 'pill-filter__btn--active')}
-                onClick={() => setFilterKey(key)}
-              >
-                {t.list.filters[key]}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Thanh lọc đa năng tích hợp Dropdown và SearchField */}
+      <CuisineFilterBar
+        query={query}
+        onQueryChange={setQuery}
+        category={category}
+        onCategoryChange={setCategory}
+        region={region}
+        onRegionChange={setRegion}
+        regions={regions}
+        count={results.length}
+      />
 
       <LotusDivider text={t.list.menuDivider} />
 
       {/* Lưới thẻ món ăn */}
       <section className="section section--flush-top">
         <div className="container">
-          <div className="card-grid">
-            {results.map((food) => (
-              <FoodCard key={food.slug} food={food} />
-            ))}
-          </div>
+          {results.length === 0 ? (
+            <NoResults
+              message={t.list.noResults}
+              actionLabel={t.list.clearFilters}
+              onReset={handleResetFilters}
+            />
+          ) : (
+            <div className="card-grid">
+              {results.map((food) => (
+                <FoodCard key={food.slug} food={food} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

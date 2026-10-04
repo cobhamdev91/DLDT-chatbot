@@ -1,12 +1,13 @@
 /**
  * @file modules/transport/components/TransportExplorer.js
  * @description Khối 3 + 4 – Thanh lọc nhu cầu di chuyển và lưới thẻ phương tiện.
- * Client Component giữ state chế độ lọc; logic lọc / đếm ở logic/filterTransports.js.
+ * Tích hợp cả Dropdown tùy chỉnh cao cấp và nút lọc nhanh để trải nghiệm chọn mượt mà trên mọi thiết bị.
  */
 
 'use client';
 
 import { useMemo, useState } from 'react';
+import Dropdown from '@/components/shared/Dropdown';
 import Icon from '@/components/shared/Icon/Icon';
 import { cx } from '@/logic/classNames';
 import { transport } from '@/locales/vi/transport';
@@ -28,16 +29,37 @@ export default function TransportExplorer({ items }) {
   /** Danh sách sau lọc */
   const visible = useMemo(() => filterTransports(items, mode), [items, mode]);
 
+  /** Chuyển options sang định dạng cho Dropdown */
+  const dropdownOptions = useMemo(() => {
+    return options.map((opt) => ({
+      value: opt.key,
+      label: `${opt.label} (${opt.count})`,
+    }));
+  }, [options]);
+
   return (
     <>
-      {/* Thanh lọc nhu cầu */}
+      {/* Thanh lọc nhu cầu tích hợp Dropdown */}
       <section className="mode-filter">
         <div className="container">
           <div className="mode-filter__box">
             <span className="mode-filter__label icon-text">
               <Icon name="Compass" size={16} />
-              {t.label}
+              <span>{t.label}</span>
             </span>
+
+            {/* Dropdown tùy chỉnh cho mobile & lựa chọn danh mục tiện lợi */}
+            <div className="mode-filter__dropdown-wrap">
+              <Dropdown
+                id="transport-mode-filter-dropdown"
+                ariaLabel={t.label}
+                value={mode}
+                onChange={setMode}
+                options={dropdownOptions}
+              />
+            </div>
+
+            {/* Nhóm nút lọc nhanh trên màn hình rộng */}
             <div className="mode-filter__options" role="group" aria-label={t.label}>
               {options.map((option) => {
                 const isActive = option.key === mode;

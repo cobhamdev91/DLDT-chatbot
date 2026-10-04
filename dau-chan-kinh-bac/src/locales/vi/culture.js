@@ -60,10 +60,16 @@ export const culture = {
   /** Chân thẻ trụ cột */
   pillarFooter: 'Di sản văn hóa Kinh Bắc',
 
-  /** Nút nghe thử */
+  /** Nút nghe thử & bộ lọc làn điệu */
   songs: {
     play: 'Nghe giai điệu cổ',
     playing: 'Đang phát thử...',
+    filterLabel: 'Làn điệu',
+    allTypes: 'Tất cả làn điệu',
+    /** @param {number} count @returns {string} */
+    count: (count) => `${count} làn điệu`,
+    noResults: 'Chưa có làn điệu phù hợp với bộ lọc',
+    resetFilter: 'Xem tất cả',
   },
 
   /** Trang chi tiết chuyên đề */
