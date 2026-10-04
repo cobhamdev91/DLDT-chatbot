@@ -1,0 +1,268 @@
+/**
+ * =============================================================================
+ * date-picker.css – THÀNH PHẦN CHỌN NGÀY DATEPICKER (DatePicker)
+ * -----------------------------------------------------------------------------
+ * Giao diện trigger chuẩn tiếng Việt DD/MM/YYYY, popover lịch tháng Kinh Bắc
+ * với header chuyển tháng, ngày hôm nay và ngày được chọn bo tròn đỏ son.
+ * =============================================================================
+ */
+
+/* Khung bao ngoài của DatePicker */
+.custom-datepicker {
+  position: relative;
+  width: 100%;
+}
+
+/* Nút bấm kích hoạt mở lịch */
+.custom-datepicker__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(107, 58, 42, 0.16);
+  background: var(--color-surface-warm);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  user-select: none;
+}
+
+.custom-datepicker__trigger:hover {
+  border-color: rgba(107, 58, 42, 0.35);
+  background: #FFFBF5;
+}
+
+/* Trạng thái đang mở */
+.custom-datepicker.is-open .custom-datepicker__trigger {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(107, 58, 42, 0.12);
+  background: #FFFFFF;
+}
+
+/* Trạng thái vô hiệu hóa */
+.custom-datepicker.is-disabled .custom-datepicker__trigger {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Cụm icon lịch và chữ hiển thị */
+.custom-datepicker__trigger-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.custom-datepicker__icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+}
+
+.custom-datepicker__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-datepicker__text.is-placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Mũi tên chỉ thị */
+.custom-datepicker__arrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.custom-datepicker.is-open .custom-datepicker__arrow {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * POPOVER KHUNG LỊCH
+ * ------------------------------------------------------------------------- */
+.custom-datepicker__popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 290px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(107, 58, 42, 0.14);
+  box-shadow: 0 14px 36px rgba(74, 37, 24, 0.14), 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 16px;
+  z-index: 60;
+  animation: datePickerOpen 0.18s cubic-bezier(0, 0, 0.2, 1);
+  user-select: none;
+}
+
+@keyframes datePickerOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header điều hướng tháng */
+.custom-datepicker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.custom-datepicker__month-title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.custom-datepicker__nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 4px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.custom-datepicker__nav-btn:hover {
+  background: rgba(107, 58, 42, 0.08);
+  color: var(--color-primary);
+}
+
+/* Dải nhãn thứ trong tuần */
+.custom-datepicker__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.custom-datepicker__weekday {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  padding: 2px 0;
+}
+
+/* Lưới các ngày trong tháng */
+.custom-datepicker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.custom-datepicker__day {
+  height: 32px;
+  width: 32px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.custom-datepicker__day:hover {
+  background: rgba(200, 50, 40, 0.1);
+  color: var(--color-brand-red);
+  transform: scale(1.08);
+}
+
+/* Ngày ngoài tháng hiện tại */
+.custom-datepicker__day.is-outside-month {
+  color: rgba(107, 58, 42, 0.35);
+}
+
+/* Ngày hôm nay */
+.custom-datepicker__day.is-today {
+  font-weight: 700;
+  color: var(--color-brand-red);
+  box-shadow: inset 0 0 0 1.5px var(--color-brand-red);
+}
+
+/* Ngày đang được chọn */
+.custom-datepicker__day.is-selected {
+  background: var(--color-brand-red) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(200, 50, 40, 0.35) !important;
+  transform: scale(1.05);
+}
+
+/* Chân khung lịch */
+.custom-datepicker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(107, 58, 42, 0.1);
+  margin-top: 12px;
+  padding-top: 10px;
+}
+
+.custom-datepicker__today-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-brand-red);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.custom-datepicker__today-btn:hover {
+  background: rgba(200, 50, 40, 0.08);
+}
+
+.custom-datepicker__close-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.custom-datepicker__close-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--color-text);
+}
