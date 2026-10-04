@@ -2,35 +2,76 @@
  * =============================================================================
  * crafts.css – TRANG LÀNG NGHỀ (/lang-nghe)
  * -----------------------------------------------------------------------------
- * Gồm: dải tìm kiếm nền kem, lưới ảnh 2 cột kiểu "W3Schools Responsive Image
- * Grid" chứa các OverlayCard.
+ * Gồm: thanh lọc làng nghề (ô tìm kiếm + dropdown khu vực + ngành nghề),
+ * vạch ngăn hoa sen, lưới thẻ lật FlipCard (dùng .card-grid dùng chung).
+ * Bố cục đồng bộ chuẩn mực như trang lưu trú (/luu-tru).
  * =============================================================================
  */
 
-/* Dải tìm kiếm: ghi đè khoảng đệm mặc định của .section */
-.crafts-search {
-  padding: 30px 0;
+/* ---------------------------------------------------------------------------
+ * 1. THANH LỌC LÀNG NGHỀ
+ * ------------------------------------------------------------------------- */
+
+/* Section bao: nằm trên lớp nội dung kế tiếp */
+.craft-filter-bar {
+  margin-top: 0;
+  margin-bottom: 28px;
+  padding-top: 28px;
+  position: relative;
+  z-index: 10;
 }
 
-/* Hàng chứa các cột ảnh (bù trừ khoảng đệm 8px hai bên) */
-.image-grid-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -8px;
+/* Hộp trắng chứa lưới các trường nhập - bo góc 12px chuẩn thiết kế */
+.craft-filter-bar__box {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 20px 24px;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 8px 24px rgba(74, 37, 24, 0.05);
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr;
+  gap: 16px;
+  align-items: flex-end;
 }
 
-/* Một cột chiếm 50% */
-.image-grid-column {
-  flex: 50%;
-  max-width: 50%;
-  padding: 0 8px;
-  box-sizing: border-box;
+/* Nhãn in hoa phía trên trường nhập */
+.craft-filter-bar__field > label {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 6px;
 }
 
-/* Mobile: mỗi cột chiếm toàn bộ chiều ngang */
-@media screen and (max-width: 600px) {
-  .image-grid-column {
-    flex: 100%;
-    max-width: 100%;
+/* Ô dropdown nền kem */
+.craft-filter-bar__field > select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(107, 58, 42, 0.15);
+  background: var(--color-surface-warm);
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.craft-filter-bar__field > select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(107, 58, 42, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. RESPONSIVE
+ * ------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .craft-filter-bar__box {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px 18px;
   }
 }

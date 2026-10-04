@@ -25,9 +25,34 @@ export const crafts = {
 
   /** Tìm kiếm & danh sách */
   list: {
-    searchPlaceholder: 'Tìm làng nghề (Đông Hồ, Phù Lãng, Đại Bái, Đồng Kỵ, Xuân Lai...)',
-    /** @param {string} query @returns {string} */
-    noResults: (query) => `Không tìm thấy làng nghề nào phù hợp với "${query}".`,
+    searchLabel: 'Tìm kiếm',
+    searchPlaceholder: 'Tìm theo tên làng, nghề, sản phẩm (Đông Hồ, gốm, đúc đồng...)',
+    areaLabel: 'Khu vực / Địa bàn',
+    categoryLabel: 'Ngành nghề truyền thống',
+    divider: 'Bách nghệ tinh hoa – Lưu truyền kỹ nghệ ngàn năm',
+    countPrefix: 'Tìm thấy',
+    countSuffix: 'làng nghề truyền thống tiêu biểu',
+    areas: {
+      all: 'Tất cả địa bàn',
+      'tu-son': 'TP. Từ Sơn (Đồng Kỵ, Phù Khê...)',
+      'thuan-thanh': 'TX. Thuận Thành (Đông Hồ)',
+      'que-vo': 'TX. Quế Võ (Phù Lãng)',
+      'gia-binh': 'Huyện Gia Bình (Đại Bái, Xuân Lai)',
+    },
+    categories: {
+      all: 'Tất cả ngành nghề',
+      tranh: 'Tranh dân gian',
+      gom: 'Gốm truyền thống',
+      dong: 'Đúc đồng & kim khí',
+      go: 'Gỗ mỹ nghệ & chạm khắc',
+      'may-tre': 'Mây tre đan thủ công',
+      'kim-khi': 'Rèn sắt & cơ khí',
+    },
+    /** @param {string} [query] @returns {string} */
+    noResults: (query) =>
+      query
+        ? `Không tìm thấy làng nghề nào phù hợp với từ khóa "${query}".`
+        : 'Không tìm thấy làng nghề nào phù hợp với bộ lọc đã chọn.',
     reset: 'Xem tất cả làng nghề',
   },
 

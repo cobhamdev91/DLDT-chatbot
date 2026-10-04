@@ -1,23 +1,18 @@
 /**
  * @file modules/crafts/components/VillageExplorer.js
- * @description Phần tương tác trang Làng nghề: ô tìm kiếm rộng + lưới ảnh
- * 2 cột (masonry) chứa OverlayCard + trạng thái không có kết quả.
+ * @description Phần tương tác trang Làng nghề: thanh lọc nhanh + vạch ngăn hoa sen +
+ * bộ đếm kết quả + lưới thẻ lật FlipCard 3D (chuẩn bố cục như trang lưu trú).
  */
 
 'use client';
 
 import { useMemo, useState } from 'react';
-import SearchField from '@/components/shared/SearchField/SearchField';
-import OverlayCard from '@/components/shared/OverlayCard/OverlayCard';
+import LotusDivider from '@/components/shared/LotusDivider/LotusDivider';
 import NoResults from '@/components/shared/NoResults/NoResults';
-import { ROUTES, detailPath } from '@/data/routes';
-import { FALLBACK_IMAGES } from '@/data/media';
 import { crafts as t } from '@/locales/vi/crafts';
-import { distributeColumns } from '@/logic/collection';
 import { filterVillages } from '../logic/filterVillages';
-
-/** Số cột của lưới ảnh */
-const COLUMN_COUNT = 2;
+import CraftFilterBar from './CraftFilterBar';
+import VillageCard from './VillageCard';
 
 /**
  * @param {{ villages: Object[] }} props - Toàn bộ làng nghề.
@@ -25,43 +20,59 @@ const COLUMN_COUNT = 2;
  */
 export default function VillageExplorer({ villages }) {
   const [query, setQuery] = useState('');
+  const [area, setArea] = useState('all');
+  const [category, setCategory] = useState('all');
 
-  /** Kết quả lọc đã chia sẵn vào các cột */
-  const results = useMemo(() => filterVillages(villages, query), [villages, query]);
-  const columns = useMemo(() => distributeColumns(results, COLUMN_COUNT), [results]);
+  /** Kết quả lọc đa chiều theo từ khoá, khu vực và ngành nghề */
+  const results = useMemo(
+    () => filterVillages(villages, { query, area, category }),
+    [villages, query, area, category]
+  );
+
+  /** Đặt lại toàn bộ bộ lọc */
+  const handleReset = () => {
+    setQuery('');
+    setArea('all');
+    setCategory('all');
+  };
 
   return (
     <>
-      {/* Dải tìm kiếm nền kem */}
-      <section className="section bg-light crafts-search">
-        <div className="container">
-          <SearchField id="craft-search" value={query} onChange={setQuery} placeholder={t.list.searchPlaceholder} />
-        </div>
-      </section>
+      {/* 1. Thanh lọc nhanh (tìm kiếm + khu vực + ngành nghề) */}
+      <CraftFilterBar
+        query={query}
+        onQueryChange={setQuery}
+        area={area}
+        onAreaChange={setArea}
+        category={category}
+        onCategoryChange={setCategory}
+      />
 
-      {/* Lưới ảnh 2 cột */}
+      {/* 2. Vạch ngăn hoa sen */}
+      <LotusDivider text={t.list.divider} />
+
+      {/* 3. Lưới thẻ lật 3D (FlipCard) như trang lưu trú */}
       <section className="section section--flush-top">
         <div className="container">
-          <div className="image-grid-row">
-            {columns.map((column, columnIndex) => (
-              // Một cột ảnh (khoá theo vị trí cột – số cột cố định)
-              <div key={columnIndex} className="image-grid-column">
-                {column.map((village) => (
-                  <OverlayCard
-                    key={village.slug}
-                    image={village.image || FALLBACK_IMAGES.crafts}
-                    imageAlt={village.name}
-                    title={village.name}
-                    href={detailPath(ROUTES.crafts, village.slug)}
-                  />
-                ))}
-              </div>
+          {/* Bộ đếm kết quả */}
+          <div className="result-count">
+            {t.list.countPrefix} <strong>{results.length}</strong> {t.list.countSuffix}
+          </div>
+
+          {/* Lưới thẻ responsive 3 cột .card-grid */}
+          <div className="card-grid">
+            {results.map((village) => (
+              <VillageCard key={village.slug} village={village} />
             ))}
           </div>
 
-          {/* Không có kết quả → xoá từ khoá */}
+          {/* Trạng thái không có kết quả */}
           {results.length === 0 && (
-            <NoResults message={t.list.noResults(query)} actionLabel={t.list.reset} onReset={() => setQuery('')} />
+            <NoResults
+              message={t.list.noResults(query)}
+              actionLabel={t.list.reset}
+              onReset={handleReset}
+            />
           )}
         </div>
       </section>

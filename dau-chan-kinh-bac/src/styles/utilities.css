@@ -223,6 +223,18 @@
  * 5. LƯỚI THẺ & TRẠNG THÁI RỖNG
  * ------------------------------------------------------------------------- */
 
+/* Dòng hiển thị số lượng kết quả */
+.result-count {
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.result-count strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
 /* Lưới thẻ tự co giãn (tối thiểu 360px/cột) */
 .card-grid {
   display: grid;
