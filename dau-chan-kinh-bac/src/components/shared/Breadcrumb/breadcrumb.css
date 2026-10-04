@@ -1,0 +1,61 @@
+/**
+ * =============================================================================
+ * breadcrumb.css – THANH ĐIỀU HƯỚNG PHÂN CẤP (Breadcrumb)
+ * -----------------------------------------------------------------------------
+ * Đặt ngay dưới hero của mọi trang: Trang chủ › Mục › Trang hiện tại.
+ * =============================================================================
+ */
+
+/* Dải nền kem mờ, kẻ mảnh phía dưới */
+.breadcrumb-nav {
+  padding: 16px 0;
+  background: rgba(253, 246, 236, 0.75);
+  border-bottom: 1px solid rgba(107, 58, 42, 0.06);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Hàng ngang các mắt xích, tự xuống dòng khi hẹp */
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  flex-wrap: wrap;
+}
+
+/* Mắt xích có liên kết */
+.breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: var(--color-primary);
+}
+
+/* Cụm "dấu phân cách + mắt xích" */
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Icon › phân cách */
+.breadcrumb-sep {
+  color: rgba(107, 58, 42, 0.35);
+  flex-shrink: 0;
+}
+
+/* Mắt xích cuối (trang hiện tại) – đậm, không liên kết */
+.breadcrumb-current {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}

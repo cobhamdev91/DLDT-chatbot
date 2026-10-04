@@ -1,0 +1,37 @@
+/**
+ * =============================================================================
+ * icon-text.css – CỤM ICON + CHỮ NỘI TUYẾN (IconText)
+ * -----------------------------------------------------------------------------
+ * Thay thế mẫu inline lặp lại nhiều lần:
+ *   style={{ display: 'inline-flex', alignItems: 'center', gap: 'Npx' }}
+ * Khoảng cách chọn qua modifier: --xs (4px), --sm (6px, mặc định), --md (8px).
+ * =============================================================================
+ */
+
+.icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-text--xs {
+  gap: 4px;
+}
+
+.icon-text--sm {
+  gap: 6px;
+}
+
+.icon-text--md {
+  gap: 8px;
+}
+
+/* Biến thể khối (flex thay vì inline-flex) – dùng cho tiêu đề h3 */
+.icon-text--block {
+  display: flex;
+}
+
+/* Icon không bị co khi chữ dài xuống dòng */
+.icon-text > svg {
+  flex-shrink: 0;
+}

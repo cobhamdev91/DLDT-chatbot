@@ -1,0 +1,125 @@
+/**
+ * =============================================================================
+ * stays.css – TRANG LƯU TRÚ (/luu-tru)
+ * -----------------------------------------------------------------------------
+ * Gồm: thanh đặt phòng nhanh (ngày nhận/trả, khu vực, hạng phòng), bộ đếm
+ * kết quả, lưới FlipCard, banner tổng đài hỗ trợ nền xanh rêu.
+ * =============================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. THANH ĐẶT PHÒNG NHANH
+ * ------------------------------------------------------------------------- */
+
+/* Section bao: nằm trên lớp nội dung kế tiếp */
+.booking-bar {
+  margin-top: 0;
+  margin-bottom: 28px;
+  padding-top: 28px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Hộp trắng chứa lưới các trường nhập */
+.booking-bar__box {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 20px 24px;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 8px 24px rgba(74, 37, 24, 0.05);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+/* Nhãn in hoa phía trên trường nhập */
+.booking-bar__field > label {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Ô nhập ngày / dropdown nền kem */
+.booking-bar__field > input,
+.booking-bar__field > select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(107, 58, 42, 0.15);
+  background: var(--color-surface-warm);
+  font-family: inherit;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. BỘ ĐẾM KẾT QUẢ
+ * ------------------------------------------------------------------------- */
+.result-count {
+  margin-bottom: 16px;
+  font-size: 0.8125rem;
+  color: var(--color-text-light);
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. BANNER TỔNG ĐÀI HỖ TRỢ
+ * ------------------------------------------------------------------------- */
+
+/* Dải xanh rêu bo lớn: chữ trái, nút gọi phải */
+.hotline-banner {
+  background: var(--color-forest);
+  border-radius: 20px;
+  padding: 30px 40px;
+  color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 16px 40px rgba(27, 51, 34, 0.15);
+}
+
+/* Nhãn nhỏ "HỖ TRỢ 24/7" */
+.hotline-banner__eyebrow {
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8BA896;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.hotline-banner__title {
+  font-family: var(--font-accent);
+  font-size: 1.55rem;
+  color: var(--color-white);
+  margin: 0;
+}
+
+/* Cụm nút bên phải */
+.hotline-banner__actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Nút gọi tổng đài đỏ son */
+.hotline-banner__call {
+  background: var(--color-brand-red);
+  color: var(--color-white);
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(200, 50, 40, 0.4);
+}

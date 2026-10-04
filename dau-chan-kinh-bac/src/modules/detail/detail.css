@@ -1,0 +1,595 @@
+/**
+ * =============================================================================
+ * detail.css – GIAO DIỆN DÙNG CHUNG CHO 5 TRANG CHI TIẾT
+ * -----------------------------------------------------------------------------
+ * Áp dụng cho: Điểm đến, Ẩm thực, Văn hóa, Làng nghề, Lưu trú (/[slug]).
+ * Cấu trúc: Hero (ảnh mờ + tiêu đề) → Breadcrumb → Lưới 2 cột (nội dung +
+ * sidebar thông tin) → Lưới thẻ "liên quan".
+ * =============================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. KHUNG TRANG & HERO
+ * ------------------------------------------------------------------------- */
+
+/* Thẻ <article> bao toàn trang chi tiết: xếp dọc các phần */
+.detail-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero: nền nâu đậm, nội dung bám đáy */
+.detail-hero {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+  padding: 120px 0 60px;
+  background: var(--color-primary-dark);
+  overflow: hidden;
+}
+
+/* Lớp chứa ảnh nền hero (phủ kín) */
+.detail-hero__image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Ảnh nền hero mờ 45% để chữ nổi bật */
+.detail-hero__image > img {
+  object-fit: cover;
+  opacity: 0.45;
+}
+
+/* Lớp phủ gradient tối từ dưới lên */
+.detail-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(20, 8, 4, 0.9) 0%, rgba(20, 8, 4, 0.4) 60%, rgba(20, 8, 4, 0.7) 100%);
+}
+
+/* Khối chữ của hero nằm trên lớp phủ */
+.detail-hero__content {
+  position: relative;
+  z-index: 3;
+  color: var(--color-white);
+}
+
+/* Badge vàng phía trên tiêu đề hero */
+.detail-badge {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  background: rgba(200, 144, 42, 0.18);
+  color: var(--color-gold-dark);
+  border: 1px solid rgba(200, 144, 42, 0.35);
+}
+
+/* Tiêu đề H1 của trang chi tiết */
+.detail-title {
+  font-size: 3.2rem;
+  font-family: var(--font-heading);
+  color: var(--color-white);
+  margin: 12px 0 14px;
+  line-height: 1.2;
+}
+
+/* Đoạn dẫn ngắn dưới tiêu đề */
+.detail-lead {
+  font-size: 1.28rem;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 820px;
+  line-height: 1.75;
+}
+
+/* Icon trong đoạn dẫn (ghim địa điểm) tô vàng */
+.detail-lead > svg {
+  color: var(--color-gold);
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. BỐ CỤC THÂN TRANG
+ * ------------------------------------------------------------------------- */
+
+/* Khoảng đệm thân trang chi tiết */
+.detail-body {
+  padding: 60px 24px 80px;
+}
+
+/* Lưới 2 cột: nội dung (2 phần) + sidebar (1 phần) */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+/* Cột nội dung & cột sidebar: cho phép co dưới min-content (tránh tràn ngang) */
+.detail-layout > .detail-main,
+.detail-layout > .detail-sidebar {
+  min-width: 0;
+}
+
+/* Sidebar cao bằng cột nội dung → .sidebar-card (sticky) có chỗ để "dính" khi cuộn */
+.detail-layout > .detail-sidebar {
+  align-self: stretch;
+}
+
+/* Cụm nút hành động trong sidebar: cách danh sách thông tin phía trên */
+.sidebar-cta {
+  margin-top: 4px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. KHỐI NỘI DUNG
+ * ------------------------------------------------------------------------- */
+
+/* Một khối nội dung (section) trong cột chính */
+.content-block {
+  margin-bottom: 40px;
+}
+
+/* Tiêu đề khối nội dung có gạch chân mảnh */
+.content-block > h2 {
+  font-size: 2rem;
+  color: var(--color-primary-dark);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(107, 58, 42, 0.12);
+}
+
+/* Đoạn văn dài dạng bài viết */
+.prose > p {
+  font-size: 1.22rem;
+  line-height: 1.95;
+  color: #2B1B12;
+  margin-bottom: 22px;
+}
+
+/* Mục con trong khối "Nội dung chi tiết" (trang Văn hóa) */
+.detail-point {
+  margin-bottom: 24px;
+}
+
+/* Tiêu đề mục con: icon lấp lánh + chữ */
+.detail-point__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 8px;
+}
+
+.detail-point__title > svg {
+  color: var(--color-gold);
+}
+
+/* Lưới "viên thuốc" điểm nổi bật */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+/* Một viên điểm nổi bật */
+.highlight-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-white);
+  border: 1px solid rgba(107, 58, 42, 0.15);
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--color-text);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+/* Biến thể viền vàng (danh sách "Phù hợp nhất với") */
+.highlight-pill--gold {
+  border-color: var(--color-gold);
+}
+
+/* Biểu tượng đầu viên: mặc định vàng (lấp lánh) */
+.highlight-pill__icon {
+  display: inline-flex;
+  color: var(--color-gold);
+  font-size: 1.2rem;
+}
+
+/* Biến thể icon xanh lá (dấu tích tiện ích) */
+.highlight-pill__icon--success {
+  color: #2E7D32;
+}
+
+/* Biến thể icon vàng đậm (người dùng phù hợp) */
+.highlight-pill__icon--gold-dark {
+  color: var(--color-gold-dark);
+}
+
+/* Hộp trải nghiệm: viền trái vàng + icon lớn */
+.experience-box {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background: var(--color-white);
+  border-left: 4px solid var(--color-accent);
+  padding: 26px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.experience-box p {
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: #2B1B12;
+}
+
+/* Icon lớn đầu hộp trải nghiệm */
+.experience-box__icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+/* Danh sách quà lưu niệm (gạch đầu dòng) trong hộp trải nghiệm */
+.detail-gift-list {
+  padding-left: 18px;
+  line-height: 1.8;
+}
+
+/* Hộp "Bạn có biết?" nền gradient kem */
+.funfact-box {
+  background: linear-gradient(135deg, #FFF9F0 0%, #F5E8D3 100%);
+  border: 1px solid rgba(212, 168, 83, 0.4);
+  border-radius: 16px;
+  padding: 26px;
+}
+
+.funfact-box > h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.funfact-box > h3 > svg {
+  color: var(--color-gold-dark);
+}
+
+.funfact-box > p {
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: #2B1B12;
+}
+
+/* Hộp hướng dẫn / checklist nền vàng nhạt */
+.safer-box {
+  background: #FDF4E7;
+  border: 1px solid rgba(196, 135, 58, 0.3);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.safer-box > h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 16px;
+}
+
+.safer-box > h3 > svg {
+  color: var(--color-primary);
+}
+
+/* Đoạn nhấn mạnh trong hộp (lộ trình gợi ý trang Lưu trú) */
+.safer-box__lead {
+  margin-top: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* Danh sách dòng có icon */
+.safer-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.safer-list > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 1.05rem;
+  color: var(--color-text);
+}
+
+/* Icon đầu dòng: mặc định xanh lá (dấu tích) */
+.check-icon {
+  display: inline-flex;
+  color: #2E7D32;
+  font-weight: bold;
+}
+
+/* Biến thể icon nâu (búa, nốt nhạc) */
+.check-icon--primary {
+  color: var(--color-primary);
+}
+
+/* Danh sách địa chỉ quán (trang Ẩm thực) */
+.locations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Thẻ một địa chỉ */
+.location-item-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--color-white);
+  border: 1px solid rgba(107, 58, 42, 0.12);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+/* Icon ghim đỏ son của thẻ địa chỉ */
+.location-item-card__icon {
+  font-size: 1.5rem;
+  color: var(--color-brand-red);
+}
+
+.location-item-card strong {
+  font-size: 1.15rem;
+  color: var(--color-primary-dark);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.location-item-card p {
+  font-size: 1.05rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. SIDEBAR THÔNG TIN NHANH
+ * ------------------------------------------------------------------------- */
+
+/* Thẻ sidebar dính khi cuộn (desktop) */
+.sidebar-card {
+  background: var(--color-white);
+  border-radius: 16px;
+  border: 1px solid rgba(107, 58, 42, 0.12);
+  padding: 28px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar-card > h3 {
+  font-size: 1.35rem;
+  color: var(--color-primary-dark);
+  font-family: var(--font-heading);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(107, 58, 42, 0.15);
+}
+
+/* Danh sách cặp nhãn – giá trị */
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.info-list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 1.05rem;
+}
+
+/* Nhãn: chữ in hoa nâu + icon */
+.info-list strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
+  font-size: 0.98rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Giá trị kiểu giá tiền: vàng đậm */
+.info-value--price {
+  color: var(--color-gold-dark);
+  font-weight: 700;
+}
+
+/* Giá trị kiểu liên kết (số điện thoại) */
+.info-value--link {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Ghi chú nhỏ cuối sidebar */
+.sidebar-note {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. THẺ LIÊN QUAN
+ * ------------------------------------------------------------------------- */
+
+/* Phần "liên quan" cuối trang */
+.related-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(107, 58, 42, 0.12);
+}
+
+.related-section > h2 {
+  font-size: 1.9rem;
+  color: var(--color-primary-dark);
+  font-family: var(--font-heading);
+  margin-bottom: 30px;
+}
+
+/* Thẻ nội dung liên quan */
+.related-card {
+  background: var(--color-white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 10px 30px rgba(74, 37, 24, 0.04);
+  transition: all 0.35s var(--ease-out-expo);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Hover: nổi lên + viền vàng */
+.related-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(74, 37, 24, 0.1);
+  border-color: rgba(184, 120, 27, 0.35);
+}
+
+/* Khung ảnh cao cố định 250px */
+.related-card__image-wrap {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: #EDE6DC;
+}
+
+/* Ảnh thẻ: phủ kín khung, phóng nhẹ khi hover */
+.related-card__image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.related-card:hover .related-card__image {
+  transform: scale(1.05);
+}
+
+/* Nhãn kính mờ góc trái ảnh */
+.related-card__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-primary-dark);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Phần chữ của thẻ */
+.related-card__content {
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Tiêu đề thẻ */
+.related-card__title {
+  font-size: 1.55rem;
+  color: var(--color-primary-dark);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+/* Phụ đề thẻ (địa điểm / mô tả ngắn) */
+.related-card__subtitle {
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* Icon ghim đỏ trong phụ đề */
+.related-card__subtitle > svg {
+  color: var(--color-brand-red);
+}
+
+/* Chân thẻ: giá + nút */
+.related-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(107, 58, 42, 0.06);
+  margin-top: auto;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Giá tham khảo trong chân thẻ */
+.related-card__price {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-gold-dark);
+}
+
+/* ---------------------------------------------------------------------------
+ * 6. RESPONSIVE
+ * ------------------------------------------------------------------------- */
+
+/* Tablet: 1 cột, sidebar không còn dính */
+@media (max-width: 1024px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-card {
+    position: static;
+  }
+}
+
+/* Mobile: tiêu đề hero nhỏ lại */
+@media (max-width: 640px) {
+  .detail-title {
+    font-size: 2.2rem;
+  }
+}

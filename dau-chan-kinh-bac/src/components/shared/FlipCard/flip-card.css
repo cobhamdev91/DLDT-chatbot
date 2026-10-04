@@ -1,0 +1,345 @@
+/**
+ * =============================================================================
+ * flip-card.css – THẺ LẬT 3D (FlipCard)
+ * -----------------------------------------------------------------------------
+ * Mặt trước: ảnh full + tiêu đề ở đáy. Hover → lật 180° sang mặt sau nền kem
+ * (dễ đọc khi trình chiếu). Viền chạy tiến trình nằm ở border-progress.css.
+ * Cuối file: các "slot" nội dung mặt sau dùng chung giữa các module
+ * (meta footer, chip highlight, dòng địa điểm, badge tiện ích).
+ * =============================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. KHUNG THẺ & HIỆU ỨNG LẬT
+ * ------------------------------------------------------------------------- */
+
+/* Khung phối cảnh 3D, chiều cao cố định theo breakpoint */
+.flip-card {
+  perspective: 1000px;
+  height: 350px;
+  outline: none;
+}
+
+/* Lớp xoay chứa 2 mặt */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* Hover (CSS) hoặc trạng thái JS .flipped-hover → lật sang mặt sau */
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped-hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Hai mặt chồng khít nhau, ẩn mặt lưng khi quay */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. MẶT TRƯỚC – ẢNH + TIÊU ĐỀ
+ * ------------------------------------------------------------------------- */
+
+.flip-card-front {
+  background: #1F0D06;
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+/* Khung ảnh phủ kín mặt trước */
+.flip-card-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Ảnh cover + phóng nhẹ khi hover */
+.flip-card-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.flip-card:hover .flip-card-image {
+  transform: scale(1.08);
+}
+
+/* Lớp tối dần về đáy giúp tiêu đề trắng dễ đọc */
+.flip-card-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+/* Badge phân loại góc trên trái */
+.flip-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-primary-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 50px;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+}
+
+/* Cụm tiêu đề bám đáy ảnh */
+.flip-card-front-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 18px;
+  z-index: 3;
+}
+
+.flip-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Phụ đề mặt trước bị ẩn theo thiết kế (giữ DOM cho SEO/a11y) */
+.flip-card-subtitle {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. MẶT SAU – NỀN KEM, NỘI DUNG TÓM TẮT
+ * ------------------------------------------------------------------------- */
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: var(--color-paper);
+  color: var(--color-text);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(107, 58, 42, 0.1);
+  box-shadow: 0 8px 24px rgba(74, 37, 24, 0.08);
+  z-index: 1;
+}
+
+/* Mặt sau có liên kết → hiện con trỏ tay */
+.flip-card-back--link {
+  cursor: pointer;
+}
+
+.flip-card-back-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(200, 50, 40, 0.15);
+}
+
+/* Vùng nội dung co giãn, cuộn nếu dài */
+.flip-card-back-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Đoạn mô tả giới hạn 2 dòng */
+.flip-card-back-content p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-text-body);
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Chân mặt sau: kẻ mảnh phía trên, đẩy xuống đáy */
+.flip-card-back-footer {
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border-soft);
+  margin-top: auto;
+}
+
+/* Gợi ý "Nhấn để xem chi tiết →" */
+.flip-card-hint-back {
+  font-size: 0.8125rem;
+  color: var(--color-brand-red);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.flip-card:hover .flip-card-hint-back {
+  color: var(--color-primary-dark);
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. SLOT NỘI DUNG MẶT SAU (dùng chung giữa các module)
+ * ------------------------------------------------------------------------- */
+
+/* Hàng meta chân thẻ: trái – phải */
+.flip-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+}
+
+/* Meta nhấn (vàng đồng đậm) – thời lượng, giá */
+.flip-card-meta__accent {
+  color: var(--color-gold-dark);
+  font-weight: 600;
+}
+
+/* Meta phụ (nâu) – địa điểm */
+.flip-card-meta__muted {
+  color: var(--color-text-body);
+}
+
+/* Icon ghim địa điểm trong meta phụ tô đỏ son */
+.flip-card-meta__muted > svg {
+  color: var(--color-brand-red);
+}
+
+/* Biến thể meta nhấn đậm hơn, cỡ lớn hơn (giá món ăn) */
+.flip-card-meta__accent--strong {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Biến thể meta nhấn tông vàng sáng (nhãn di sản) */
+.flip-card-meta__accent--gold {
+  color: var(--color-gold);
+}
+
+/* Cột "Giá từ" xếp dọc: nhãn nhỏ + giá */
+.flip-card-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.flip-card-price > small {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.flip-card-price > strong {
+  color: var(--color-gold-dark);
+  font-weight: 700;
+}
+
+/* Danh sách chip điểm nổi bật */
+.flip-card-tags {
+  margin: 4px 0;
+}
+
+.flip-card-tags > span {
+  display: inline-block;
+  background: rgba(212, 168, 83, 0.15);
+  color: var(--color-gold-dark);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 6px;
+  margin-bottom: 2px;
+}
+
+/* Dòng địa điểm 1 dòng, cắt "..." nếu dài */
+.flip-card-location {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--color-text-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flip-card-location__icon {
+  color: var(--color-brand-red);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 3px;
+}
+
+.flip-card-location__more {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+}
+
+/* Badge tiện ích nổi bật 1 dòng (icon + chữ) */
+.flip-card-highlight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(200, 50, 40, 0.06);
+  border: 1px solid rgba(200, 50, 40, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+  max-width: 100%;
+}
+
+/* Icon ngôi sao vàng đầu badge tiện ích */
+.flip-card-highlight-icon {
+  display: inline-flex;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  color: var(--color-gold);
+}
+
+.flip-card-highlight-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-brand-red);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. RESPONSIVE – tăng chiều cao thẻ khi màn hình hẹp (chữ xuống dòng nhiều)
+ * ------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .flip-card {
+    height: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .flip-card {
+    height: 400px;
+  }
+}

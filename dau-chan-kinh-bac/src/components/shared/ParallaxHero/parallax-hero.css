@@ -1,0 +1,138 @@
+/**
+ * =============================================================================
+ * parallax-hero.css – BANNER ĐẦU TRANG CÓ PARALLAX (ParallaxHero)
+ * -----------------------------------------------------------------------------
+ * Ảnh nền trôi chậm theo cuộn (biến --parallax-y do hook useParallax cập nhật),
+ * lớp phủ tối, chữ cắt viền (cutout) chìm phía sau và sóng uốn lượn ở đáy.
+ * =============================================================================
+ */
+
+/* Khung hero: cao 65vh, nội dung căn giữa */
+.parallax-hero {
+  position: relative;
+  height: 65vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  text-align: center;
+  overflow: hidden;
+  background: #1F0D06;
+}
+
+/* Lớp ảnh rộng hơn khung 20% mỗi phía để có chỗ trôi */
+.parallax-hero-image {
+  position: absolute;
+  inset: -20%;
+  z-index: 1;
+}
+
+/* Ảnh nền: trôi theo --parallax-y, không transition để bám cuộn tức thì */
+.parallax-hero-img {
+  object-fit: cover;
+  opacity: 0.5;
+  transform: translateY(var(--parallax-y, 0px)) scale(1.1);
+  transition: none !important;
+}
+
+/* Lớp phủ gradient tối dần xuống dưới */
+.parallax-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(28, 12, 6, 0.4) 0%, rgba(18, 8, 4, 0.75) 100%);
+}
+
+/* Cột nội dung: badge – h1 – mô tả */
+.parallax-hero-content {
+  position: relative;
+  z-index: 4;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.parallax-hero .tag-badge {
+  margin-bottom: 4px;
+}
+
+.parallax-hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+.parallax-hero p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 620px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* Lớp chữ cắt viền trang trí nằm sau nội dung */
+.cutout-text-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  padding-bottom: 30px;
+}
+
+/* Chữ trang trí mờ ở đáy hero (thẻ span – trang chỉ có MỘT h1 là tiêu đề).
+ * Giá trị dưới đây là style hiệu lực thực tế của phiên bản cũ (khi chữ này
+ * còn là h1 và bị quy tắc `.parallax-hero h1` ghi đè) → giữ nguyên giao diện. */
+.cutout-text {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+  user-select: none;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+/* Tablet: đệm trên/dưới để tránh header, chữ lớn hơn một chút */
+@media (max-width: 1024px) {
+  .parallax-hero {
+    min-height: 420px;
+    padding: 120px 0 70px;
+  }
+
+  .parallax-hero h1,
+  .cutout-text {
+    font-size: 2.6rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .parallax-hero {
+    min-height: 350px;
+    padding: 100px 0 60px;
+  }
+
+  .parallax-hero h1,
+  .cutout-text {
+    font-size: 2rem;
+  }
+}

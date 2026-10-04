@@ -1,0 +1,230 @@
+/**
+ * =============================================================================
+ * footer.css – CHÂN TRANG (Footer)
+ * -----------------------------------------------------------------------------
+ * Nền xanh rêu, 4 cột: thương hiệu – liên kết nhanh – thông tin hữu ích –
+ * liên hệ & mạng xã hội; dải bản quyền ở đáy. Quy ước BEM khối .site-footer.
+ * =============================================================================
+ */
+
+/* Khối footer nền xanh rêu */
+.site-footer {
+  background: var(--color-forest);
+  color: #E2ECE5;
+  padding: 60px 0 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* Lưới 4 cột */
+.site-footer__inner {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+  gap: 48px;
+}
+
+/* ---------------------------------------------------------------------------
+ * CỘT THƯƠNG HIỆU
+ * ------------------------------------------------------------------------- */
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer__logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Khung ấn triện – xoay nhẹ khi hover */
+.site-footer__logo-circle {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.site-footer__logo-circle:hover {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.site-footer__logo-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.site-footer__script {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: #F8E8D2;
+}
+
+.site-footer__brand-main {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* Con dấu đỏ "BẮC NINH" */
+.site-footer__badge {
+  background: var(--color-brand-red);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.site-footer__tagline {
+  font-size: 0.88rem;
+  color: #9EBAA7;
+  letter-spacing: 0.3px;
+  display: block;
+}
+
+.site-footer__desc {
+  color: #A9C2B2;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  max-width: 380px;
+}
+
+/* ---------------------------------------------------------------------------
+ * CỘT LIÊN KẾT
+ * ------------------------------------------------------------------------- */
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer__col-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.site-footer__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.site-footer__links a {
+  color: #C0D6C8;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+/* Hover: sáng lên và nhích sang phải */
+.site-footer__links a:hover {
+  color: #FFFFFF;
+  transform: translateX(4px);
+  display: inline-block;
+}
+
+/* ---------------------------------------------------------------------------
+ * MẠNG XÃ HỘI & LIÊN HỆ
+ * ------------------------------------------------------------------------- */
+.site-footer__social {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Nút tròn icon mạng xã hội */
+.site-footer__social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.site-footer__social-icon:hover {
+  background: var(--color-brand-red);
+  border-color: var(--color-brand-red);
+  transform: translateY(-3px);
+}
+
+/* Dòng liên hệ: icon vàng + nhãn đậm + giá trị */
+.site-footer__contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #B4CEBF;
+}
+
+.site-footer__contact > svg {
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.site-footer__contact strong {
+  color: #E2ECE5;
+  margin-right: 4px;
+}
+
+/* ---------------------------------------------------------------------------
+ * DẢI BẢN QUYỀN
+ * ------------------------------------------------------------------------- */
+.site-footer__copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 50px;
+  padding: 22px 0;
+  text-align: center;
+}
+
+.site-footer__copyright-inner > p {
+  color: #8BA896;
+  font-size: 0.95rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * RESPONSIVE
+ * ------------------------------------------------------------------------- */
+
+/* Tablet: 2 cột */
+@media (max-width: 1024px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+/* Mobile: 1 cột, tách khỏi nội dung phía trên */
+@media (max-width: 640px) {
+  .site-footer {
+    margin-top: 48px;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

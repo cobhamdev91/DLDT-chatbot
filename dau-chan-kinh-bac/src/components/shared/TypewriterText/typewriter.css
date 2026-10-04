@@ -1,0 +1,23 @@
+/**
+ * =============================================================================
+ * typewriter.css – HIỆU ỨNG GÕ CHỮ (TypewriterText)
+ * =============================================================================
+ */
+
+/* Chữ hiển thị nội tuyến trong tiêu đề */
+.typewriter {
+  display: inline;
+}
+
+/* Con trỏ "|" nhấp nháy (bật/tắt bằng class .visible) */
+.typewriter-cursor {
+  font-weight: 100;
+  opacity: 0;
+  transition: opacity 0.1s;
+  color: var(--color-gold);
+  margin-left: 1px;
+}
+
+.typewriter-cursor.visible {
+  opacity: 1;
+}

@@ -1,0 +1,33 @@
+/**
+ * =============================================================================
+ * wave-divider.css – ĐƯỜNG SÓNG UỐN LƯỢN ĐÁY HERO (WaveDivider)
+ * -----------------------------------------------------------------------------
+ * Dùng chung cho hero trang chủ và ParallaxHero các trang con. Màu sóng trùng
+ * màu nền trang (--color-cream) để "hòa" hero vào nội dung.
+ * =============================================================================
+ */
+
+/* Bám đáy khung cha, lấn xuống 2px để không lộ khe */
+.wave-divider {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  line-height: 0;
+}
+
+.wave-divider > svg {
+  width: 100%;
+  height: 80px;
+  display: block;
+}
+
+.wave-divider path {
+  fill: var(--color-cream);
+}
+
+/* Biến thể cao 100px – dùng cho hero trang chủ */
+.wave-divider--tall > svg {
+  height: 100px;
+}

@@ -1,0 +1,41 @@
+/**
+ * =============================================================================
+ * destinations.css – TRANG ĐIỂM ĐẾN (/diem-den)
+ * -----------------------------------------------------------------------------
+ * Thanh lọc gọn một hàng: ô tìm kiếm (SearchField --compact) + dropdown danh
+ * mục + bộ đếm kết quả. Lưới thẻ dùng .card-grid + FlipCard dùng chung.
+ * =============================================================================
+ */
+
+/* Section bao thanh lọc */
+.filter-bar {
+  padding: 24px 0 16px;
+}
+
+/* Hàng ngang: tìm kiếm co giãn, dropdown, bộ đếm */
+.filter-bar__row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Dropdown chọn danh mục */
+.filter-bar__select {
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  background: var(--color-white);
+  color: var(--color-text);
+  cursor: pointer;
+  outline: none;
+  min-width: 180px;
+}
+
+/* Bộ đếm số kết quả */
+.filter-bar__count {
+  font-size: 0.8125rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}

@@ -1,0 +1,86 @@
+/**
+ * =============================================================================
+ * search-field.css – Ô TÌM KIẾM (SearchField)
+ * -----------------------------------------------------------------------------
+ * Cấu trúc: .search-field > (.search-field__icon, .search-field__input,
+ * .search-field__clear). Hai biến thể:
+ *   - mặc định ("wide"): viên thuốc lớn, dùng ở trang Làng nghề
+ *   - --compact: gọn, bo 10px, dùng chung hàng với dropdown (trang Điểm đến)
+ * =============================================================================
+ */
+
+/* Khung định vị icon & nút xóa nằm đè lên input */
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Icon kính lúp bên trái */
+.search-field > .search-field__icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* Ô nhập: viên thuốc, chừa chỗ cho icon trái & nút xóa phải */
+.search-field > .search-field__input {
+  width: 100%;
+  padding: 14px 40px 14px 44px;
+  border-radius: 50px;
+  border: 1px solid var(--color-border-strong);
+  background: #FFFFFF;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s;
+}
+
+.search-field > .search-field__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(107, 58, 42, 0.1);
+}
+
+/* Nút xóa (×) bên phải – chỉ hiện khi có từ khóa */
+.search-field > .search-field__clear {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 2px;
+}
+
+/* --- Biến thể gọn: co giãn trong hàng flex, bo góc 10px --- */
+.search-field--compact {
+  flex: 1 1 300px;
+  min-width: 200px;
+  width: auto;
+}
+
+.search-field--compact > .search-field__icon {
+  left: 14px;
+}
+
+.search-field--compact > .search-field__input {
+  padding: 10px 36px 10px 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  box-shadow: none;
+}
+
+.search-field--compact > .search-field__clear {
+  right: 10px;
+}

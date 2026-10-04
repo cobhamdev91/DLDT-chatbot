@@ -1,0 +1,51 @@
+/**
+ * =============================================================================
+ * lotus-divider.css – VẠCH NGĂN HOA SEN (LotusDivider)
+ * -----------------------------------------------------------------------------
+ * Hai vạch mảnh hai bên + icon sen + câu chữ có phần nhấn đỏ son.
+ * =============================================================================
+ */
+
+/* Hàng ngang căn giữa, 2 vạch bằng ::before / ::after */
+.lotus-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 50px 0 35px;
+  text-align: center;
+}
+
+.lotus-divider::before,
+.lotus-divider::after {
+  content: '';
+  height: 1px;
+  background: rgba(107, 58, 42, 0.18);
+  flex: 1;
+  max-width: 140px;
+}
+
+/* Biến thể gọn (trang Về chúng tôi): không chữ, khoảng cách nhỏ */
+.lotus-divider--compact {
+  margin: 0 0 50px;
+}
+
+/* Cụm icon + chữ */
+.lotus-divider-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-accent);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+/* Mobile: chữ co theo màn hình, cho phép xuống dòng */
+@media (max-width: 640px) {
+  .lotus-divider-content {
+    font-size: clamp(1.1rem, 4.8vw, 1.4rem);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

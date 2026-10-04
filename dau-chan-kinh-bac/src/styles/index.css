@@ -1,0 +1,54 @@
+/**
+ * =============================================================================
+ * index.css – ĐIỂM VÀO DUY NHẤT CỦA TOÀN BỘ CSS
+ * -----------------------------------------------------------------------------
+ * Được import một lần trong app/layout.js. Thứ tự @import dưới đây CỐ ĐỊNH
+ * thứ tự cascade ở cả dev lẫn production (Next.js không gỡ CSS global khi
+ * chuyển trang và thứ tự import ở component có thể khác nhau giữa các route).
+ *
+ *   1. Nền tảng  : tokens → base → animations → utilities
+ *   2. Shared    : component dùng chung (components/shared/*)
+ *   3. Layout    : khung trang (components/layout/*)
+ *   4. Modules   : CSS riêng từng trang (modules/*)
+ *
+ * Quy tắc: module sau được phép ghi đè shared/layout, KHÔNG ngược lại.
+ * =============================================================================
+ */
+
+/* 1. Nền tảng */
+@import './tokens.css';
+@import './base.css';
+@import './animations.css';
+@import './utilities.css';
+
+/* 2. Component dùng chung */
+@import '../components/shared/Icons/icons.css';
+@import '../components/shared/IconText/icon-text.css';
+@import '../components/shared/BorderProgress/border-progress.css';
+@import '../components/shared/FlipCard/flip-card.css';
+@import '../components/shared/OverlayCard/overlay-card.css';
+@import '../components/shared/Breadcrumb/breadcrumb.css';
+@import '../components/shared/WaveDivider/wave-divider.css';
+@import '../components/shared/ParallaxHero/parallax-hero.css';
+@import '../components/shared/TypewriterText/typewriter.css';
+@import '../components/shared/ScrollBackground/scroll-background.css';
+@import '../components/shared/LotusDivider/lotus-divider.css';
+@import '../components/shared/SearchField/search-field.css';
+
+/* 3. Khung trang */
+@import '../components/layout/ScrollIndicator/scroll-indicator.css';
+@import '../components/layout/ScrollDrawingBg/scroll-drawing-bg.css';
+@import '../components/layout/Header/header.css';
+@import '../components/layout/Footer/footer.css';
+@import '../components/layout/Chatbot/chatbot.css';
+
+/* 4. Module theo trang */
+@import '../modules/home/home.css';
+@import '../modules/destinations/destinations.css';
+@import '../modules/cuisine/cuisine.css';
+@import '../modules/culture/culture.css';
+@import '../modules/crafts/crafts.css';
+@import '../modules/stays/stays.css';
+@import '../modules/transport/transport.css';
+@import '../modules/about/about.css';
+@import '../modules/detail/detail.css';

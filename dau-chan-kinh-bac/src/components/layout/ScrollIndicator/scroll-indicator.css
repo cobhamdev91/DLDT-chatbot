@@ -1,0 +1,43 @@
+/**
+ * =============================================================================
+ * scroll-indicator.css – THANH TIẾN TRÌNH CUỘN TRANG (ScrollIndicator)
+ * -----------------------------------------------------------------------------
+ * Thanh mảnh 3px cố định ở mép trên. Độ rộng lấy từ biến --scroll-progress
+ * (0 → 1) do hook useScrollProgress cập nhật trực tiếp trên DOM (không re-render).
+ * =============================================================================
+ */
+
+/* Rãnh trong suốt phủ ngang đỉnh màn hình */
+.scroll-indicator-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  z-index: 10001;
+  pointer-events: none;
+}
+
+/* Thanh gradient đỏ son – vàng, ánh chạy liên tục */
+.scroll-indicator-bar {
+  width: calc(var(--scroll-progress, 0) * 100%);
+  height: 100%;
+  background: linear-gradient(90deg, #C83228 0%, #D4A853 50%, #C83228 100%);
+  background-size: 200% 100%;
+  animation: shimmerBar 3s ease infinite;
+  transition: width 0.15s ease-out;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(200, 50, 40, 0.4);
+}
+
+/* Keyframe: dải sáng chạy ngang thanh */
+@keyframes shimmerBar {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}

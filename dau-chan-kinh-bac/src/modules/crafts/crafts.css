@@ -1,0 +1,36 @@
+/**
+ * =============================================================================
+ * crafts.css – TRANG LÀNG NGHỀ (/lang-nghe)
+ * -----------------------------------------------------------------------------
+ * Gồm: dải tìm kiếm nền kem, lưới ảnh 2 cột kiểu "W3Schools Responsive Image
+ * Grid" chứa các OverlayCard.
+ * =============================================================================
+ */
+
+/* Dải tìm kiếm: ghi đè khoảng đệm mặc định của .section */
+.crafts-search {
+  padding: 30px 0;
+}
+
+/* Hàng chứa các cột ảnh (bù trừ khoảng đệm 8px hai bên) */
+.image-grid-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -8px;
+}
+
+/* Một cột chiếm 50% */
+.image-grid-column {
+  flex: 50%;
+  max-width: 50%;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+/* Mobile: mỗi cột chiếm toàn bộ chiều ngang */
+@media screen and (max-width: 600px) {
+  .image-grid-column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}

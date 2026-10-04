@@ -1,0 +1,264 @@
+/**
+ * =============================================================================
+ * utilities.css – TIỆN ÍCH BỐ CỤC & THÀNH PHẦN NGUYÊN TỬ DÙNG CHUNG
+ * -----------------------------------------------------------------------------
+ * Container, section, tiêu đề section, nút bấm, badge, lưới thẻ, trạng thái
+ * "không có kết quả". Các class ở đây được mọi module tái sử dụng.
+ * =============================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. KHUNG CHỨA & SECTION
+ * ------------------------------------------------------------------------- */
+
+/* Khung chứa căn giữa, rộng tối đa theo token --container-max */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Section chuẩn với khoảng đệm dọc theo token responsive */
+.section {
+  padding: var(--section-padding) 0;
+}
+
+/* Biến thể: bỏ khoảng đệm trên (section nối liền phần lọc phía trên) */
+.section--flush-top {
+  padding-top: 0;
+}
+
+/* Khoảng cách dưới lớn (cuối trang, trước footer) */
+.spacer-bottom-lg {
+  margin-bottom: 80px;
+}
+
+/* Khoảng cách dưới vừa (giữa 2 khối nội dung) */
+.spacer-bottom-md {
+  margin-bottom: 40px;
+}
+
+/* Nền kem nhạt cho dải section phụ */
+.bg-light {
+  background-color: #FAF4EB;
+}
+
+/* Ép chiều rộng 100% (nút trong sidebar, ô tìm kiếm) */
+.full-width {
+  width: 100% !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. TIÊU ĐỀ SECTION
+ * ------------------------------------------------------------------------- */
+
+/* Tiêu đề section (font serif Playfair) */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.25;
+}
+
+/* Mô tả ngắn dưới tiêu đề section */
+.section-desc {
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  line-height: 1.8;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Cụm tiêu đề section căn giữa (badge + h2 + mô tả) */
+.section-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 50px;
+}
+
+/* Badge nhỏ gọn khi nằm trong cụm tiêu đề section */
+.section-header .tag-badge {
+  font-size: 0.88rem;
+  padding: 6px 20px;
+  margin-bottom: 16px;
+  letter-spacing: 1.2px;
+}
+
+/* Tiêu đề h2 trong cụm tiêu đề section */
+.section-header h2,
+.section-header .section-title {
+  font-size: 2.4rem;
+  color: var(--color-primary-dark);
+  font-family: var(--font-heading);
+  margin-top: 0;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+
+/* Đoạn mô tả trong cụm tiêu đề section */
+.section-header p {
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+/* Biến thể: thu hẹp khoảng cách dưới cụm tiêu đề */
+.section-header--compact {
+  margin-bottom: 36px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. BADGE
+ * ------------------------------------------------------------------------- */
+
+/* Badge viên thuốc trên nền ảnh tối (hero, section header) */
+.tag-badge {
+  display: inline-block;
+  background: rgba(200, 50, 40, 0.25);
+  color: #FCE8D2;
+  border: 1px solid rgba(212, 168, 83, 0.55);
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  margin-bottom: 16px;
+}
+
+/* Chữ đỏ son nhấn mạnh trong câu */
+.red-text {
+  color: var(--color-brand-red);
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. NÚT BẤM
+ * ------------------------------------------------------------------------- */
+
+/* Nút cơ sở: viên thuốc, icon + chữ căn giữa */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+/* Nút chính: nền nâu đậm, chữ trắng */
+.btn-primary {
+  background: var(--color-primary);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(107, 58, 42, 0.3);
+}
+
+/* Hover nút chính: tối màu + nổi lên */
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(107, 58, 42, 0.3);
+}
+
+/* Nút viền: nền trong suốt, viền + chữ nâu */
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+/* Khi ghép với .btn, viền dày 2px như nút cơ sở */
+.btn.btn-outline {
+  border-width: 2px;
+}
+
+/* Hover nút viền: tô nền nâu, chữ trắng */
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: #FFFFFF !important;
+  border-color: var(--color-primary);
+}
+
+/* Nút cỡ nhỏ (thẻ liên quan) */
+.btn-sm {
+  padding: 10px 22px;
+  font-size: 1rem;
+  border-radius: 50px;
+  font-weight: 700;
+  display: inline-block;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+/* Nhóm nút xếp dọc trong sidebar: nút sau cách nút trước 10px */
+.btn-stack > .btn + .btn {
+  margin-top: 10px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. LƯỚI THẺ & TRẠNG THÁI RỖNG
+ * ------------------------------------------------------------------------- */
+
+/* Lưới thẻ tự co giãn (tối thiểu 360px/cột) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 36px;
+}
+
+/* Hộp thông báo "không tìm thấy kết quả" */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px dashed rgba(107, 58, 42, 0.2);
+}
+
+.no-results p {
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  margin-bottom: 18px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 6. RESPONSIVE
+ * ------------------------------------------------------------------------- */
+
+/* Tablet: tiêu đề nhỏ lại, lưới thẻ 2 cột */
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 30px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile ngang: tiêu đề 26px */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 26px;
+  }
+}
+
+/* Mobile dọc: lưới thẻ 1 cột */
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}

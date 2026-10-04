@@ -1,40 +1,57 @@
-import './globals.css';
-import './chatbot-popup.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import ChatbotWidget from '@/components/ChatbotWidget';
-import ScrollIndicator from '@/components/ScrollIndicator';
-import ScrollDrawingBg from '@/components/ScrollDrawingBg';
+/**
+ * @file app/layout.js
+ * @description Layout gốc (Server Component): khai báo metadata SEO mặc định,
+ * nạp font + toàn bộ CSS (một điểm vào duy nhất styles/index.css) và dựng
+ * khung trang: thanh cuộn, nền vẽ, header, nội dung, footer, chatbot.
+ */
 
+import '@/styles/index.css';
+import Chatbot from '@/components/layout/Chatbot/Chatbot';
+import Footer from '@/components/layout/Footer/Footer';
+import Header from '@/components/layout/Header/Header';
+import ScrollDrawingBg from '@/components/layout/ScrollDrawingBg/ScrollDrawingBg';
+import ScrollIndicator from '@/components/layout/ScrollIndicator/ScrollIndicator';
+import { ChatbotProvider } from '@/contexts/ChatbotContext';
+import { siteConfig } from '@/data/siteConfig';
+import { layout } from '@/locales/vi/layout';
+
+/** Metadata mặc định – các trang con ghi đè title/description riêng */
 export const metadata = {
-  title: 'Dấu chân Kinh Bắc – Khám phá Du lịch Bắc Ninh',
-  description: 'Cẩm nang du lịch Kinh Bắc toàn diện – Điểm đến, Ẩm thực, Văn hóa Quan họ, Làng nghề truyền thống, Lưu trú và Phương tiện. Khám phá – Trải nghiệm – Lưu dấu.',
-  keywords: 'du lịch Bắc Ninh, Kinh Bắc, Quan họ, Đền Đô, Chùa Dâu, ẩm thực Bắc Ninh, làng nghề Bắc Ninh',
-  icons: {
-    icon: '/logo.svg',
-    shortcut: '/logo.svg',
-    apple: '/logo.svg',
-  },
+  title: layout.meta.title,
+  description: layout.meta.description,
+  keywords: layout.meta.keywords,
+  icons: siteConfig.icons,
 };
 
+/**
+ * @param {{ children: import('react').ReactNode }} props
+ * @returns {JSX.Element}
+ */
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi">
+    <html lang={siteConfig.lang}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap"
-          rel="stylesheet"
-        />
+        {/* Kết nối sớm tới máy chủ font */}
+        {siteConfig.fontPreconnect.map(({ href, crossOrigin }) => (
+          <link key={href} rel="preconnect" href={href} crossOrigin={crossOrigin} />
+        ))}
+        {/* Bộ font Google (nạp ở layout gốc nên áp dụng cho mọi trang) */}
+        <link href={siteConfig.fontsHref} rel="stylesheet" />
       </head>
       <body>
-        <ScrollIndicator />
-        <ScrollDrawingBg />
-        <Header />
-        <main style={{ paddingTop: '0' }}>{children}</main>
-        <Footer />
-        <ChatbotWidget />
+        <ChatbotProvider>
+          {/* Lớp trang trí cố định */}
+          <ScrollIndicator />
+          <ScrollDrawingBg />
+
+          {/* Khung trang */}
+          <Header />
+          <main>{children}</main>
+          <Footer />
+
+          {/* Trợ lý AI nổi góc phải */}
+          <Chatbot />
+        </ChatbotProvider>
       </body>
     </html>
   );

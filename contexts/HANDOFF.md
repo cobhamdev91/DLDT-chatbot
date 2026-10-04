@@ -1,48 +1,50 @@
 # TÀI LIỆU CHUYỂN GIAO & QUY CHUẨN THỰC THI (PROJECT HANDOFF)
 **Dự án**: Dấu Chân Kinh Bắc (Bắc Ninh Tourism Hub)  
-**Đường dẫn thư mục**: `d:\EarnMoney\dau-chan-kinh-bac`  
+**Đường dẫn thư mục**: `DLDT-chatbot/dau-chan-kinh-bac`  
 
 ---
 
-## 1. Kiến Trúc & Cấu Trúc Thư Mục (Architecture & Structure)
+## 1. Kiến Trúc & Cấu Trúc Thư Mục (cập nhật 2026-10-04 – Clean Architecture)
+
+> Chi tiết đầy đủ: [`contexts/2026-10-04/ARCHITECTURE.md`](./2026-10-04/ARCHITECTURE.md) · Danh sách nhiệm vụ: [`contexts/2026-10-04/TASKS.md`](./2026-10-04/TASKS.md)
+
 ```
-dau-chan-kinh-bac/
-├── contexts/                 # Bộ tài liệu kiểm soát nhiệm vụ, bug và handoff
-│   ├── TASKS.md              # Toàn bộ danh mục nhiệm vụ & trạng thái
-│   ├── BUGS_AND_ISSUES.md    # Phân tích nguyên nhân và giải pháp các bug
-│   └── HANDOFF.md            # Tài liệu chuyển giao và quy chuẩn kỹ thuật
-├── public/
-│   ├── images/               # Toàn bộ hình ảnh thực tế của dự án (.jpg, .webp)
-│   └── chatbot-popup.css     # Style cho chatbot widget
-├── src/
-│   ├── app/
-│   │   ├── am-thuc/          # Trang danh sách & chi tiết [slug] Ẩm thực
-│   │   ├── diem-den/         # Trang danh sách & chi tiết [slug] Điểm đến
-│   │   ├── lang-nghe/        # Trang danh sách & chi tiết [slug] Làng nghề
-│   │   ├── luu-tru/          # Trang danh sách & chi tiết [slug] Lưu trú
-│   │   ├── phuong-tien/      # Trang Phương tiện di chuyển & Lộ trình
-│   │   ├── van-hoa/          # Trang Văn hóa Quan họ & Lễ hội
-│   │   ├── globals.css       # Design System tổng thể, token màu, flip card, responsive
-│   │   ├── layout.js         # Root layout (Header, ScrollIndicator, ScrollDrawingBg, Footer, Chatbot)
-│   │   └── page.js           # Trang chủ với Master Hero, Quick Widgets, Itinerary Slideshow
-│   ├── components/
-│   │   ├── AnimatedCounter.js    # Hiệu ứng số chạy mượt mà theo IntersectionObserver
-│   │   ├── Breadcrumb.js         # Thanh điều hướng phân cấp (Server & Client compatible)
-│   │   ├── FlipCard.js           # Thẻ 3D Flip Card (Text-image block, light cream back)
-│   │   ├── Header.js             # Header sticky + shrink + transparent on hero
-│   │   ├── ItinerarySlideshow.js # Hiển thị đúng 3 thẻ lộ trình tiêu chuẩn
-│   │   ├── Lightbox.js           # Xem ảnh phóng to cho di sản & món ăn
-│   │   ├── ParallaxHero.js       # Hero banner với hiệu ứng parallax và cutout text
-│   │   ├── ScrollDrawingBg.js    # Nét vẽ SVG cuộn trang "Dấu Chân Kinh Bắc"
-│   │   └── TypewriterText.js     # Chữ chạy máy đánh chữ cho tiêu đề
-│   └── data/
-│       ├── accommodations.js # Dữ liệu khách sạn, homestay, resort (có heroImage thực tế)
-│       ├── content.js        # Tập trung toàn bộ chuỗi text UI, i18n
-│       ├── craftVillages.js  # Dữ liệu 8 làng nghề truyền thống tiêu biểu
-│       ├── destinations.js   # Dữ liệu 18 điểm đến di tích & danh thắng
-│       ├── foods.js          # Dữ liệu 12 món ăn ẩm thực đặc sản
-│       └── transport.js      # Dữ liệu 9 loại hình phương tiện, 3 lộ trình, 5 quy tắc an toàn
+dau-chan-kinh-bac/src/
+├── app/                 # Route mỏng: chỉ metadata + generateStaticParams + render module
+├── modules/<tên>/       # home, destinations, cuisine, culture, crafts, stays, transport, about, detail
+│   ├── <Tên>Page.js     # Trang ghép section
+│   ├── components/      # Component riêng của module
+│   ├── logic/           # Hàm thuần (lọc, tính toán) – không phụ thuộc React
+│   ├── effects/         # Hook hiệu ứng UI riêng module
+│   ├── context/         # Context riêng module (nếu cần)
+│   └── <tên>.css        # CSS riêng module
+├── components/shared/   # Icon, Breadcrumb, FlipCard, ParallaxHero, SearchField, ... (mỗi cái 1 CSS)
+├── components/layout/   # Header, Footer, ScrollIndicator, ScrollDrawingBg
+├── contexts/            # Context toàn cục (ChatbotContext, ...)
+├── effects/             # Hook UI dùng chung (timers, cssVariable, useEscapeKey, ...)
+├── data/                # Dữ liệu nghiệp vụ – nguồn sự thật duy nhất (SSOT)
+├── locales/vi/          # Toàn bộ chữ giao diện (JS module – import tĩnh, load nhanh)
+└── styles/              # tokens, base, utilities, animations + index.css
 ```
+
+### Quy tắc bắt buộc khi code tiếp
+- KHÔNG `style={{}}`, KHÔNG `<style jsx>`; giá trị động truyền qua CSS variable (`useCssVariable`).
+- KHÔNG chữ cứng trong JSX/thuộc tính – thêm vào `src/locales/vi/*.js`.
+- Mỗi module/page/component có file CSS riêng; dùng child-combinator (`>`) khi cần khoanh vùng.
+- JSDoc/comment tiếng Việt cho hàm, component, section, logic, effect, CSS.
+- Icon: dùng `components/shared/Icon` (registry) – chỉ truyền `fill` khi thật sự cần.
+- GIỮ `public/chatbot-popup.css` (script `DLDT-chatbot/chatbot-popup.js` còn dùng).
+
+### Bug đã sửa trong đợt refactor
+- Chi tiết điểm đến đọc sai field + đánh số bị nhảy; props hero trang Về chúng tôi sai; cutout text.
+- Lightbox chết (ẩm thực, văn hoá) đã gỡ; `window.openChatbot` → `ChatbotContext`.
+- `van-hoa/[slug]` → Server Component (SSG, metadata, notFound).
+- Chuẩn hoá `telHref`; thêm metadata cho trang danh sách.
+- Bộ đếm filter phương tiện tính động (trước hard-code); 2 listener ESC trùng → `useEscapeKey`.
+- Icon bị tô đặc trong Client Component (`fill={undefined}`); sidebar chi tiết sticky lại.
+
+### Trạng thái
+- `npm run lint`: 0 lỗi / 0 cảnh báo · `npm run build`: thành công (71 trang).
 
 ---
 

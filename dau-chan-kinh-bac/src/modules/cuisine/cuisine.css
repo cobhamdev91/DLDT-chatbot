@@ -1,0 +1,162 @@
+/**
+ * =============================================================================
+ * cuisine.css – TRANG ẨM THỰC (/am-thuc)
+ * -----------------------------------------------------------------------------
+ * Gồm: thanh lọc dạng "viên thuốc" (pill), lưới món (FlipCard dùng chung),
+ * bảng "Quán ăn gia truyền" nền tiêu đề sơn mài.
+ * =============================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. THANH LỌC PILL
+ * ------------------------------------------------------------------------- */
+
+/* Section bao thanh lọc */
+.pill-filter {
+  padding: 30px 0 20px;
+}
+
+/* Hàng nút căn giữa, tự xuống dòng */
+.pill-filter__row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+/* Nút lọc: nền trắng, chữ nâu */
+.pill-filter__btn {
+  background: var(--color-white);
+  color: #4A3C35;
+  border: 1px solid rgba(107, 58, 42, 0.12);
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.08rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s;
+}
+
+/* Nút đang chọn: nền đỏ son, chữ trắng, bóng đỏ */
+.pill-filter__btn--active {
+  background: var(--color-brand-red);
+  color: var(--color-white);
+  box-shadow: 0 4px 14px rgba(200, 50, 40, 0.3);
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. BẢNG QUÁN ĂN GIA TRUYỀN
+ * ------------------------------------------------------------------------- */
+
+/* Khung bảng bo góc */
+.restaurant-table-wrap {
+  background: var(--color-white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 10px 30px rgba(74, 37, 24, 0.04);
+  margin-bottom: 40px;
+}
+
+/* Tiêu đề bảng: icon lấp lánh vàng + chữ serif */
+.restaurant-table-title {
+  padding: 22px 24px 14px;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(107, 58, 42, 0.08);
+}
+
+.restaurant-table-title > svg {
+  color: var(--color-gold);
+}
+
+.restaurant-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.02rem;
+}
+
+/* Hàng tiêu đề cột nền sơn mài */
+.restaurant-table > thead {
+  background: linear-gradient(135deg, #4A2518 0%, #2A120B 100%);
+}
+
+.restaurant-table th {
+  padding: 16px 20px;
+  color: #F8E5BF;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Dòng dữ liệu: kẻ mảnh, hover nền kem */
+.restaurant-table > tbody > tr {
+  border-bottom: 1px solid rgba(107, 58, 42, 0.06);
+  transition: background 0.2s;
+}
+
+.restaurant-table > tbody > tr:hover {
+  background: rgba(253, 246, 236, 0.6);
+}
+
+.restaurant-table > tbody > tr:last-child {
+  border-bottom: none;
+}
+
+.restaurant-table td {
+  padding: 16px 20px;
+  vertical-align: top;
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+/* Ô tên quán */
+.restaurant-table .place-cell {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* Ô địa chỉ */
+.restaurant-table .desc-cell {
+  color: var(--color-text-body);
+  font-size: 0.98rem;
+}
+
+/* Ô giờ mở cửa */
+.restaurant-table .time-cell {
+  font-weight: 700;
+  color: var(--color-brand-red);
+  white-space: nowrap;
+  font-size: 0.98rem;
+}
+
+/* Liên kết gọi điện */
+.restaurant-table__phone {
+  color: var(--color-brand-red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. RESPONSIVE
+ * ------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .restaurant-table {
+    font-size: 0.92rem;
+  }
+
+  .restaurant-table th,
+  .restaurant-table td {
+    padding: 12px 14px;
+  }
+}

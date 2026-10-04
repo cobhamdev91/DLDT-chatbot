@@ -1,14 +1,65 @@
+/**
+ * @file data/culture.js
+ * @description Dữ liệu nội dung Văn hóa Kinh Bắc (SSOT): 4 chuyên đề chi
+ * tiết (sections – trang /van-hoa/[slug]), 4 trụ cột văn hóa (thẻ lật ở
+ * trang /van-hoa), các trải nghiệm gợi ý và danh sách làn điệu cổ.
+ */
+
+/**
+ * @typedef {Object} CulturePoint
+ * @property {string} heading - Tiêu đề mục con.
+ * @property {string} content - Nội dung mục con.
+ */
+
+/**
+ * @typedef {Object} CultureSection
+ * @property {string} id     - Slug của trang chi tiết.
+ * @property {string} title  - Tiêu đề (có số thứ tự đầu dòng).
+ * @property {string} badge  - Nhãn chủ đề.
+ * @property {string} image  - Ảnh hero / thẻ liên quan.
+ * @property {string} intro  - Đoạn giới thiệu.
+ * @property {CulturePoint[]} points - Các mục nội dung chi tiết.
+ */
+
+/**
+ * @typedef {Object} CultureStat
+ * @property {string} id         - Khoá ghép với câu chữ trong locales/vi/culture.js (widgets[id]).
+ * @property {string} icon       - Tên icon (components/shared/Icon).
+ * @property {number} iconSize   - Kích thước icon (px).
+ * @property {'red'|'forest'|'gold'|'gold-dark'} tone - Tông màu icon.
+ * @property {number} [end]      - Giá trị đếm tới (bỏ trống = ô không có số).
+ * @property {number} [duration] - Thời gian đếm (ms).
+ * @property {string} [suffix]   - Hậu tố sau số (vd "+").
+ */
+
+/**
+ * Cấu hình 4 ô số liệu nhanh ở trang /van-hoa.
+ * @type {CultureStat[]}
+ */
+export const cultureStats = [
+  { id: 'heritage', icon: 'Landmark', iconSize: 28, tone: 'red', end: 2009, duration: 2000 },
+  { id: 'villages', icon: 'Home', iconSize: 28, tone: 'forest', end: 49, duration: 1500 },
+  { id: 'festivals', icon: 'Sparkles', iconSize: 28, tone: 'gold', end: 500, duration: 1800, suffix: '+' },
+  { id: 'landmark', icon: 'Music', iconSize: 26, tone: 'gold-dark' },
+];
+
+/**
+ * Dữ liệu văn hóa.
+ * @type {{
+ *   sections: CultureSection[],
+ *   pillars: Array<{ slug: string, title: string, subtitle: string, desc: string, image: string, tag: string }>,
+ *   experiences: Array<{ iconName: string, title: string, desc: string }>,
+ *   songs: Array<{ title: string, type: string, dur: string, desc: string }>
+ * }}
+ */
 export const cultureData = {
-  hero: {
-    title: "Văn Hóa Kinh Bắc",
-    subtitle: "Nơi câu hát Quan họ, tà áo tứ thân và những nếp nhà cổ kể câu chuyện ngàn năm văn hiến",
-    tagline: "Di sản phi vật thể đại diện của nhân loại được UNESCO vinh danh năm 2009",
-    image: "/images/quan_ho_culture.jpg"
-  },
+  /* ===== 4 CHUYÊN ĐỀ CHI TIẾT ===== */
   sections: [
     {
       id: "quan-ho",
       title: "1. Dân ca Quan họ – Hồn cốt Kinh Bắc",
+      badge: "Âm Nhạc",
+      image: "/images/quan_ho_culture.jpg",
       intro: "Khi nhắc đến văn hóa Kinh Bắc, dân ca Quan họ là một trong những giá trị đặc trưng được nhắc đến nhiều nhất. Quan họ gắn với đời sống cộng đồng của người dân vùng Kinh Bắc và được lưu truyền qua nhiều thế hệ.",
       points: [
         {
@@ -32,6 +83,8 @@ export const cultureData = {
     {
       id: "trang-phuc",
       title: "2. Nét đẹp Trang phục Quan họ",
+      badge: "Trang Phục",
+      image: "/images/hero_kinh_bac.jpg",
       intro: "Trang phục Quan họ không chỉ là trang phục biểu diễn đơn thuần, mà là một tác phẩm nghệ thuật dệt may truyền thống thể hiện sự tinh tế, chỉn chu và phong thái nho nhã của người Kinh Bắc.",
       points: [
         {
@@ -51,6 +104,8 @@ export const cultureData = {
     {
       id: "khong-gian",
       title: "3. Không gian Làng Quan họ & Nhà Chứa",
+      badge: "Không Gian",
+      image: "/images/craft_village_pottery.jpg",
       intro: "Quan họ sinh ra từ làng, sống trong lòng làng và được nuôi dưỡng bởi mạch nguồn văn hóa cộng đồng bền chặt qua hàng trăm năm.",
       points: [
         {
@@ -70,6 +125,8 @@ export const cultureData = {
     {
       id: "con-nguoi",
       title: "4. Con người & Cách ứng xử Kinh Bắc",
+      badge: "Con Người",
+      image: "/images/den_do.jpg",
       intro: "Văn hóa Kinh Bắc tỏa sáng rực rỡ nhất chính ở cốt cách con người: trọng tình trọng nghĩa, hiếu khách, nhã nhặn và tinh tế trong từng lời ăn tiếng nói.",
       points: [
         {
@@ -87,6 +144,44 @@ export const cultureData = {
       ]
     }
   ],
+
+  /* ===== 4 TRỤ CỘT VĂN HÓA (thẻ lật trang danh sách) ===== */
+  pillars: [
+    {
+      slug: "quan-ho",
+      title: "Lối Hát Giao Duyên Đối Đáp",
+      subtitle: "Nghệ thuật ứng tác đỉnh cao",
+      desc: "Những câu hát mộc không cần nhạc đệm, thể hiện sự am hiểu điển tích, tình tứ và kính trọng lẫn nhau giữa liền anh liền chị.",
+      image: "/images/quan_ho_culture.jpg",
+      tag: "Âm Nhạc"
+    },
+    {
+      slug: "trang-phuc",
+      title: "Trang Phục Áo Tứ Thân & Nón Quai Thao",
+      subtitle: "Nét duyên Kinh Bắc xưa",
+      desc: "Áo năm thân the thâm, dải yếm đào hoa sen, nón quai thao che nghiêng duyên dáng tạo nên biểu tượng thanh tao của người quan họ.",
+      image: "/images/hero_kinh_bac.jpg",
+      tag: "Trang Phục"
+    },
+    {
+      slug: "khong-gian",
+      title: "Tục Kết Chạ Nghĩa Tình",
+      subtitle: "Chuẩn mực ứng xử hiếu nghĩa",
+      desc: "Mối tình kết chạ bền chặt qua nhiều thế hệ giữa các làng quan họ: trọng nghĩa khinh tài, xem nhau như ruột thịt.",
+      image: "/images/craft_village_pottery.jpg",
+      tag: "Phong Tục"
+    },
+    {
+      slug: "con-nguoi",
+      title: "Làng Diềm Thủy Tổ Quan Họ",
+      subtitle: "Cội nguồn câu hát ngàn năm",
+      desc: "Ngôi làng cổ thờ Đức Vua Bà – Thủy tổ sáng lập làn điệu Quan họ, nơi giếng ngọc nghìn năm nước ngọt lành linh thiêng.",
+      image: "/images/den_do.jpg",
+      tag: "Cội Nguồn"
+    }
+  ],
+
+  /* ===== TRẢI NGHIỆM GỢI Ý ===== */
   experiences: [
     {
       iconName: "Music",
@@ -119,11 +214,12 @@ export const cultureData = {
       desc: "Dạo bước trên đường làng lát gạch nghiêng, ngắm nhìn giếng ngọc, cây đa trăm tuổi và nhà cổ Bắc Bộ."
     }
   ],
+
+  /* ===== LÀN ĐIỆU CỔ (thẻ nghe thử) ===== */
   songs: [
-    { title: "Người ở đừng về", type: "Giọng giã bạn", desc: "Bài ca giã bạn da diết, dùng dằng kẻ ở người đi khi hội tan." },
-    { title: "Khách đến chơi nhà", type: "Giọng lề lối", desc: "Bài ca đón khách nồng hậu, mời trầu mời nước chân tình." },
-    { title: "Ngồi tựa mạn thuyền", type: "Giọng vặt", desc: "Khúc ca trữ tình đêm trăng thanh bên dòng Tiêu Tương huyền thoại." },
-    { title: "Cây trúc xinh", type: "Giọng vặt", desc: "Giai điệu vui tươi, ca ngợi vẻ đẹp duyên dáng của người con gái Kinh Bắc." },
-    { title: "Vào chùa", type: "Giọng lề lối", desc: "Khúc hát thanh tao, tôn nghiêm trong ngày trẩy hội viếng cảnh chùa." }
+    { title: "Ngồi Tựa Mạn Thuyền", type: "Giọng vặt", dur: "4:15", desc: "Làn điệu mượt mà khắc họa khung cảnh bến đò bến nước trao duyên tình tứ." },
+    { title: "Khách Đến Chơi Nhà", type: "Giọng lề lối", dur: "3:50", desc: "Câu hát chào đón nồng hậu, têm trầu mời nước thắm đượm tình người đất Bắc." },
+    { title: "Cò Lả Kinh Bắc", type: "Dân ca biến tấu", dur: "3:20", desc: "Giai điệu thanh thoát, bay bổng trên những cánh đồng lúa chín vàng trĩu hạt." },
+    { title: "Người Ơi Người Ở Đừng Về", type: "Giọng giã bạn", dur: "5:10", desc: "Lời từ biệt dùng dằng kẻ ở người đi đẫm lệ quyến luyến lúc chia tay canh hát." }
   ]
 };

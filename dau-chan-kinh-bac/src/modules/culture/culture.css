@@ -1,0 +1,248 @@
+/**
+ * =============================================================================
+ * culture.css – TRANG VĂN HÓA QUAN HỌ (/van-hoa)
+ * -----------------------------------------------------------------------------
+ * Gồm: hộp 4 số liệu nhanh (đếm số động), lưới 4 trụ cột văn hóa (FlipCard),
+ * lưới thẻ "Thưởng thức làn điệu cổ" có nút nghe thử.
+ * =============================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. HỘP SỐ LIỆU NHANH (4 cột)
+ * ------------------------------------------------------------------------- */
+
+/* Section bao hộp số liệu */
+.quick-widgets-wrapper {
+  margin-top: 0;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hộp trắng bo lớn, lưới 4 cột */
+.quick-widgets-box {
+  background: var(--color-white);
+  border-radius: 24px;
+  padding: 28px 36px;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 16px 40px rgba(74, 37, 24, 0.06);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+/* Một ô số liệu */
+.quick-widget-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Vạch ngăn dọc giữa các ô (trừ ô cuối) */
+.quick-widget-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: rgba(107, 58, 42, 0.1);
+}
+
+/* Nhãn in hoa phía trên */
+.widget-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+/* Hàng số liệu chính: icon + số + đơn vị */
+.widget-main-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Biến thể căn giữa theo chiều dọc (ô không có số) */
+.widget-main-stat--center {
+  align-items: center;
+}
+
+/* Icon đầu hàng số liệu (màu theo modifier) */
+.widget-icon {
+  margin-right: 6px;
+}
+
+.widget-icon--red {
+  color: var(--color-brand-red);
+}
+
+.widget-icon--forest {
+  color: var(--color-forest);
+}
+
+.widget-icon--gold {
+  color: var(--color-gold);
+}
+
+.widget-icon--gold-dark {
+  color: var(--color-gold-dark);
+}
+
+/* Con số lớn đỏ son (đếm động) */
+.widget-number {
+  font-family: var(--font-accent);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--color-brand-red);
+  line-height: 1;
+}
+
+/* Đơn vị / tên ngắn cạnh con số */
+.widget-unit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+/* Mô tả một dòng */
+.widget-desc {
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  color: #38251B;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+/* Biến thể mô tả nhấn vàng đậm */
+.widget-desc--accent {
+  color: var(--color-gold-dark);
+  font-weight: 700;
+}
+
+/* Dòng phụ cuối ô */
+.widget-sub {
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  color: var(--color-text-light);
+  margin-top: auto;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. LÀN ĐIỆU CỔ – THẺ NGHE THỬ
+ * ------------------------------------------------------------------------- */
+
+/* Lưới thẻ bài hát tự co giãn */
+.song-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Thẻ bài hát */
+.song-card {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 26px;
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  box-shadow: 0 8px 24px rgba(74, 37, 24, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s;
+}
+
+/* Đang phát: viền đỏ son */
+.song-card--playing {
+  border: 1.5px solid var(--color-brand-red);
+}
+
+/* Hàng đầu thẻ: loại giọng + thời lượng */
+.song-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* Nhãn loại giọng hát */
+.song-card__type {
+  background: #F9F2E3;
+  color: var(--color-gold-dark);
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* Thời lượng bài (icon đồng hồ + mm:ss) */
+.song-card__duration {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.song-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 8px;
+}
+
+.song-card__desc {
+  font-size: 1rem;
+  color: #4E3E34;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Nút nghe thử: nền kem, đang phát → đỏ son chữ trắng */
+.song-card__play {
+  background: var(--color-surface-warm);
+  color: var(--color-primary-dark);
+  border: 1px solid rgba(107, 58, 42, 0.12);
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.96rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.song-card__play--active {
+  background: var(--color-brand-red);
+  color: var(--color-white);
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. RESPONSIVE
+ * ------------------------------------------------------------------------- */
+
+/* ≤ 1100px: hộp số liệu 2 cột, bỏ vạch ngăn ở ô cuối hàng 1 */
+@media (max-width: 1100px) {
+  .quick-widgets-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quick-widget-item:nth-child(2)::after {
+    display: none;
+  }
+}
+
+/* ≤ 700px: 1 cột, bỏ toàn bộ vạch ngăn */
+@media (max-width: 700px) {
+  .quick-widgets-box {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-widget-item::after {
+    display: none !important;
+  }
+}

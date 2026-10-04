@@ -1,0 +1,25 @@
+/**
+ * =============================================================================
+ * icons.css – ICON SVG TỰ VẼ & BIỂU TƯỢNG THƯƠNG HIỆU
+ * =============================================================================
+ */
+
+/* Icon hoa sen: căn giữa theo dòng chữ, mặc định đỏ son (SVG dùng currentColor) */
+.lotus-icon {
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--color-brand-red);
+}
+
+/* Biến thể sen vàng đồng */
+.lotus-icon--gold {
+  color: var(--color-gold);
+}
+
+/* Ấn triện Kinh Bắc: không co lại trong flex, bóng đỏ trầm */
+.kb-emblem {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(107, 27, 22, 0.28));
+}

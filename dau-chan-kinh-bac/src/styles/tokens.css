@@ -1,0 +1,115 @@
+/**
+ * =============================================================================
+ * tokens.css – BIẾN THIẾT KẾ (DESIGN TOKENS)
+ * -----------------------------------------------------------------------------
+ * Nguồn sự thật duy nhất (SSOT) cho màu sắc, bóng đổ, bo góc, chuyển động,
+ * font chữ và khoảng cách. Mọi file CSS khác chỉ tham chiếu qua var(--*),
+ * không lặp lại mã màu cứng khi đã có token tương ứng.
+ * =============================================================================
+ */
+
+:root {
+  /* --- Bảng màu chủ đạo Kinh Bắc (nâu trầm – vàng đồng – kem) --- */
+  --color-primary: #6B3A2A;
+  --color-primary-light: #8B5E3C;
+  --color-primary-dark: #4A2518;
+  --color-accent: #C4873A;
+  --color-accent-light: #E6A84D;
+  --color-gold: #D4A853;
+  --color-gold-light: #E6C87A;
+  /* Vàng đồng đậm – trước đây được dùng nhưng chưa khai báo (icon bị mất màu) */
+  --color-gold-dark: #B8781B;
+  --color-cream: #FDF6EC;
+  --color-cream-dark: #F5E6D0;
+  --color-white: #FFFFFF;
+
+  /* --- Màu nhấn thương hiệu --- */
+  /* Đỏ son (dấu triện) – dùng cho điểm nhấn, nút chính, icon định vị */
+  --color-brand-red: #C83228;
+  /* Xanh rêu đậm – nền banner hotline, CTA phụ */
+  --color-forest: #1B3322;
+  --color-forest-light: #2A4D34;
+  /* Xanh ngọc lục bảo – dấu tích ✓ thành công */
+  --color-success: #059669;
+
+  /* --- Màu chữ --- */
+  --color-text: #3A2A1A;
+  --color-text-light: #7A6A5A;
+  --color-text-muted: #9A8A7A;
+  /* Nâu đậm dễ đọc trên nền kem (mặt sau flip card, mô tả) */
+  --color-text-body: #55443B;
+  /* Nâu gần đen cho tiêu đề thẻ */
+  --color-text-strong: #2A120B;
+
+  /* --- Bề mặt (surface) --- */
+  --color-paper: #FFFBF5;
+  --color-surface-warm: #FAF7F2;
+  --color-surface-gold: #FBF5EC;
+
+  /* --- Viền mảnh tông nâu --- */
+  --color-border-soft: rgba(107, 58, 42, 0.08);
+  --color-border: rgba(107, 58, 42, 0.12);
+  --color-border-strong: rgba(107, 58, 42, 0.2);
+
+  /* --- Dải chuyển màu (gradient) --- */
+  --gradient-warm: linear-gradient(135deg, #6B3A2A 0%, #C4873A 100%);
+  --gradient-gold: linear-gradient(135deg, #D4A853 0%, #E6C87A 50%, #D4A853 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.7) 100%);
+  --gradient-hero: linear-gradient(to right, rgba(74, 37, 24, 0.85) 0%, rgba(74, 37, 24, 0.5) 40%, transparent 100%);
+  --gradient-forest: linear-gradient(135deg, #1B3322 0%, #2A4D34 100%);
+  --gradient-lacquer: linear-gradient(135deg, #2A120B 0%, #4A2518 100%);
+  /* Viền chạy tiến trình trên thẻ (vàng → cam → đỏ son) */
+  --gradient-border-run-start: #D4A853;
+  --gradient-border-run-mid: #E67E22;
+  --gradient-border-run-end: #C83228;
+
+  /* --- Bóng đổ --- */
+  --shadow-sm: 0 2px 8px rgba(107, 58, 42, 0.08);
+  --shadow-md: 0 4px 20px rgba(107, 58, 42, 0.12);
+  --shadow-lg: 0 8px 40px rgba(107, 58, 42, 0.16);
+  --shadow-xl: 0 16px 60px rgba(107, 58, 42, 0.2);
+  --shadow-card: 0 8px 24px rgba(74, 37, 24, 0.05);
+  --shadow-red-glow: 0 4px 14px rgba(200, 50, 40, 0.3);
+
+  /* --- Bo góc --- */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-card: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* --- Chuyển động --- */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Font chữ --- */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Playfair Display', Georgia, serif;
+
+  /* --- Khoảng cách & bố cục --- */
+  --container-max: 1200px;
+  --section-padding: 80px;
+
+  /* --- Lớp chồng (z-index) --- */
+  --z-popover-overlay: 99998;
+  --z-popover: 99999;
+}
+
+/* Tablet: thu hẹp khoảng đệm section */
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 60px;
+  }
+}
+
+/* Mobile: khoảng đệm section gọn hơn nữa */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 40px;
+  }
+}

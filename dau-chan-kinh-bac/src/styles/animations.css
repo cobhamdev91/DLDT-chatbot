@@ -1,0 +1,80 @@
+/**
+ * =============================================================================
+ * animations.css – KEYFRAMES DÙNG CHUNG
+ * -----------------------------------------------------------------------------
+ * Keyframes chỉ phục vụ một component cụ thể được đặt cạnh CSS của component đó
+ * (vd: flipCardBorderRun trong flip-card.css, pulseDot trong transport.css).
+ * =============================================================================
+ */
+
+/* Hiện dần + trượt lên 30px */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hiện dần (opacity 0 → 1) – dùng cho overlay, popover */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hiện dần + trượt xuống 6px – ngăn kéo accordion (trước đây được gọi nhưng chưa khai báo) */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Trượt vào từ mép phải – drawer desktop */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Trượt lên từ mép dưới – bottom-sheet mobile */
+@keyframes slideUpBottom {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Nhịp phóng nhẹ khi dữ liệu vừa được cập nhật */
+@keyframes pulseHighlight {
+  0% {
+    transform: scale(0.99);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

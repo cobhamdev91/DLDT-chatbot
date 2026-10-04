@@ -1,0 +1,72 @@
+/**
+ * =============================================================================
+ * border-progress.css – VIỀN CHẠY TIẾN TRÌNH (BorderProgress)
+ * -----------------------------------------------------------------------------
+ * SVG phủ lên thẻ; khi hover, nét gradient chạy quanh viền trong khoảng thời
+ * gian = độ trễ tự chuyển trang. Dùng chung cho FlipCard và OverlayCard.
+ * Thời lượng nhận qua biến --border-run-duration (đặt bằng JS effect).
+ * =============================================================================
+ */
+
+/* Lớp SVG phủ kín thẻ, không bắt sự kiện chuột */
+.border-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+  border-radius: 16px;
+  overflow: visible;
+}
+
+/* Rãnh dẫn mờ – ẩn mặc định */
+.border-progress__track {
+  fill: none;
+  stroke: rgba(200, 50, 40, 0.12);
+  stroke-width: 3.5;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+/* Biến thể rãnh sáng (trên nền ảnh tối của OverlayCard) */
+.border-progress--light .border-progress__track {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+/* Đang hover → hiện rãnh dẫn */
+.border-progress.is-active .border-progress__track {
+  opacity: 1;
+}
+
+/* Nét chạy gradient – ẩn mặc định, dash = 100 (pathLength) */
+.border-progress__stroke {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(200, 50, 40, 0.55));
+  transition: opacity 0.15s ease;
+}
+
+/* Đang hover → chạy animation từ 100 → 0 trong thời lượng cấu hình */
+.border-progress.is-active .border-progress__stroke {
+  opacity: 1;
+  animation-name: borderProgressRun;
+  animation-duration: var(--border-run-duration, 3000ms);
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Keyframe: nét viền chạy hết chu vi */
+@keyframes borderProgressRun {
+  0% {
+    stroke-dashoffset: 100;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
