@@ -954,6 +954,9 @@
 
 /* Nút viền mảnh đỏ son "Xem chi tiết & lời khuyên" */
 .btn-ghost-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   background: none;
   border: 1px solid rgba(200, 50, 40, 0.25);
   color: var(--color-brand-red);
@@ -970,6 +973,14 @@
   background: var(--color-brand-red);
   color: var(--color-white);
   border-color: var(--color-brand-red);
+}
+
+.btn-ghost-cta > svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-ghost-cta:hover > svg {
+  transform: translateX(2px);
 }
 
 /* ---------------------------------------------------------------------------

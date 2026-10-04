@@ -51,7 +51,9 @@ export default function HomeHero() {
             {/* Hàng nút hành động */}
             <div className="home-hero__actions">
               <Link href={ROUTES.destinations} className="home-hero__cta">
-                <Icon name="Sparkles" size={16} /> {t.hero.cta}
+                <Icon name="Sparkles" size={16} />
+                <span>{t.hero.cta}</span>
+                <Icon name="ArrowRight" size={16} />
               </Link>
             </div>
           </div>

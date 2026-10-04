@@ -89,6 +89,6 @@ export const cuisine = {
     },
     relatedTitle: 'Đặc Sản Khác Đáng Thử',
     relatedBadge: 'Đặc sản',
-    relatedCta: 'Xem chi tiết →',
+    relatedCta: 'Xem chi tiết',
   },
 };

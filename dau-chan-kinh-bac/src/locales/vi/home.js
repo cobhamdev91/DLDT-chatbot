@@ -13,7 +13,7 @@ export const home = {
     motto: 'Khám phá – Trải nghiệm – Lưu dấu',
     description:
       'Vùng đất của Quan họ, của làng nghề truyền thống và những con người mến khách. Hãy bắt đầu hành trình khám phá Kinh Bắc ngay hôm nay!',
-    cta: 'Bắt đầu khám phá →',
+    cta: 'Bắt đầu khám phá',
     heroImageAlt: 'Dấu chân Kinh Bắc',
     singersImageAlt: 'Liền anh liền chị Quan họ Kinh Bắc',
   },
@@ -35,7 +35,7 @@ export const home = {
   /** Khối lịch trình gợi ý */
   itinerary: {
     title: 'Lịch trình gợi ý cho bạn',
-    viewAll: 'Xem tất cả →',
-    detail: 'Chi tiết →',
+    viewAll: 'Xem tất cả',
+    detail: 'Chi tiết',
   },
 };

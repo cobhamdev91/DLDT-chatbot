@@ -28,7 +28,7 @@ export default function ScrollBackground({ images, children }) {
       <div className="scroll-bg-stage" aria-hidden="true">
         <div className="scroll-bg-viewport">
           {images.map((img, index) => (
-            <div key={img.src} className={cx('scroll-bg-layer', index === activeIndex && 'is-active')}>
+            <div key={`${img.src}-${index}`} className={cx('scroll-bg-layer', index === activeIndex && 'is-active')}>
               <Image
                 src={img.src}
                 alt={img.alt || ''}

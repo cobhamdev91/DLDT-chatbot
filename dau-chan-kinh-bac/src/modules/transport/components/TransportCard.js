@@ -70,7 +70,8 @@ export default function TransportCard({ item }) {
       <div className="trans-card__footer">
         <span className="trans-card__category">{item.category}</span>
         <OpenDetailButton slug={item.slug} className="btn-ghost-cta">
-          {t.cta}
+          <span>{t.cta}</span>
+          <Icon name="ArrowRight" size={13} />
         </OpenDetailButton>
       </div>
     </div>

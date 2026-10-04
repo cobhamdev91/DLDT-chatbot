@@ -310,18 +310,28 @@
 }
 
 .itinerary-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   color: var(--color-brand-red);
   font-weight: 600;
   font-size: 0.92rem;
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .itinerary-view-all:hover {
   color: #A32018;
-  transform: translateX(2px);
+}
+
+.itinerary-view-all > svg {
+  transition: transform 0.2s ease;
+}
+
+.itinerary-view-all:hover > svg {
+  transform: translateX(3px);
 }
 
 /* Lưới 3 thẻ lịch trình */
@@ -441,15 +451,26 @@
 
 .itin-detail-btn {
   margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   color: var(--color-brand-red);
   font-weight: 700;
   font-size: 0.8125rem;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .itin-detail-btn:hover {
   color: var(--color-primary-dark);
+}
+
+.itin-detail-btn > svg {
+  transition: transform 0.2s ease;
+}
+
+.itin-detail-btn:hover > svg {
+  transform: translateX(2px);
 }
 
 /* ---------------------------------------------------------------------------

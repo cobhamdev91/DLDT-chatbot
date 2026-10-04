@@ -96,6 +96,6 @@ export const stays = {
     },
     note: '* Lưu ý: Giá phòng có thể thay đổi vào dịp cuối tuần hoặc lễ Tết. Vui lòng liên hệ trực tiếp lễ tân khách sạn để nhận ưu đãi.',
     relatedTitle: 'Điểm Lưu Trú Khác Tại Bắc Ninh',
-    relatedCta: 'Chi tiết →',
+    relatedCta: 'Chi tiết',
   },
 };

@@ -63,6 +63,6 @@ export const destinations = {
       cuisine: 'Món ngon gần điểm này',
     },
     relatedTitle: 'Điểm Đến Lân Cận Có Thể Bạn Thích',
-    relatedCta: 'Khám phá →',
+    relatedCta: 'Khám phá',
   },
 };

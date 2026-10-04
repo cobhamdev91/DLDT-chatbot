@@ -121,7 +121,7 @@ export const transport = {
 
   /** 4. Thẻ phương tiện */
   card: {
-    cta: 'Xem chi tiết & lời khuyên →',
+    cta: 'Xem chi tiết & lời khuyên',
     /** Nhãn đặc tính – khoá khớp transportBadgeTones trong data */
     badges: {
       saving: 'Tiết kiệm',

@@ -91,6 +91,6 @@ export const culture = {
       cuisine: 'Đặc sản Bắc Ninh nên thử',
     },
     relatedTitle: 'Khám Phá Thêm Văn Hóa Kinh Bắc',
-    relatedCta: 'Tìm hiểu →',
+    relatedCta: 'Tìm hiểu',
   },
 };

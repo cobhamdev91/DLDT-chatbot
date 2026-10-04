@@ -30,7 +30,8 @@ function CardSubtitle({ card }) {
 function RelatedCard({ card }) {
   const cta = (
     <Link href={card.href} className="btn-sm btn-outline">
-      {card.cta}
+      <span>{card.cta}</span>
+      <Icon name="ArrowRight" size={14} />
     </Link>
   );
 

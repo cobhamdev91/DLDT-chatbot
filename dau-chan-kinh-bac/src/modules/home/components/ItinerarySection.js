@@ -45,7 +45,8 @@ function ItineraryCard({ item }) {
             <Icon name={item.transportIcon} size={14} /> {item.transport}
           </IconText>
           <Link href={ROUTES.transport} className="itin-detail-btn">
-            {t.itinerary.detail}
+            <span>{t.itinerary.detail}</span>
+            <Icon name="ArrowRight" size={13} />
           </Link>
         </div>
       </div>
@@ -64,7 +65,8 @@ export default function ItinerarySection({ items }) {
       <div className="itinerary-header-row">
         <h3 className="itinerary-heading">{t.itinerary.title}</h3>
         <Link href={ROUTES.transport} className="itinerary-view-all">
-          {t.itinerary.viewAll}
+          <span>{t.itinerary.viewAll}</span>
+          <Icon name="ArrowRight" size={14} />
         </Link>
       </div>
 

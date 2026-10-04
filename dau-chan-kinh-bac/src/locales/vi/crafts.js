@@ -58,6 +58,6 @@ export const crafts = {
       cuisine: 'Đặc sản Bắc Ninh nên thử',
     },
     relatedTitle: 'Các Làng Nghề Truyền Thống Khác',
-    relatedCta: 'Tìm hiểu →',
+    relatedCta: 'Tìm hiểu',
   },
 };
