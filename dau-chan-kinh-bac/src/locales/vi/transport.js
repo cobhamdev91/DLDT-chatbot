@@ -30,6 +30,9 @@ export const transport = {
     title: 'Ước Tính & So Sánh Lộ Trình Nhanh',
     /** @param {string} dist @param {string} time @returns {string} */
     summary: (dist, time) => `Khoảng cách: ~${dist} • Thời gian: ${time}`,
+    calculating: 'Đang kết nối lộ trình...',
+    loadingTitle: 'Dấu Chân Kinh Bắc',
+    loadingSubtitle: 'Đang phân tích cung đường tối ưu và cước phí các phương tiện...',
     originLabel: 'ĐIỂM XUẤT PHÁT (HÀ NỘI)',
     destinationLabel: 'ĐIỂM ĐẾN TẠI BẮC NINH',
     fareNote: 'Ước tính trọn chuyến',

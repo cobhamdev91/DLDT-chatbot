@@ -69,7 +69,19 @@
   font-weight: 700;
   padding: 6px 16px;
   border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
 }
+
+/* Trạng thái badge khi đang tải nét vẽ Dấu chân Kinh Bắc */
+.estimator-dist-badge.is-loading {
+  background: rgba(200, 50, 40, 0.08);
+  color: var(--color-brand-red);
+  animation: pulseBadge 1.2s ease-in-out infinite;
+}
+
 
 /* Viên nhập kép: Điểm đi → Điểm đến */
 .estimator-inputs-modern {
@@ -145,6 +157,224 @@
   margin-top: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * HIỆU ỨNG LOADING NÉT VẼ "DẤU CHÂN KINH BẮC"
+ * ------------------------------------------------------------------------- */
+
+.route-loading-container {
+  background: var(--color-surface-warm);
+  border-radius: 20px;
+  border: 1.5px dashed rgba(200, 50, 40, 0.25);
+  padding: 36px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 280px;
+  animation: fadeInLoading 0.3s ease-out;
+  box-shadow: inset 0 2px 8px rgba(74, 37, 24, 0.03);
+}
+
+.route-loading-stage {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto 16px;
+}
+
+.route-loading-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.route-loading-path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Đường ray chấm bi nền mờ */
+.route-loading-path--track {
+  stroke: rgba(107, 58, 42, 0.12);
+  stroke-width: 3px;
+  stroke-dasharray: 4 6;
+}
+
+/* Đường nét vẽ uốn lượn động nối 2 điểm */
+.route-loading-path--animated {
+  stroke-width: 3.5px;
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  animation: drawRoutePath 1.6s ease-in-out infinite;
+}
+
+/* Vòng radar lan toả tại điểm xuất phát */
+.route-pulse-ring {
+  fill: rgba(200, 50, 40, 0.22);
+  transform-origin: center;
+  animation: radarPulse 1.6s ease-out infinite;
+}
+
+/* Nhóm dấu chân bước dần theo nhịp */
+.route-footstep-group {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: footstepAppear 1.6s ease-in-out infinite;
+}
+
+/* Độ trễ xuất hiện cho từng bước chân (không dùng inline style) */
+.route-footstep-group--1 { animation-delay: 0.12s; }
+.route-footstep-group--2 { animation-delay: 0.26s; }
+.route-footstep-group--3 { animation-delay: 0.40s; }
+.route-footstep-group--4 { animation-delay: 0.54s; }
+.route-footstep-group--5 { animation-delay: 0.68s; }
+.route-footstep-group--6 { animation-delay: 0.82s; }
+
+.route-footstep-print {
+  fill: var(--color-brand-red);
+  opacity: 0.88;
+}
+
+/* Biểu tượng hoa sen đích đến */
+.route-lotus-target {
+  transform-origin: center;
+  animation: lotusBloom 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+.route-target-glow {
+  fill: rgba(212, 168, 83, 0.28);
+  animation: targetGlow 1.6s ease-in-out infinite;
+}
+
+/* Hộp thông điệp loading */
+.route-loading-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 440px;
+}
+
+.route-loading-title {
+  font-family: var(--font-accent);
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+.route-loading-subtitle {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* @keyframes nét vẽ đường lộ trình */
+@keyframes drawRoutePath {
+  0% {
+    stroke-dashoffset: 520;
+    opacity: 0.3;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  85%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0.45;
+  }
+}
+
+/* @keyframes từng bước chân hiện dần dọc theo lộ trình */
+@keyframes footstepAppear {
+  0%, 15% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  55% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  85%, 100% {
+    opacity: 0.22;
+    transform: scale(0.95);
+  }
+}
+
+/* @keyframes radar lan toả tại điểm đi */
+@keyframes radarPulse {
+  0% {
+    r: 6;
+    opacity: 0.85;
+  }
+  50% {
+    r: 16;
+    opacity: 0;
+  }
+  100% {
+    r: 6;
+    opacity: 0;
+  }
+}
+
+/* @keyframes hoa sen bung nở tại đích đến */
+@keyframes lotusBloom {
+  0%, 45% {
+    transform: scale(0.7) rotate(-8deg);
+    opacity: 0.6;
+  }
+  65% {
+    transform: scale(1.18) rotate(4deg);
+    opacity: 1;
+  }
+  85%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* @keyframes hào quang tỏa ra tại đích đến */
+@keyframes targetGlow {
+  0%, 100% {
+    r: 12;
+    opacity: 0.2;
+  }
+  50% {
+    r: 19;
+    opacity: 0.55;
+  }
+}
+
+/* @keyframes nhịp thở huy hiệu tính toán */
+@keyframes pulseBadge {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(0.98);
+  }
+}
+
+/* @keyframes hiện mượt khối loading */
+@keyframes fadeInLoading {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Danh sách hàng phương tiện */

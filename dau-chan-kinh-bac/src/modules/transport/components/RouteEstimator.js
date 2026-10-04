@@ -7,7 +7,8 @@
 
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Dropdown from '@/components/shared/Dropdown/Dropdown';
 import Icon from '@/components/shared/Icon/Icon';
 import { cx } from '@/logic/classNames';
 import { useTransientFlag } from '@/effects/timers';
@@ -15,11 +16,15 @@ import { transport } from '@/locales/vi/transport';
 import { buildRouteRows, DEFAULT_DESTINATION, DEFAULT_ORIGIN, estimateRoute } from '../logic/route';
 import { useTransportDetail } from '../context/TransportDetailContext';
 import RouteRow from './RouteRow';
+import RouteLoadingDrawing from './RouteLoadingDrawing';
 
 const t = transport.estimator;
 
 /** Thời lượng nhịp "pulse" khi kết quả đổi (ms) – khớp animation CSS */
 const PULSE_MS = 300;
+
+/** Thời gian hiển thị loading nét vẽ Dấu chân Kinh Bắc (ms) */
+const LOADING_DURATION_MS = 750;
 
 /**
  * @param {Object} props
@@ -31,8 +36,20 @@ export default function RouteEstimator({ origins, destinations }) {
   const [origin, setOrigin] = useState(DEFAULT_ORIGIN);
   const [destination, setDestination] = useState(DEFAULT_DESTINATION);
   const [expandedKey, setExpandedKey] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPulsing, pulse] = useTransientFlag(PULSE_MS);
   const { open } = useTransportDetail();
+  const loadingTimerRef = useRef(null);
+
+  const originOptions = useMemo(
+    () => origins.map((item) => ({ value: item.id, label: item.name })),
+    [origins]
+  );
+
+  const destinationOptions = useMemo(
+    () => destinations.map((item) => ({ value: item.id, label: item.optionLabel ?? item.name })),
+    [destinations]
+  );
 
   /** View-model tính lại chỉ khi đổi điểm đi / đến */
   const { distance, duration, rows } = useMemo(
@@ -41,14 +58,43 @@ export default function RouteEstimator({ origins, destinations }) {
   );
 
   /**
-   * Tạo handler cho dropdown: cập nhật state + kích hoạt nhịp pulse.
-   * @param {(value: string) => void} setter
-   * @returns {(event: import('react').ChangeEvent<HTMLSelectElement>) => void}
+   * Kích hoạt chuyển cảnh loading nét vẽ Dấu chân Kinh Bắc khi thay đổi điểm đi / đến.
    */
-  const handleSelect = (setter) => (event) => {
-    setter(event.target.value);
-    pulse();
-  };
+  const triggerLoadingTransition = useCallback(
+    (setter, value) => {
+      setter(value);
+      setIsLoading(true);
+
+      if (loadingTimerRef.current) {
+        clearTimeout(loadingTimerRef.current);
+      }
+
+      loadingTimerRef.current = setTimeout(() => {
+        setIsLoading(false);
+        pulse();
+      }, LOADING_DURATION_MS);
+    },
+    [pulse]
+  );
+
+  const handleOriginChange = useCallback(
+    (newOrigin) => triggerLoadingTransition(setOrigin, newOrigin),
+    [triggerLoadingTransition]
+  );
+
+  const handleDestinationChange = useCallback(
+    (newDest) => triggerLoadingTransition(setDestination, newDest),
+    [triggerLoadingTransition]
+  );
+
+  /** Xoá timer nếu component unmount */
+  useEffect(() => {
+    return () => {
+      if (loadingTimerRef.current) {
+        clearTimeout(loadingTimerRef.current);
+      }
+    };
+  }, []);
 
   /** Đảo accordion: mở hàng mới hoặc đóng hàng đang mở. */
   const toggleRow = (key) => setExpandedKey((prev) => (prev === key ? null : key));
@@ -63,8 +109,21 @@ export default function RouteEstimator({ origins, destinations }) {
               <Icon name="Compass" size={22} />
               <span>{t.title}</span>
             </div>
-            <span className={cx('estimator-dist-badge', isPulsing && 'pulse-update')}>
-              {t.summary(distance, duration)}
+            <span
+              className={cx(
+                'estimator-dist-badge',
+                isPulsing && 'pulse-update',
+                isLoading && 'is-loading'
+              )}
+            >
+              {isLoading ? (
+                <>
+                  <Icon name="Sparkles" size={13} />
+                  <span>{t.calculating}</span>
+                </>
+              ) : (
+                t.summary(distance, duration)
+              )}
             </span>
           </div>
 
@@ -75,13 +134,12 @@ export default function RouteEstimator({ origins, destinations }) {
                 <Icon name="MapPin" size={15} />
                 <span>{t.originLabel}</span>
               </label>
-              <select id="route-origin" className="select-modern" value={origin} onChange={handleSelect(setOrigin)}>
-                {origins.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
+              <Dropdown
+                id="route-origin"
+                value={origin}
+                onChange={handleOriginChange}
+                options={originOptions}
+              />
             </div>
 
             {/* Mũi tên trang trí giữa 2 trường */}
@@ -94,33 +152,31 @@ export default function RouteEstimator({ origins, destinations }) {
                 <Icon name="Compass" size={15} />
                 <span>{t.destinationLabel}</span>
               </label>
-              <select
+              <Dropdown
                 id="route-destination"
-                className="select-modern"
                 value={destination}
-                onChange={handleSelect(setDestination)}
-              >
-                {destinations.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.optionLabel ?? item.name}
-                  </option>
-                ))}
-              </select>
+                onChange={handleDestinationChange}
+                options={destinationOptions}
+              />
             </div>
           </div>
 
-          {/* Danh sách 4 hàng phương tiện */}
-          <div className={cx('route-list-container', isPulsing && 'pulse-update')}>
-            {rows.map((row) => (
-              <RouteRow
-                key={row.key}
-                row={row}
-                isExpanded={expandedKey === row.key}
-                onToggle={toggleRow}
-                onOpenDetail={open}
-              />
-            ))}
-          </div>
+          {/* Danh sách 4 hàng phương tiện HOẶC Nét vẽ Loading Dấu chân Kinh Bắc */}
+          {isLoading ? (
+            <RouteLoadingDrawing />
+          ) : (
+            <div className={cx('route-list-container', isPulsing && 'pulse-update')}>
+              {rows.map((row) => (
+                <RouteRow
+                  key={row.key}
+                  row={row}
+                  isExpanded={expandedKey === row.key}
+                  onToggle={toggleRow}
+                  onOpenDetail={open}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
