@@ -37,5 +37,36 @@ export const common = {
   actions: {
     close: 'Đóng',
     resetFilter: 'Đặt lại bộ lọc',
+    confirm: 'Xác nhận',
+  },
+
+  /** Thành phần Dropdown */
+  dropdown: {
+    placeholder: 'Chọn một mục...',
+    noOptions: 'Không có lựa chọn phù hợp',
+  },
+
+  /** Thành phần chọn ngày DatePicker */
+  datePicker: {
+    placeholder: 'Chọn ngày...',
+    today: 'Hôm nay',
+    clear: 'Xóa',
+    weekdays: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+    months: [
+      'Tháng 1',
+      'Tháng 2',
+      'Tháng 3',
+      'Tháng 4',
+      'Tháng 5',
+      'Tháng 6',
+      'Tháng 7',
+      'Tháng 8',
+      'Tháng 9',
+      'Tháng 10',
+      'Tháng 11',
+      'Tháng 12',
+    ],
+    prevMonth: 'Tháng trước',
+    nextMonth: 'Tháng sau',
   },
 };

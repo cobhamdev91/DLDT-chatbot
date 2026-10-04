@@ -6,6 +6,9 @@
 
 'use client';
 
+import { useState } from 'react';
+import DatePicker from '@/components/shared/DatePicker/DatePicker';
+import Dropdown from '@/components/shared/Dropdown/Dropdown';
 import { stays as t } from '@/locales/vi/stays';
 import { BOOKING_DEFAULTS, STAY_AREAS, STAY_RATINGS } from '../logic/filterStays';
 
@@ -22,45 +25,56 @@ const RATING_KEYS = Object.keys(STAY_RATINGS);
  * @returns {JSX.Element}
  */
 export default function BookingBar({ area, onAreaChange, rating, onRatingChange }) {
+  const [checkIn, setCheckIn] = useState(BOOKING_DEFAULTS.checkIn);
+  const [checkOut, setCheckOut] = useState(BOOKING_DEFAULTS.checkOut);
+
+  const areaOptions = AREA_KEYS.map((key) => ({
+    value: key,
+    label: t.booking.areas[key],
+  }));
+
+  const ratingOptions = RATING_KEYS.map((key) => ({
+    value: key,
+    label: t.booking.ratings[key],
+  }));
+
   return (
     <section className="booking-bar">
       <div className="container">
-        {/* Hộp trắng chứa lưới các trường */}
+        {/* Hộp trắng chứa lưới các trường nhập liệu cao cấp */}
         <div className="booking-bar__box">
           {/* Ngày nhận phòng */}
           <div className="booking-bar__field">
             <label htmlFor="stay-check-in">{t.booking.checkIn}</label>
-            <input id="stay-check-in" type="date" defaultValue={BOOKING_DEFAULTS.checkIn} />
+            <DatePicker id="stay-check-in" value={checkIn} onChange={setCheckIn} />
           </div>
 
           {/* Ngày trả phòng */}
           <div className="booking-bar__field">
             <label htmlFor="stay-check-out">{t.booking.checkOut}</label>
-            <input id="stay-check-out" type="date" defaultValue={BOOKING_DEFAULTS.checkOut} />
+            <DatePicker id="stay-check-out" value={checkOut} onChange={setCheckOut} />
           </div>
 
           {/* Khu vực */}
           <div className="booking-bar__field">
             <label htmlFor="stay-area">{t.booking.area}</label>
-            <select id="stay-area" value={area} onChange={(event) => onAreaChange(event.target.value)}>
-              {AREA_KEYS.map((key) => (
-                <option key={key} value={key}>
-                  {t.booking.areas[key]}
-                </option>
-              ))}
-            </select>
+            <Dropdown
+              id="stay-area"
+              value={area}
+              onChange={onAreaChange}
+              options={areaOptions}
+            />
           </div>
 
           {/* Hạng phòng */}
           <div className="booking-bar__field">
             <label htmlFor="stay-rating">{t.booking.rating}</label>
-            <select id="stay-rating" value={rating} onChange={(event) => onRatingChange(event.target.value)}>
-              {RATING_KEYS.map((key) => (
-                <option key={key} value={key}>
-                  {t.booking.ratings[key]}
-                </option>
-              ))}
-            </select>
+            <Dropdown
+              id="stay-rating"
+              value={rating}
+              onChange={onRatingChange}
+              options={ratingOptions}
+            />
           </div>
         </div>
       </div>

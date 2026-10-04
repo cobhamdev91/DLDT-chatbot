@@ -6,6 +6,7 @@
 
 'use client';
 
+import Dropdown from '@/components/shared/Dropdown/Dropdown';
 import SearchField from '@/components/shared/SearchField/SearchField';
 import { destinations as t } from '@/locales/vi/destinations';
 import { ALL_CATEGORIES } from '../logic/filterDestinations';
@@ -21,6 +22,11 @@ import { ALL_CATEGORIES } from '../logic/filterDestinations';
  * @returns {JSX.Element}
  */
 export default function DestinationFilterBar({ query, onQueryChange, category, onCategoryChange, categories, count }) {
+  const categoryOptions = [
+    { value: ALL_CATEGORIES, label: t.list.allCategories },
+    ...categories.map((cat) => ({ value: cat, label: cat })),
+  ];
+
   return (
     <section className="filter-bar">
       <div className="container">
@@ -34,21 +40,16 @@ export default function DestinationFilterBar({ query, onQueryChange, category, o
             placeholder={t.list.searchPlaceholder}
           />
 
-          {/* Dropdown loại hình: mục đầu là "Tất cả" */}
-          <select
-            id="destination-category"
-            className="filter-bar__select"
-            aria-label={t.list.categoryLabel}
-            value={category}
-            onChange={(event) => onCategoryChange(event.target.value)}
-          >
-            <option value={ALL_CATEGORIES}>{t.list.allCategories}</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
+          {/* Dropdown loại hình tùy chỉnh cao cấp */}
+          <div className="filter-bar__dropdown-wrap">
+            <Dropdown
+              id="destination-category"
+              ariaLabel={t.list.categoryLabel}
+              value={category}
+              onChange={onCategoryChange}
+              options={categoryOptions}
+            />
+          </div>
 
           {/* Bộ đếm kết quả */}
           <span className="filter-bar__count">{t.list.count(count)}</span>

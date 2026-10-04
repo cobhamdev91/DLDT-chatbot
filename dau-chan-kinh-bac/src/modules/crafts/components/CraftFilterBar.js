@@ -6,6 +6,7 @@
 
 'use client';
 
+import Dropdown from '@/components/shared/Dropdown/Dropdown';
 import SearchField from '@/components/shared/SearchField/SearchField';
 import { crafts as t } from '@/locales/vi/crafts';
 
@@ -28,8 +29,15 @@ export default function CraftFilterBar({
   onCategoryChange,
 }) {
   const l = t.list;
-  const areaKeys = Object.keys(l.areas);
-  const categoryKeys = Object.keys(l.categories);
+  const areaOptions = Object.keys(l.areas).map((key) => ({
+    value: key,
+    label: l.areas[key],
+  }));
+
+  const categoryOptions = Object.keys(l.categories).map((key) => ({
+    value: key,
+    label: l.categories[key],
+  }));
 
   return (
     <section className="craft-filter-bar">
@@ -51,33 +59,23 @@ export default function CraftFilterBar({
           {/* Dropdown khu vực */}
           <div className="craft-filter-bar__field">
             <label htmlFor="craft-area">{l.areaLabel}</label>
-            <select
+            <Dropdown
               id="craft-area"
               value={area}
-              onChange={(event) => onAreaChange(event.target.value)}
-            >
-              {areaKeys.map((key) => (
-                <option key={key} value={key}>
-                  {l.areas[key]}
-                </option>
-              ))}
-            </select>
+              onChange={onAreaChange}
+              options={areaOptions}
+            />
           </div>
 
           {/* Dropdown ngành nghề */}
           <div className="craft-filter-bar__field">
             <label htmlFor="craft-category">{l.categoryLabel}</label>
-            <select
+            <Dropdown
               id="craft-category"
               value={category}
-              onChange={(event) => onCategoryChange(event.target.value)}
-            >
-              {categoryKeys.map((key) => (
-                <option key={key} value={key}>
-                  {l.categories[key]}
-                </option>
-              ))}
-            </select>
+              onChange={onCategoryChange}
+              options={categoryOptions}
+            />
           </div>
         </div>
       </div>

@@ -34,6 +34,8 @@
 @import '../components/shared/ScrollBackground/scroll-background.css';
 @import '../components/shared/LotusDivider/lotus-divider.css';
 @import '../components/shared/SearchField/search-field.css';
+@import '../components/shared/Dropdown/dropdown.css';
+@import '../components/shared/DatePicker/date-picker.css';
 
 /* 3. Khung trang */
 @import '../components/layout/ScrollIndicator/scroll-indicator.css';
